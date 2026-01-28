@@ -406,4 +406,5 @@ const HeroCarousel = () => {
   );
 };
 
-export default HeroCarousel;  // FIXED: Capital H!
+export default HeroCarousel;  // FIXED: Capital H!   
+ 
