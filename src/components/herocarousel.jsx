@@ -406,4 +406,4 @@ const HeroCarousel = () => {
   );
 };
 
-export default HeroCarousel;
+export default HeroCarousel;  // FIXED: Capital H!
