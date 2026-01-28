@@ -1,6 +1,6 @@
 import React from 'react'
 import Layout from '../../components/Layout'
-import herocarousel from '../../components/heroCarousel'
+import herocarousel from '../../components/herocarousel'
 import LookingFor from '../../components/LookingFor'
 import Services from '../../components/Services'
 import About from '../../components/About'
