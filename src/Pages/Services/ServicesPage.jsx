@@ -23,6 +23,7 @@ import {
   FaClock,
   FaExternalLinkAlt
 } from 'react-icons/fa';
+import { motion, useInView, useScroll, useTransform } from 'framer-motion';
 
 const ServicesPage = () => {
   const [animated, setAnimated] = useState(false);
@@ -32,6 +33,22 @@ const ServicesPage = () => {
   const sectionRef = useRef(null);
   const progressRef = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
+
+  // Create refs for scroll animations
+  const heroRef = useRef(null);
+  const servicesRef = useRef(null);
+  const benefitsRef = useRef(null);
+  const ctaRef = useRef(null);
+  
+  // Use InView hooks
+  const isHeroInView = useInView(heroRef, { once: true, amount: 0.3 });
+  const isServicesInView = useInView(servicesRef, { once: true, amount: 0.2 });
+  const isBenefitsInView = useInView(benefitsRef, { once: true, amount: 0.3 });
+  const isCtaInView = useInView(ctaRef, { once: true, amount: 0.3 });
+
+  // Scroll progress animation
+  const { scrollYProgress } = useScroll();
+  const backgroundY = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
 
   // Check for mobile viewport
   useEffect(() => {
@@ -243,37 +260,145 @@ const ServicesPage = () => {
     }
   ];
 
+  // Animation variants
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 40 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut"
+      }
+    }
+  };
+
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2
+      }
+    }
+  };
+
+  const slideInLeft = {
+    hidden: { opacity: 0, x: -50 },
+    visible: { 
+      opacity: 1, 
+      x: 0,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut"
+      }
+    }
+  };
+
+  const slideInRight = {
+    hidden: { opacity: 0, x: 50 },
+    visible: { 
+      opacity: 1, 
+      x: 0,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut"
+      }
+    }
+  };
+
+  const scaleIn = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: { 
+      opacity: 1, 
+      scale: 1,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: (i) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: i * 0.1,
+        duration: 0.4,
+        ease: "easeOut"
+      }
+    })
+  };
+
+  const serviceItemVariants = {
+    hidden: { opacity: 0, y: 30, scale: 0.95 },
+    visible: (i) => ({
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        delay: i * 0.1,
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    })
+  };
+
+  const imageSectionVariants = {
+    hidden: { opacity: 0, scale: 1.1 },
+    visible: (i) => ({
+      opacity: 1,
+      scale: 1,
+      transition: {
+        delay: i * 0.2,
+        duration: 0.8,
+        ease: "easeOut"
+      }
+    })
+  };
+
   return (
     <div className="min-h-screen relative overflow-hidden" ref={sectionRef}>
       {/* Scroll Progress Indicator */}
       <div className="fixed top-0 left-0 w-full h-1 z-50">
-        <div 
-          className="h-full bg-gradient-to-r from-red-600 to-black transition-all duration-300"
+        <motion.div 
+          className="h-full bg-gradient-to-r from-red-600 to-black"
           style={{ width: `${scrollProgress}%` }}
           ref={progressRef}
-        ></div>
+        ></motion.div>
       </div>
 
       {/* Animated Background Elements */}
-      <div className="fixed inset-0 pointer-events-none z-0">
+      <motion.div 
+        className="fixed inset-0 pointer-events-none z-0"
+        style={{ y: backgroundY }}
+      >
         {[...Array(20)].map((_, i) => (
-          <div
+          <motion.div
             key={i}
-            className="absolute w-1 h-1 bg-red-500/10 rounded-full animate-pulse"
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 0.1, scale: 1 }}
+            transition={{ delay: i * 0.1, duration: 1 }}
+            className="absolute w-1 h-1 bg-red-500/10 rounded-full"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
-              animationDelay: `${i * 0.5}s`,
-              animationDuration: `${3 + Math.random() * 4}s`
             }}
-          ></div>
+          ></motion.div>
         ))}
-      </div>
+      </motion.div>
 
       {/* Breadcrumb with animation */}
-      <div className={`bg-gradient-to-r from-black to-gray-900 py-4 md:py-6 relative overflow-hidden ${
-        animated ? 'animate-slideInDown' : 'opacity-0'
-      }`}>
+      <motion.div 
+        ref={heroRef}
+        initial={{ opacity: 0, y: -20 }}
+        animate={isHeroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
+        transition={{ duration: 0.5 }}
+        className="bg-gradient-to-r from-black to-gray-900 py-4 md:py-6 relative overflow-hidden"
+      >
         <div className="container mx-auto px-4 relative z-10">
           <nav>
             <ol className="flex items-center space-x-3">
@@ -291,34 +416,48 @@ const ServicesPage = () => {
             </ol>
           </nav>
         </div>
-        <div className="absolute inset-0 bg-gradient-to-r from-red-900/20 to-transparent"></div>
-      </div>
+        <motion.div 
+          initial={{ width: '0%' }}
+          animate={isHeroInView ? { width: '100%' } : { width: '0%' }}
+          transition={{ duration: 1, delay: 0.2 }}
+          className="absolute inset-0 bg-gradient-to-r from-red-900/20 to-transparent"
+        ></motion.div>
+      </motion.div>
 
-      {/* Three Image Sections - SUPER Compact on Mobile */}
-      <div className="relative">
-        {/* Mobile View - Vertical Stack with VERY Compact Height */}
+      {/* Three Image Sections */}
+      <div className="relative" ref={heroRef}>
+        {/* Mobile View */}
         <div className="md:hidden">
           {imageSections.map((section, index) => (
-            <div 
+            <motion.div 
               key={section.id}
+              variants={imageSectionVariants}
+              custom={index}
+              initial="hidden"
+              animate={isHeroInView ? "visible" : "hidden"}
               className="relative overflow-hidden group h-[21vh] mb-2 last:mb-0"
             >
-              {/* Background Image - Object center to show middle portion */}
-              <img
+              <motion.img
+                initial={{ scale: 1.1 }}
+                animate={isHeroInView ? { scale: 1 } : { scale: 1.1 }}
+                transition={{ duration: 0.8, delay: index * 0.1 }}
                 src={section.image}
                 alt={section.title}
                 className="w-full h-full object-cover object-center"
               />
               
-              {/* Dark Overlay - Only at bottom for text */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/70 to-transparent"></div>
 
-              {/* Text Content - SUPER Compact YouTube style */}
               <Link 
                 to={section.link}
                 className="absolute inset-0 flex flex-col justify-end p-3 text-white group"
               >
-                <div className="transform transition-all duration-200">
+                <motion.div 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={isHeroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                  transition={{ duration: 0.5, delay: index * 0.2 + 0.3 }}
+                  className="transform transition-all duration-200"
+                >
                   <h3 className="text-sm font-bold mb-0.5 group-hover:text-red-300 transition-colors duration-200 truncate">
                     {section.title}
                   </h3>
@@ -326,42 +465,57 @@ const ServicesPage = () => {
                     {section.description}
                   </p>
                   
-                  {/* Click indicator - very small and subtle */}
-                  <div className="flex items-center text-[10px] opacity-0 group-hover:opacity-100 transition-opacity duration-200 mt-1">
+                  <motion.div 
+                    initial={{ opacity: 0 }}
+                    whileHover={{ opacity: 1 }}
+                    className="flex items-center text-[10px] mt-1"
+                  >
                     <span className="font-medium mr-1">Explore →</span>
-                  </div>
-                </div>
+                  </motion.div>
+                </motion.div>
               </Link>
 
-              {/* Overlay for entire card for better click target */}
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-200"></div>
-            </div>
+              <motion.div 
+                initial={{ opacity: 0 }}
+                whileHover={{ opacity: 0.2 }}
+                className="absolute inset-0 bg-black transition-all duration-200"
+              ></motion.div>
+            </motion.div>
           ))}
         </div>
 
-        {/* Desktop View - Horizontal Grid */}
+        {/* Desktop View */}
         <div className="hidden md:grid md:grid-cols-3 gap-0 w-full h-[80vh]">
           {imageSections.map((section, index) => (
-            <div 
+            <motion.div 
               key={section.id}
+              variants={imageSectionVariants}
+              custom={index}
+              initial="hidden"
+              animate={isHeroInView ? "visible" : "hidden"}
               className="relative overflow-hidden group"
             >
-              {/* Background Image */}
-              <img
+              <motion.img
+                initial={{ scale: 1.2 }}
+                animate={isHeroInView ? { scale: 1 } : { scale: 1.2 }}
+                transition={{ duration: 1, delay: index * 0.1 }}
                 src={section.image}
                 alt={section.title}
                 className="w-full h-full object-cover object-top"
               />
               
-              {/* Dark Overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
 
-              {/* Text Content */}
               <Link 
                 to={section.link}
                 className="absolute inset-0 flex flex-col justify-end p-8 md:p-12 text-white group"
               >
-                <div className="transform transition-all duration-500 group-hover:translate-y-[-10px]">
+                <motion.div 
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={isHeroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                  transition={{ duration: 0.6, delay: index * 0.2 + 0.4 }}
+                  className="transform transition-all duration-500 group-hover:translate-y-[-10px]"
+                >
                   <h3 className="text-2xl md:text-3xl font-bold mb-2 group-hover:text-red-300 transition-colors duration-500">
                     {section.title}
                   </h3>
@@ -372,27 +526,32 @@ const ServicesPage = () => {
                     {section.description}
                   </p>
                   
-                  {/* Click indicator */}
-                  <div className="mt-4 flex items-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  <motion.div 
+                    initial={{ opacity: 0, x: -20 }}
+                    whileHover={{ opacity: 1, x: 0 }}
+                    className="mt-4 flex items-center"
+                  >
                     <span className="text-sm font-medium mr-2">Click to explore</span>
                     <FaArrowRight className="transform group-hover:translate-x-2 transition-transform duration-500" />
-                  </div>
-                </div>
+                  </motion.div>
+                </motion.div>
               </Link>
 
-              {/* Divider lines between images */}
               {index < imageSections.length - 1 && (
                 <div className="absolute right-0 top-0 bottom-0 w-px bg-white/20 z-10"></div>
               )}
-            </div>
+            </motion.div>
           ))}
         </div>
 
-        {/* Section indicator - Desktop only */}
+        {/* Section indicator */}
         <div className="hidden md:flex absolute bottom-6 left-1/2 transform -translate-x-1/2 space-x-2 z-20">
           {imageSections.map((_, index) => (
-            <div 
+            <motion.div 
               key={index}
+              initial={{ scale: 0 }}
+              animate={isHeroInView ? { scale: 1 } : { scale: 0 }}
+              transition={{ delay: index * 0.1 + 0.8 }}
               className="w-2 h-2 rounded-full bg-white/60"
             />
           ))}
@@ -402,54 +561,87 @@ const ServicesPage = () => {
       {/* Main Content */}
       <div className="container mx-auto px-3 md:px-4 py-6 md:py-20 relative">
         {/* Section Title */}
-        <div className={`text-center mb-6 md:mb-20 ${
-          animated ? 'animate-fadeInUp' : 'opacity-0'
-        }`} style={{ animationDelay: '300ms' }}>
+        <motion.div 
+          ref={servicesRef}
+          initial={{ opacity: 0, y: 40 }}
+          animate={isServicesInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-6 md:mb-20"
+        >
           <div className="inline-block relative">
-            <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 relative z-10">
+            <motion.h2 
+              variants={fadeInUp}
+              initial="hidden"
+              animate={isServicesInView ? "visible" : "hidden"}
+              className="text-2xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 relative z-10"
+            >
               Our <span className="text-red-600">Banking</span> Services
-            </h2>
-            <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-24 md:w-32 lg:w-48 h-1 md:h-2 bg-gradient-to-r from-red-600 to-black rounded-full"></div>
+            </motion.h2>
+            <motion.div 
+              initial={{ width: 0 }}
+              animate={isServicesInView ? { width: '100%' } : { width: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 md:h-2 bg-gradient-to-r from-red-600 to-black rounded-full"
+            ></motion.div>
           </div>
-          <p className="text-base md:text-lg lg:text-xl text-gray-700 max-w-3xl mx-auto mt-4 md:mt-10 px-2 md:px-4">
+          <motion.p 
+            variants={fadeInUp}
+            initial="hidden"
+            animate={isServicesInView ? "visible" : "hidden"}
+            transition={{ delay: 0.1 }}
+            className="text-base md:text-lg lg:text-xl text-gray-700 max-w-3xl mx-auto mt-4 md:mt-10 px-2 md:px-4"
+          >
             Explore our comprehensive range of banking products and services
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
 
-        {/* Our Banking Services - 2x2 Grid on Mobile */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-6 max-w-4xl mx-auto mb-10 md:mb-32">
+        {/* Our Banking Services */}
+        <motion.div 
+          ref={servicesRef}
+          variants={staggerContainer}
+          initial="hidden"
+          animate={isServicesInView ? "visible" : "hidden"}
+          className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-6 max-w-4xl mx-auto mb-10 md:mb-32"
+        >
           {serviceCategories.map((service, index) => (
-            <div 
+            <motion.div 
               key={service.id}
-              className={`relative group ${
-                animated ? 'animate-fadeInUp' : 'opacity-0'
-              }`}
-              style={{ animationDelay: service.delay }}
+              variants={serviceItemVariants}
+              custom={index}
               onMouseEnter={() => setActiveHover(service.id)}
               onMouseLeave={() => setActiveHover(null)}
             >
-              {/* Service Card - WHITE BACKGROUND with brand colors */}
-              <div className={`relative h-full transform transition-all duration-500 ${
-                expandedCards[service.id] ? '-translate-y-2' : 'group-hover:-translate-y-1'
-              }`}>
-                {/* Badge - Red or Black based on category */}
-                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-20">
+              <motion.div 
+                whileHover={{ y: -5 }}
+                transition={{ type: "spring", stiffness: 300 }}
+                className="relative h-full"
+              >
+                {/* Badge */}
+                <motion.div 
+                  initial={{ y: -20, opacity: 0 }}
+                  animate={isServicesInView ? { y: 0, opacity: 1 } : { y: -20, opacity: 0 }}
+                  transition={{ delay: index * 0.1 + 0.3 }}
+                  className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-20"
+                >
                   <div className={`${service.badgeBg} ${service.badgeText} px-3 py-1 rounded-full text-xs md:text-sm font-bold shadow`}>
                     {service.badge}
                   </div>
-                </div>
+                </motion.div>
 
-                {/* Card - WHITE BACKGROUND */}
+                {/* Card */}
                 <div 
                   className={`${service.bgColor} rounded-lg md:rounded-xl overflow-hidden shadow-lg hover:shadow-xl h-full border ${service.borderColor} cursor-pointer`}
                   onClick={() => toggleCardExpand(service.id)}
                 >
-                  {/* Card Header */}
                   <div className="p-4 md:p-6">
                     <div className="flex items-start mb-3 md:mb-4">
-                      <div className={`w-10 h-10 md:w-12 md:h-12 flex-shrink-0 ${service.color === 'text-red-600' ? 'bg-red-50' : 'bg-gray-50'} rounded-lg flex items-center justify-center mr-3 md:mr-4`}>
+                      <motion.div 
+                        whileHover={{ rotate: 360 }}
+                        transition={{ duration: 0.5 }}
+                        className={`w-10 h-10 md:w-12 md:h-12 flex-shrink-0 ${service.color === 'text-red-600' ? 'bg-red-50' : 'bg-gray-50'} rounded-lg flex items-center justify-center mr-3 md:mr-4`}
+                      >
                         <service.icon className={`text-base md:text-xl ${service.color}`} />
-                      </div>
+                      </motion.div>
                       <div className="flex-1 min-w-0">
                         <div className={`text-xs md:text-sm font-semibold ${service.color} mb-1`}>
                           {service.stats}
@@ -468,17 +660,24 @@ const ServicesPage = () => {
                       <span className="text-gray-500 text-xs md:text-sm">
                         {expandedCards[service.id] ? 'Click to collapse' : 'Click to expand'}
                       </span>
-                      {expandedCards[service.id] ? (
+                      <motion.div
+                        animate={{ rotate: expandedCards[service.id] ? 180 : 0 }}
+                        transition={{ duration: 0.3 }}
+                      >
                         <FaChevronDown className="text-gray-400 text-sm" />
-                      ) : (
-                        <FaChevronRight className="text-gray-400 text-sm" />
-                      )}
+                      </motion.div>
                     </div>
                   </div>
 
                   {/* Expanded Features List */}
                   {expandedCards[service.id] && (
-                    <div className="bg-gray-50 p-4 md:p-6 animate-fadeIn border-t border-gray-200">
+                    <motion.div 
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="bg-gray-50 p-4 md:p-6 border-t border-gray-200"
+                    >
                       <div className="mb-3 md:mb-4">
                         <h4 className="font-bold text-gray-900 mb-2 md:mb-3 flex items-center text-sm md:text-base">
                           <FaStar className={`${service.color} mr-2 text-sm`} />
@@ -486,14 +685,21 @@ const ServicesPage = () => {
                         </h4>
                         <ul className="space-y-2">
                           {service.features.map((feature, idx) => (
-                            <li 
+                            <motion.li 
                               key={idx}
+                              initial={{ opacity: 0, x: -20 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{ delay: idx * 0.05 }}
                               className="flex items-center justify-between group/feature bg-white p-2 rounded border border-gray-100"
                             >
                               <div className="flex items-center max-w-[70%]">
-                                <div className={`w-2 h-2 rounded-full mr-2 ${
-                                  feature.status === 'available' ? 'bg-green-500' : 'bg-yellow-500'
-                                }`}></div>
+                                <motion.div 
+                                  animate={{ scale: [1, 1.2, 1] }}
+                                  transition={{ duration: 0.5, delay: idx * 0.1 }}
+                                  className={`w-2 h-2 rounded-full mr-2 ${
+                                    feature.status === 'available' ? 'bg-green-500' : 'bg-yellow-500'
+                                  }`}
+                                ></motion.div>
                                 <span className="text-sm text-gray-700 group-hover/feature:text-gray-900 transition-colors truncate">
                                   {feature.name}
                                 </span>
@@ -506,48 +712,76 @@ const ServicesPage = () => {
                                 Details
                                 <FaExternalLinkAlt className="text-xs" />
                               </Link>
-                            </li>
+                            </motion.li>
                           ))}
                         </ul>
                       </div>
-                    </div>
+                    </motion.div>
                   )}
                 </div>
 
-                {/* Subtle brand-colored glow effect */}
-                <div className={`absolute inset-0 rounded-lg md:rounded-xl ${
-                  service.color === 'text-red-600' ? 'bg-red-600' : 'bg-gray-900'
-                } opacity-0 group-hover:opacity-5 blur-lg transition-opacity duration-700 -z-10`}></div>
-              </div>
-            </div>
+                {/* Subtle glow effect */}
+                <motion.div 
+                  initial={{ opacity: 0 }}
+                  whileHover={{ opacity: 0.05 }}
+                  className={`absolute inset-0 rounded-lg md:rounded-xl ${
+                    service.color === 'text-red-600' ? 'bg-red-600' : 'bg-gray-900'
+                  } blur-lg -z-10`}
+                ></motion.div>
+              </motion.div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
-        {/* Benefits Section - 2x3 Grid on Mobile */}
-        <div className={`max-w-6xl mx-auto mb-10 md:mb-32 ${
-          animated ? 'animate-fadeInUp' : 'opacity-0'
-        }`} style={{ animationDelay: '500ms' }}>
+        {/* Benefits Section */}
+        <motion.div 
+          ref={benefitsRef}
+          initial={{ opacity: 0, y: 40 }}
+          animate={isBenefitsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+          transition={{ duration: 0.6 }}
+          className="max-w-6xl mx-auto mb-10 md:mb-32"
+        >
           <div className="text-center mb-6 md:mb-16 px-4">
-            <h2 className="text-xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 md:mb-6">
+            <motion.h2 
+              variants={fadeInUp}
+              initial="hidden"
+              animate={isBenefitsInView ? "visible" : "hidden"}
+              className="text-xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 md:mb-6"
+            >
               Why <span className="text-red-600">Gadaa Bank</span> Stands Out
-            </h2>
-            <p className="text-sm md:text-lg lg:text-xl text-gray-700 max-w-3xl mx-auto">
+            </motion.h2>
+            <motion.p 
+              variants={fadeInUp}
+              initial="hidden"
+              animate={isBenefitsInView ? "visible" : "hidden"}
+              transition={{ delay: 0.1 }}
+              className="text-sm md:text-lg lg:text-xl text-gray-700 max-w-3xl mx-auto"
+            >
               Our commitment to excellence is reflected in every aspect of our service
-            </p>
+            </motion.p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
+          <motion.div 
+            variants={staggerContainer}
+            initial="hidden"
+            animate={isBenefitsInView ? "visible" : "hidden"}
+            className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4"
+          >
             {benefits.map((benefit, index) => (
-              <div 
+              <motion.div 
                 key={index}
-                className={`bg-white rounded-lg md:rounded-xl p-3 md:p-4 shadow-sm border border-gray-200 hover:border-red-300 hover:shadow-md transition-all duration-300 transform hover:-translate-y-1 ${
-                  animated ? 'animate-fadeInUp' : 'opacity-0'
-                }`}
-                style={{ animationDelay: `${index * 100 + 600}ms` }}
+                variants={itemVariants}
+                custom={index}
+                whileHover={{ y: -5, scale: 1.02 }}
+                className="bg-white rounded-lg md:rounded-xl p-3 md:p-4 shadow-sm border border-gray-200 hover:border-red-300 hover:shadow-md transition-all duration-300"
               >
-                <div className={`${benefit.bg} w-10 h-10 md:w-12 md:h-12 rounded-lg flex items-center justify-center mb-2 md:mb-3 mx-auto`}>
+                <motion.div 
+                  whileHover={{ rotate: 360 }}
+                  transition={{ duration: 0.5 }}
+                  className={`${benefit.bg} w-10 h-10 md:w-12 md:h-12 rounded-lg flex items-center justify-center mb-2 md:mb-3 mx-auto`}
+                >
                   <benefit.icon className={`text-base md:text-lg ${benefit.color}`} />
-                </div>
+                </motion.div>
                 <h3 className="text-sm md:text-base font-bold text-gray-900 mb-1 md:mb-2 text-center">{benefit.title}</h3>
                 <p className="text-gray-600 text-center text-xs md:text-sm">{benefit.description}</p>
                 <div className="mt-2 md:mt-3 pt-2 border-t border-gray-100">
@@ -557,66 +791,98 @@ const ServicesPage = () => {
                     ))}
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* Final CTA */}
-        <div className={`relative rounded-lg md:rounded-3xl overflow-hidden mb-6 md:mb-20 ${
-          animated ? 'animate-fadeInUp' : 'opacity-0'
-        }`} style={{ animationDelay: '800ms' }}>
-          <div className="absolute inset-0 bg-gradient-to-br from-red-600 via-red-700 to-black"></div>
+        <motion.div 
+          ref={ctaRef}
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={isCtaInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
+          transition={{ duration: 0.6, type: "spring", stiffness: 100 }}
+          className="relative rounded-lg md:rounded-3xl overflow-hidden mb-6 md:mb-20"
+        >
+          {/* Animated background elements */}
+          <motion.div 
+            initial={{ scale: 0 }}
+            animate={isCtaInView ? { scale: 1 } : { scale: 0 }}
+            transition={{ duration: 0.8 }}
+            className="absolute inset-0 bg-gradient-to-br from-red-600 via-red-700 to-black"
+          ></motion.div>
+          
           <div className="relative z-10 p-4 md:p-8 lg:p-12 text-center">
             <div className="max-w-3xl mx-auto">
-              <div className="inline-flex items-center justify-center w-10 h-10 md:w-16 md:h-16 bg-white/20 rounded-full backdrop-blur-sm mb-3 md:mb-6 border border-white/30">
+              <motion.div 
+                initial={{ scale: 0, rotate: -180 }}
+                animate={isCtaInView ? { scale: 1, rotate: 0 } : { scale: 0, rotate: -180 }}
+                transition={{ duration: 0.6, delay: 0.2, type: "spring", stiffness: 100 }}
+                className="inline-flex items-center justify-center w-10 h-10 md:w-16 md:h-16 bg-white/20 rounded-full backdrop-blur-sm mb-3 md:mb-6 border border-white/30"
+              >
                 <FaCrown className="text-white text-lg md:text-2xl" />
-              </div>
-              <h2 className="text-lg md:text-2xl lg:text-4xl font-bold text-white mb-2 md:mb-4 lg:mb-6">
+              </motion.div>
+              
+              <motion.h2 
+                variants={fadeInUp}
+                initial="hidden"
+                animate={isCtaInView ? "visible" : "hidden"}
+                className="text-lg md:text-2xl lg:text-4xl font-bold text-white mb-2 md:mb-4 lg:mb-6"
+              >
                 Ready to Explore Our Services?
-              </h2>
-              <p className="text-xs md:text-sm lg:text-base text-white/90 mb-3 md:mb-8 max-w-2xl mx-auto px-2">
+              </motion.h2>
+              
+              <motion.p 
+                variants={fadeInUp}
+                initial="hidden"
+                animate={isCtaInView ? "visible" : "hidden"}
+                transition={{ delay: 0.1 }}
+                className="text-xs md:text-sm lg:text-base text-white/90 mb-3 md:mb-8 max-w-2xl mx-auto px-2"
+              >
                 Click on any service category above to see detailed features and products
-              </p>
-              <div className="flex flex-col sm:flex-row gap-2 md:gap-4 lg:gap-6 justify-center">
-                <Link 
-                  to="/contact"
-                  className="group px-4 py-2 md:px-8 md:py-3 bg-white text-red-600 font-bold rounded-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-lg"
-                >
-                  <span className="flex items-center justify-center gap-2 text-sm md:text-base">
-                    Contact Us
-                    <FaArrowRight className="group-hover:translate-x-1 transition-transform duration-300" />
-                  </span>
-                </Link>
-                <Link 
-                  to="/about"
-                  className="group px-4 py-2 md:px-8 md:py-3 border-2 border-white text-white font-bold rounded-lg hover:bg-white/10 transition-all duration-300 transform hover:scale-105"
-                >
-                  <span className="flex items-center justify-center gap-2 text-sm md:text-base">
-                    Learn About Us
-                    <FaHandshake className="group-hover:rotate-12 transition-transform duration-300" />
-                  </span>
-                </Link>
-              </div>
-              <p className="text-white/70 mt-3 md:mt-6 text-xs md:text-sm">
+              </motion.p>
+              
+              <motion.div 
+                variants={staggerContainer}
+                initial="hidden"
+                animate={isCtaInView ? "visible" : "hidden"}
+                className="flex flex-col sm:flex-row gap-2 md:gap-4 lg:gap-6 justify-center"
+              >
+              
+              </motion.div>
+              
+              <motion.p 
+                initial={{ opacity: 0 }}
+                animate={isCtaInView ? { opacity: 0.7 } : { opacity: 0 }}
+                transition={{ delay: 0.8 }}
+                className="text-white/70 mt-3 md:mt-6 text-xs md:text-sm"
+              >
                 Our customer service team is available 24/7 to assist you
-              </p>
+              </motion.p>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* Floating Help Button */}
-      <div className={`fixed bottom-4 right-4 z-40 ${
-        animated ? 'animate-bounceIn' : 'opacity-0'
-      }`}>
+      <motion.div 
+        initial={{ scale: 0, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ delay: 1, type: "spring", stiffness: 200 }}
+        className="fixed bottom-4 right-4 z-40"
+      >
         <Link 
           to="/contact"
           className="group w-12 h-12 bg-gradient-to-br from-red-600 to-black rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110"
         >
-          <FaLightbulb className="text-white text-lg group-hover:rotate-45 transition-transform duration-300" />
+          <motion.div
+            animate={{ rotate: [0, 10, -10, 0] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
+            <FaLightbulb className="text-white text-lg group-hover:rotate-45 transition-transform duration-300" />
+          </motion.div>
         </Link>
-      </div>
+      </motion.div>
     </div>
   );
 };
