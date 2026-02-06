@@ -520,14 +520,13 @@ const CurrentAccounts = () => {
               {features.map((feature, index) => (
                 <motion.div
                   key={index}
-                  className="feature-card"
                   custom={{ animation: feature.animation, delay: index * 0.1 }}
                   variants={cardVariants}
                   initial="hidden"
                   whileInView="visible"
                   whileHover="hover"
                   viewport={{ once: true, amount: 0.3 }}
-                  className="bg-transparent p-3 md:p-4 text-gray-900 transform transition-all duration-300 hover:bg-gray-50 rounded-lg"
+                  className="feature-card bg-transparent p-3 md:p-4 text-gray-900 transform transition-all duration-300 hover:bg-gray-50 rounded-lg"
                 >
                   <div className="flex flex-col items-center text-center">
                     <motion.div 

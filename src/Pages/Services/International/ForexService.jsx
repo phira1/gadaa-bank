@@ -507,14 +507,13 @@ const ForexService = () => {
               {forexServices.map((service, index) => (
                 <motion.div
                   key={index}
-                  className="feature-card"
                   custom={{ animation: service.animation, delay: index * 0.1 }}
                   variants={cardVariants}
                   initial="hidden"
                   whileInView="visible"
                   whileHover="hover"
                   viewport={{ once: true, amount: 0.3 }}
-                  className="bg-white rounded-xl p-8 shadow-lg border border-gray-200 hover:border-red-200 transition-all duration-300"
+                  className="feature-card bg-white rounded-xl p-8 shadow-lg border border-gray-200 hover:border-red-200 transition-all duration-300"
                 >
                   <div className="flex flex-col items-center text-center">
                     <motion.div 

@@ -353,14 +353,13 @@ const MoneyTransfer = () => {
               {moneyTransferServices.map((service, index) => (
                 <motion.div
                   key={index}
-                  className="service-card"
                   custom={{ animation: service.animation, delay: index * 0.1 }}
                   variants={cardVariants}
                   initial="hidden"
                   whileInView="visible"
                   whileHover="hover"
                   viewport={{ once: true, amount: 0.3 }}
-                  className="bg-white rounded-xl p-8 shadow-lg border border-gray-200 hover:border-red-200 transition-all duration-300"
+                  className="service-card bg-white rounded-xl p-8 shadow-lg border border-gray-200 hover:border-red-200 transition-all duration-300"
                 >
                   <motion.div 
                     className="w-16 h-16 bg-gradient-to-br from-red-100 to-white rounded-xl flex items-center justify-center mb-6 mx-auto shadow-md"
