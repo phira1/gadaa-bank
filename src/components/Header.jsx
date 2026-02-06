@@ -1,13 +1,67 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { FaSearch, FaShareAlt, FaChevronDown, FaBars, FaTwitter, FaFacebookF, FaLinkedinIn, FaTelegram } from 'react-icons/fa';
 import { FaXmark } from 'react-icons/fa6';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [selectedResultIndex, setSelectedResultIndex] = useState(-1);
+  const searchRef = useRef(null);
+  const navigate = useNavigate();
+
+  // Searchable content - Add all your pages and components here
+  const searchableContent = [
+    // Home & Main Pages
+    { title: 'Home', path: '/', category: 'Home', description: 'Main landing page' },
+    { title: 'About Us', path: '/about', category: 'About', description: 'Learn about Gadaa Bank' },
+    { title: 'Company History', path: '/about/company-history', category: 'About', description: 'Our journey and milestones' },
+    { title: 'Organizational Structure', path: '/about/organizational-structure', category: 'About', description: 'Bank organizational chart' },
+    
+    // Services
+    { title: 'Products & Services', path: '/services', category: 'Services', description: 'All banking services' },
+    { title: 'Saving Accounts', path: '/services/saving-accounts', category: 'Conventional Banking', description: 'Personal and business savings' },
+    { title: 'Current Accounts', path: '/services/current-accounts', category: 'Conventional Banking', description: 'Daily transaction accounts' },
+    { title: 'Time Deposit', path: '/services/time-deposit', category: 'Conventional Banking', description: 'Fixed deposit accounts' },
+    { title: 'Personal Loans', path: '/services/personal-loans', category: 'Conventional Banking', description: 'Loan facilities for individuals' },
+    { title: 'Business Loans', path: '/services/business-loans', category: 'Conventional Banking', description: 'Business financing solutions' },
+    
+    // International Banking
+    { title: 'Forex Service', path: '/services/forex-service', category: 'International Banking', description: 'Foreign currency exchange' },
+    { title: 'Trade Finance', path: '/services/trade-finance', category: 'International Banking', description: 'Import/export financing' },
+    { title: 'Money Transfer', path: '/services/money-transfer', category: 'International Banking', description: 'Local and international transfers' },
+    
+    // Digital Banking
+    { title: 'Digital Banking', path: '/digital', category: 'Digital', description: 'Online banking services' },
+    { title: 'Mobile Banking', path: '/digital/mobile-banking', category: 'Digital', description: 'Banking on your mobile' },
+    { title: 'Internet Banking', path: '/digital/internet-banking', category: 'Digital', description: 'Online banking portal' },
+    { title: 'Card Banking', path: '/digital/card-banking', category: 'Digital', description: 'Debit and credit cards' },
+    { title: 'ATM Services', path: '/digital/atm', category: 'Digital', description: 'ATM locations and services' },
+    
+    // Interest Free Banking
+    { title: 'Interest Free Banking', path: '/services', category: 'Islamic Banking', description: 'Sharia-compliant banking' },
+    { title: 'Wadiah Saving', path: '/services/wadiah-saving', category: 'Islamic Banking', description: 'Safe-keeping accounts' },
+    { title: 'Mudarabah Saving', path: '/services/mudarabah-saving-accounts', category: 'Islamic Banking', description: 'Profit-sharing accounts' },
+    
+    // Resources
+    { title: 'Resources', path: '/resources', category: 'Resources', description: 'Bank documents and news' },
+    { title: 'News', path: '/resources/news', category: 'Resources', description: 'Latest bank news' },
+    { title: 'Vacancy', path: '/resources/vacancy', category: 'Resources', description: 'Career opportunities' },
+    { title: 'Annual Report', path: '/resources/annual-report', category: 'Resources', description: 'Financial reports' },
+    
+    // Investors
+    { title: 'Investors Relation', path: '/investors', category: 'Investors', description: 'Investor information' },
+    { title: 'Financial Reports', path: '/investors/financial-reports', category: 'Investors', description: 'Financial statements' },
+    
+    // Contact
+    { title: 'Contact Us', path: '/contact', category: 'Contact', description: 'Get in touch with us' },
+    { title: 'Terms and Tariff', path: '/terms', category: 'Legal', description: 'Terms and conditions' }
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,6 +79,79 @@ const Header = () => {
       document.body.style.overflow = 'auto';
     }
   }, [isMenuOpen]);
+
+  // Handle click outside search
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (searchRef.current && !searchRef.current.contains(event.target)) {
+        setShowSuggestions(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  // Handle search input
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+    if (query.trim().length > 1) {
+      const results = searchableContent.filter(item =>
+        item.title.toLowerCase().includes(query.toLowerCase()) ||
+        item.category.toLowerCase().includes(query.toLowerCase()) ||
+        item.description.toLowerCase().includes(query.toLowerCase())
+      );
+      setSearchResults(results.slice(0, 8)); // Limit to 8 results
+      setShowSuggestions(true);
+      setSelectedResultIndex(-1);
+    } else {
+      setSearchResults([]);
+      setShowSuggestions(false);
+    }
+  };
+
+  // Handle search submission
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      if (selectedResultIndex >= 0 && searchResults[selectedResultIndex]) {
+        navigate(searchResults[selectedResultIndex].path);
+      } else if (searchResults.length > 0) {
+        navigate(searchResults[0].path);
+      }
+      setSearchQuery('');
+      setShowSuggestions(false);
+      closeAll();
+    }
+  };
+
+  // Handle keyboard navigation
+  const handleKeyDown = (e) => {
+    if (!showSuggestions) return;
+
+    switch (e.key) {
+      case 'ArrowDown':
+        e.preventDefault();
+        setSelectedResultIndex(prev => 
+          prev < searchResults.length - 1 ? prev + 1 : prev
+        );
+        break;
+      case 'ArrowUp':
+        e.preventDefault();
+        setSelectedResultIndex(prev => prev > 0 ? prev - 1 : -1);
+        break;
+      case 'Enter':
+        if (selectedResultIndex >= 0 && searchResults[selectedResultIndex]) {
+          navigate(searchResults[selectedResultIndex].path);
+          setSearchQuery('');
+          setShowSuggestions(false);
+          closeAll();
+        }
+        break;
+      case 'Escape':
+        setShowSuggestions(false);
+        break;
+    }
+  };
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -45,7 +172,15 @@ const Header = () => {
     setIsMenuOpen(false);
     setActiveDropdown(null);
     setIsMobileSearchOpen(false);
+    setShowSuggestions(false);
     document.body.style.overflow = 'auto';
+  };
+
+  const handleResultClick = (path) => {
+    navigate(path);
+    setSearchQuery('');
+    setShowSuggestions(false);
+    closeAll();
   };
 
   const navItems = [
@@ -191,20 +326,55 @@ const Header = () => {
         {/* Top Bar - Mobile Search */}
         {isMobileSearchOpen && (
           <div className="lg:hidden py-3 animate-slideDown">
-            <div className="relative">
-              <input 
-                type="text" 
-                placeholder="Search..." 
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-red-500"
-                autoFocus
-              />
-              <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-sm" />
-              <button 
-                onClick={toggleMobileSearch}
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-red-600"
-              >
-                <FaXmark size={18} />
-              </button>
+            <div className="relative" ref={searchRef}>
+              <form onSubmit={handleSearchSubmit}>
+                <input 
+                  type="text" 
+                  placeholder="Search for services, accounts, loans..." 
+                  className="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-red-500"
+                  value={searchQuery}
+                  onChange={(e) => handleSearch(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  autoFocus
+                />
+                <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-sm" />
+                <button 
+                  type="button"
+                  onClick={toggleMobileSearch}
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-red-600"
+                >
+                  <FaXmark size={18} />
+                </button>
+              </form>
+              
+              {/* Mobile Search Suggestions */}
+              {showSuggestions && searchResults.length > 0 && (
+                <div className="absolute top-full left-0 right-0 mt-1 bg-white shadow-xl rounded-lg py-2 max-h-96 overflow-y-auto border border-gray-200 z-50">
+                  {searchResults.map((result, index) => (
+                    <button
+                      key={index}
+                      onClick={() => handleResultClick(result.path)}
+                      className={`block w-full text-left px-4 py-3 hover:bg-red-50 transition duration-200 ${
+                        selectedResultIndex === index ? 'bg-red-50 border-l-4 border-red-600' : 'border-l-4 border-transparent'
+                      }`}
+                    >
+                      <div className="font-medium text-gray-900">{result.title}</div>
+                      <div className="text-xs text-red-600 font-semibold mt-1">{result.category}</div>
+                      <div className="text-xs text-gray-500 mt-1">{result.description}</div>
+                    </button>
+                  ))}
+                </div>
+              )}
+              
+              {/* No Results Message */}
+              {showSuggestions && searchQuery.trim().length > 1 && searchResults.length === 0 && (
+                <div className="absolute top-full left-0 right-0 mt-1 bg-white shadow-xl rounded-lg py-4 px-4 border border-gray-200 z-50">
+                  <div className="text-gray-600 text-center">
+                    <div className="font-medium">No results found for "{searchQuery}"</div>
+                    <div className="text-sm mt-1">Try different keywords</div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         )}
@@ -226,19 +396,61 @@ const Header = () => {
 
           {/* Desktop Navigation and Actions */}
           <div className="hidden lg:flex items-center space-x-4 flex-1 justify-end">
-            <div className="relative">
-              <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-sm" />
-              <input 
-                type="text" 
-                placeholder="Search..." 
-                className="pl-10 pr-4 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-red-500 w-48 xl:w-56"
-              />
+            {/* Desktop Search with Suggestions */}
+            <div className="relative" ref={searchRef}>
+              <form onSubmit={handleSearchSubmit}>
+                <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-sm" />
+                <input 
+                  type="text" 
+                  placeholder="Search for services, accounts, loans..." 
+                  className="pl-10 pr-4 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-red-500 w-48 xl:w-56"
+                  value={searchQuery}
+                  onChange={(e) => handleSearch(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                />
+              </form>
+              
+              {/* Desktop Search Suggestions */}
+              {showSuggestions && searchResults.length > 0 && (
+                <div className="absolute top-full left-0 right-0 mt-1 bg-white shadow-xl rounded-lg py-2 max-h-96 overflow-y-auto border border-gray-200 z-50">
+                  {searchResults.map((result, index) => (
+                    <button
+                      key={index}
+                      onClick={() => handleResultClick(result.path)}
+                      className={`block w-full text-left px-4 py-3 hover:bg-red-50 transition duration-200 ${
+                        selectedResultIndex === index ? 'bg-red-50 border-l-4 border-red-600' : 'border-l-4 border-transparent'
+                      }`}
+                    >
+                      <div className="font-medium text-gray-900">{result.title}</div>
+                      <div className="text-xs text-red-600 font-semibold mt-1">{result.category}</div>
+                      <div className="text-xs text-gray-500 mt-1">{result.description}</div>
+                    </button>
+                  ))}
+                </div>
+              )}
+              
+              {/* No Results Message */}
+              {showSuggestions && searchQuery.trim().length > 1 && searchResults.length === 0 && (
+                <div className="absolute top-full left-0 right-0 mt-1 bg-white shadow-xl rounded-lg py-4 px-4 border border-gray-200 z-50">
+                  <div className="text-gray-600 text-center">
+                    <div className="font-medium">No results found for "{searchQuery}"</div>
+                    <div className="text-sm mt-1">Try different keywords</div>
+                  </div>
+                </div>
+              )}
             </div>
             
-            <button className="bg-red-600 text-white px-5 py-2 rounded text-sm font-medium hover:bg-red-700 transition duration-300 whitespace-nowrap">
+            {/* Login Button - Desktop */}
+            <a 
+              href="https://ibs.gadaabank.com.et/internet-banking/login"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-red-600 text-white px-5 py-2 rounded text-sm font-medium hover:bg-red-700 transition duration-300 whitespace-nowrap inline-block"
+            >
               Login
-            </button>
+            </a>
             
+            {/* Social Links Dropdown - Desktop */}
             <div className="relative group">
               <button className="flex items-center space-x-2 text-gray-700 hover:text-red-600 px-3 py-2 rounded text-sm font-medium border border-red-600 text-red-600 hover:bg-red-50 transition duration-300 whitespace-nowrap">
                 <FaShareAlt />
@@ -275,9 +487,15 @@ const Header = () => {
               <FaSearch size={18} />
             </button>
             
-            <button className="bg-red-600 text-white px-3 py-1.5 rounded text-sm whitespace-nowrap text-xs md:text-sm">
+            {/* Login Button - Mobile */}
+            <a 
+              href="https://ibs.gadaabank.com.et/internet-banking/login"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-red-600 text-white px-3 py-1.5 rounded text-sm whitespace-nowrap text-xs md:text-sm inline-block"
+            >
               Login
-            </button>
+            </a>
             
             <button 
               onClick={toggleMenu}
@@ -452,7 +670,7 @@ const Header = () => {
         )}
       </div>
 
-      {/* Add these animation styles to your global CSS or component CSS */}
+      {/* Animation Styles */}
       <style jsx>{`
         @keyframes slideDown {
           from {
@@ -518,13 +736,11 @@ const Header = () => {
             padding-right: 1rem;
           }
           
-          /* Prevent horizontal scrolling */
           body {
             overflow-x: hidden;
           }
         }
         
-        /* Touch-friendly tap targets for mobile */
         @media (max-width: 768px) {
           button, a {
             min-height: 44px;
@@ -532,7 +748,7 @@ const Header = () => {
           }
           
           input, select, textarea {
-            font-size: 16px; /* Prevents iOS zoom on focus */
+            font-size: 16px;
           }
         }
       `}</style>
