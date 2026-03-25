@@ -14,9 +14,9 @@ import {
   FaHeadset,
   FaWhatsapp,
   FaTelegram,
-  FaFacebook,
-  FaTwitter
+  FaFacebook
 } from 'react-icons/fa';
+import { FaXTwitter } from 'react-icons/fa6';
 import { motion, useAnimation, useInView } from 'framer-motion';
 
 const ContactPage = () => {
@@ -122,17 +122,17 @@ const ContactPage = () => {
   };
 
   const contactInfo = [
-    { icon: FaPhone, title: 'Call us', details: '+251 116392578', description: 'Main Office Line' },
+    { icon: FaPhone, title: 'Call us', details: '+251 641', description: 'Main Office Line' },
     { icon: FaHeadset, title: 'Hotline', details: '641', description: '24/7 Customer Service' },
     { icon: FaEnvelope, title: 'Email', details: 'info@gadaabank.com.et', description: 'General Inquiries' },
     { icon: FaMapMarkerAlt, title: 'Head Office', details: 'Gotera, kirkos SubCity W-03, HNo-#745', description: 'Addis Ababa, Ethiopia' }
   ];
 
   const socialMedia = [
-    { icon: FaWhatsapp, name: 'WhatsApp', color: 'bg-green-500', link: '#' },
-    { icon: FaTelegram, name: 'Telegram', color: 'bg-blue-500', link: '#' },
-    { icon: FaFacebook, name: 'Facebook', color: 'bg-blue-600', link: '#' },
-    { icon: FaTwitter, name: 'Twitter', color: 'bg-blue-400', link: '#' }
+    { icon: FaWhatsapp, name: 'WhatsApp', color: 'bg-green-500', link: 'https://wa.me/251641' }, // WhatsApp link using hotline number
+    { icon: FaTelegram, name: 'Telegram', color: 'bg-blue-500', link: 'https://t.me/GadaaBankOfficial' },
+    { icon: FaFacebook, name: 'Facebook', color: 'bg-blue-600', link: 'https://www.facebook.com/gadaabanksc' },
+    { icon: FaXTwitter, name: 'X', color: 'bg-black', link: 'https://x.com/gadaabanksc' }
   ];
 
   const departments = [
@@ -268,9 +268,15 @@ const ContactPage = () => {
                     <h3 className="text-sm md:text-base lg:text-lg font-bold text-gray-900 mb-1 md:mb-2 group-hover:text-red-600 transition-colors duration-300">
                       {info.title}
                     </h3>
-                    <p className="text-gray-900 text-xs md:text-sm lg:text-base font-semibold mb-0.5 md:mb-1">
-                      {info.details}
-                    </p>
+                    {info.title === "Call us" ? (
+                      <a href={`tel:${info.details.replace(/\s/g, '')}`} className="text-gray-900 text-xs md:text-sm lg:text-base font-semibold mb-0.5 md:mb-1 hover:text-red-600">
+                        {info.details}
+                      </a>
+                    ) : (
+                      <p className="text-gray-900 text-xs md:text-sm lg:text-base font-semibold mb-0.5 md:mb-1">
+                        {info.details}
+                      </p>
+                    )}
                     <p className="text-gray-600 text-xs md:text-sm line-clamp-2">
                       {info.description}
                     </p>
@@ -589,7 +595,7 @@ const ContactPage = () => {
                 variants={fadeInUp}
               >
                 <p className="text-gray-600 text-xs md:text-sm">
-                  <span className="font-semibold">Telegram Channel:</span> Join 31,190+ subscribers for updates
+                  <span className="font-semibold">Telegram Channel:</span> <a href="https://t.me/GadaaBankOfficial" target="_blank" rel="noopener noreferrer" className="hover:text-red-600">Join 31,190+ subscribers</a> for updates
                 </p>
               </motion.div>
             </motion.div>
@@ -611,13 +617,13 @@ const ContactPage = () => {
           
           <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
             <motion.a 
-              href="tel:+251116392578"
+              href="tel:+251641"
               className="px-4 md:px-6 py-2 md:py-2.5 bg-white text-red-600 font-bold rounded-lg md:rounded-xl hover:bg-gray-100 shadow-md transition-all duration-300 flex items-center justify-center gap-2 text-sm md:text-base w-full sm:w-auto"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
               <FaPhone className="text-xs md:text-sm" />
-              Call Now: +251 116392578
+              Call Now: +251 641
             </motion.a>
             <motion.a 
               href="mailto:info@gadaabank.com.et"
