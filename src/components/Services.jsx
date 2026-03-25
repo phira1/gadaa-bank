@@ -72,7 +72,7 @@ const Services = () => {
         { name: 'Murabaha Financing', icon: FaChevronRight, desc: 'Cost-plus financing' },
         { name: 'Ijarah Services', icon: FaChevronRight, desc: 'Lease-based solutions' }
       ],
-      link: '/services',
+      link: '/services/other-services', // <-- Updated to the correct path from routing
     },
     international: {
       title: 'International Banking',
