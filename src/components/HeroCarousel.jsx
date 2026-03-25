@@ -39,7 +39,7 @@ const HeroCarousel = () => {
       subtitle: "Bank",
       description: "Building futures with innovative financial solutions.",
       buttonText: "Open Account",
-      buttonLink: "/contact",
+      buttonLink: "https://ibs.gadaabank.com.et/alpha-onboarding/get-started", // changed to external URL
       bgImage: "slide2.jpg",
       icon: <FaShieldAlt className="text-red-400" />,
       gradient: "linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.7) 35%, transparent 75%)",
@@ -164,6 +164,11 @@ const HeroCarousel = () => {
     return `transition-all duration-500 ${isAnimated ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`;
   };
 
+  // Helper to check if a link is external (starts with http:// or https://)
+  const isExternalLink = (link) => {
+    return link && (link.startsWith('http://') || link.startsWith('https://'));
+  };
+
   return (
     <section id="home" className="relative overflow-hidden bg-black">
       {/* ADDED PADDING HERE - Top padding for spacing below header/navigation */}
@@ -217,18 +222,33 @@ const HeroCarousel = () => {
                   {sections[0].description}
                 </p>
 
-                {/* Button - REDUCED SIZE */}
+                {/* Button - REDUCED SIZE - Conditional render for external link */}
                 <div className="mt-1 lg:mt-3">
-                  <Link 
-                    to={sections[0].buttonLink}
-                    className={`block w-full bg-red-600 hover:bg-red-700 text-white text-center rounded-lg font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg ${
-                      isMobile 
-                        ? 'py-2 px-3 text-xs'  // Reduced mobile size
-                        : 'py-2 px-3 text-sm lg:py-2.5 lg:px-4 lg:text-base'  // Reduced desktop size
-                    }`}
-                  >
-                    {sections[0].buttonText}
-                  </Link>
+                  {isExternalLink(sections[0].buttonLink) ? (
+                    <a 
+                      href={sections[0].buttonLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`block w-full bg-red-600 hover:bg-red-700 text-white text-center rounded-lg font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg ${
+                        isMobile 
+                          ? 'py-2 px-3 text-xs'
+                          : 'py-2 px-3 text-sm lg:py-2.5 lg:px-4 lg:text-base'
+                      }`}
+                    >
+                      {sections[0].buttonText}
+                    </a>
+                  ) : (
+                    <Link 
+                      to={sections[0].buttonLink}
+                      className={`block w-full bg-red-600 hover:bg-red-700 text-white text-center rounded-lg font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg ${
+                        isMobile 
+                          ? 'py-2 px-3 text-xs'
+                          : 'py-2 px-3 text-sm lg:py-2.5 lg:px-4 lg:text-base'
+                      }`}
+                    >
+                      {sections[0].buttonText}
+                    </Link>
+                  )}
                 </div>
               </div>
             </div>
@@ -288,8 +308,8 @@ const HeroCarousel = () => {
                       to={middleCarouselImages[currentCarouselIndex].link}
                       className={`block w-full bg-red-600 hover:bg-red-700 text-white text-center rounded-lg font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg ${
                         isMobile 
-                          ? 'py-2 px-3 text-xs'  // Reduced mobile size
-                          : 'py-2 px-3 text-sm lg:py-2.5 lg:px-4 lg:text-base'  // Reduced desktop size
+                          ? 'py-2 px-3 text-xs'
+                          : 'py-2 px-3 text-sm lg:py-2.5 lg:px-4 lg:text-base'
                       }`}
                     >
                       Learn More
@@ -373,8 +393,8 @@ const HeroCarousel = () => {
                     to={sections[2].buttonLink}
                     className={`block w-full bg-red-600 hover:bg-red-700 text-white text-center rounded-lg font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg ${
                       isMobile 
-                        ? 'py-2 px-3 text-xs'  // Reduced mobile size
-                        : 'py-2 px-3 text-sm lg:py-2.5 lg:px-4 lg:text-base'  // Reduced desktop size
+                        ? 'py-2 px-3 text-xs'
+                        : 'py-2 px-3 text-sm lg:py-2.5 lg:px-4 lg:text-base'
                     }`}
                   >
                     {sections[2].buttonText}
