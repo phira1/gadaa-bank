@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { FaSearch, FaShareAlt, FaChevronDown, FaBars, FaTwitter, FaFacebookF, FaLinkedinIn, FaTelegram } from 'react-icons/fa';
-import { FaXmark } from 'react-icons/fa6';
+import { FaSearch, FaShareAlt, FaChevronDown, FaBars, FaFacebookF, FaLinkedinIn, FaTelegram, FaInstagram, FaYoutube } from 'react-icons/fa';
+import { FaXTwitter, FaXmark } from 'react-icons/fa6';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
 const Header = () => {
@@ -61,6 +61,16 @@ const Header = () => {
     // Contact
     { title: 'Contact Us', path: '/contact', category: 'Contact', description: 'Get in touch with us' },
     { title: 'Terms and Tariff', path: '/terms', category: 'Legal', description: 'Terms and conditions' }
+  ];
+
+  // Social links array
+  const socialLinks = [
+    { icon: FaFacebookF, label: 'Facebook', href: 'https://www.facebook.com/gadaabanksc', color: 'text-blue-600' },
+    { icon: FaXTwitter, label: 'X', href: 'https://x.com/gadaabanksc', color: 'text-black' },
+    { icon: FaLinkedinIn, label: 'LinkedIn', href: 'https://www.linkedin.com/company/gadaa-bank-sc', color: 'text-blue-700' },
+    { icon: FaInstagram, label: 'Instagram', href: 'https://www.instagram.com/gadaabanksc/', color: 'text-pink-600' },
+    { icon: FaYoutube, label: 'YouTube', href: 'https://www.youtube.com/@Gadaa-Bank', color: 'text-red-600' },
+    { icon: FaTelegram, label: 'Telegram', href: 'https://t.me/GadaaBankOfficial', color: 'text-blue-500' }
   ];
 
   useEffect(() => {
@@ -456,23 +466,19 @@ const Header = () => {
                 <FaShareAlt />
                 <span>Socials</span>
               </button>
-              <div className="absolute right-0 mt-2 w-40 bg-white shadow-xl rounded-lg py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 border">
-                <a href="#" className="flex items-center space-x-3 px-4 py-2 hover:bg-gray-50 transition duration-200">
-                  <FaTwitter className="text-blue-400" />
-                  <span className="text-gray-700 text-sm">Twitter</span>
-                </a>
-                <a href="#" className="flex items-center space-x-3 px-4 py-2 hover:bg-gray-50 transition duration-200">
-                  <FaFacebookF className="text-blue-600" />
-                  <span className="text-gray-700 text-sm">Facebook</span>
-                </a>
-                <a href="#" className="flex items-center space-x-3 px-4 py-2 hover:bg-gray-50 transition duration-200">
-                  <FaLinkedinIn className="text-blue-700" />
-                  <span className="text-gray-700 text-sm">LinkedIn</span>
-                </a>
-                <a href="#" className="flex items-center space-x-3 px-4 py-2 hover:bg-gray-50 transition duration-200">
-                  <FaTelegram className="text-blue-500" />
-                  <span className="text-gray-700 text-sm">Telegram</span>
-                </a>
+              <div className="absolute right-0 mt-2 w-48 bg-white shadow-xl rounded-lg py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 border">
+                {socialLinks.map((social, idx) => (
+                  <a
+                    key={idx}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center space-x-3 px-4 py-2 hover:bg-gray-50 transition duration-200"
+                  >
+                    <social.icon className={social.color} size={16} />
+                    <span className="text-gray-700 text-sm">{social.label}</span>
+                  </a>
+                ))}
               </div>
             </div>
           </div>
@@ -650,18 +656,24 @@ const Header = () => {
                 {/* Mobile Social Links */}
                 <div className="mt-8 pt-6 border-t border-gray-200">
                   <div className="flex items-center justify-center space-x-4">
-                    <a href="#" className="p-3 bg-blue-400 text-white rounded-full hover:bg-blue-500 transition duration-300">
-                      <FaTwitter size={18} />
-                    </a>
-                    <a href="#" className="p-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition duration-300">
-                      <FaFacebookF size={18} />
-                    </a>
-                    <a href="#" className="p-3 bg-blue-700 text-white rounded-full hover:bg-blue-800 transition duration-300">
-                      <FaLinkedinIn size={18} />
-                    </a>
-                    <a href="#" className="p-3 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition duration-300">
-                      <FaTelegram size={18} />
-                    </a>
+                    {socialLinks.map((social, idx) => (
+                      <a
+                        key={idx}
+                        href={social.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`p-3 rounded-full transition duration-300 ${
+                          social.label === 'X' ? 'bg-black hover:bg-gray-800' :
+                          social.label === 'Facebook' ? 'bg-blue-600 hover:bg-blue-700' :
+                          social.label === 'LinkedIn' ? 'bg-blue-700 hover:bg-blue-800' :
+                          social.label === 'Instagram' ? 'bg-pink-600 hover:bg-pink-700' :
+                          social.label === 'YouTube' ? 'bg-red-600 hover:bg-red-700' :
+                          'bg-blue-500 hover:bg-blue-600'
+                        }`}
+                      >
+                        <social.icon className="text-white text-sm" size={18} />
+                      </a>
+                    ))}
                   </div>
                 </div>
               </div>
