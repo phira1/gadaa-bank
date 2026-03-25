@@ -1,5 +1,6 @@
 import React from 'react';
-import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram, FaYoutube, FaTelegram } from 'react-icons/fa';
+import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaFacebookF, FaLinkedinIn, FaInstagram, FaYoutube, FaTelegram } from 'react-icons/fa';
+import { FaXTwitter } from 'react-icons/fa6';
 
 const Contact = () => {
   const exchangeRates = [
@@ -10,12 +11,12 @@ const Contact = () => {
   ];
 
   const socialLinks = [
-    { icon: FaFacebookF, label: 'Facebook', href: '#', color: 'bg-[#3b5998] hover:bg-[#2d4373]' },
-    { icon: FaTwitter, label: 'Twitter', href: '#', color: 'bg-[#1da1f2] hover:bg-[#0d8bd9]' },
-    { icon: FaLinkedinIn, label: 'LinkedIn', href: '#', color: 'bg-[#0077b5] hover:bg-[#005582]' },
-    { icon: FaInstagram, label: 'Instagram', href: '#', color: 'bg-gradient-to-r from-[#405de6] via-[#833ab4] to-[#fd1d1d] hover:opacity-90' },
-    { icon: FaYoutube, label: 'YouTube', href: '#', color: 'bg-[#ff0000] hover:bg-[#cc0000]' },
-    { icon: FaTelegram, label: 'Telegram', href: '#', color: 'bg-[#0088cc] hover:bg-[#006699]' }
+    { icon: FaFacebookF, label: 'Facebook', href: 'https://www.facebook.com/gadaabanksc', color: 'bg-[#3b5998] hover:bg-[#2d4373]' },
+    { icon: FaXTwitter, label: 'X', href: 'https://x.com/gadaabanksc', color: 'bg-black hover:bg-gray-800' },
+    { icon: FaLinkedinIn, label: 'LinkedIn', href: 'https://www.linkedin.com/company/gadaa-bank-sc', color: 'bg-[#0077b5] hover:bg-[#005582]' },
+    { icon: FaInstagram, label: 'Instagram', href: 'https://www.instagram.com/gadaabanksc/', color: 'bg-gradient-to-r from-[#405de6] via-[#833ab4] to-[#fd1d1d] hover:opacity-90' },
+    { icon: FaYoutube, label: 'YouTube', href: 'https://www.youtube.com/@Gadaa-Bank', color: 'bg-[#ff0000] hover:bg-[#cc0000]' },
+    { icon: FaTelegram, label: 'Telegram', href: 'https://t.me/GadaaBankOfficial', color: 'bg-[#0088cc] hover:bg-[#006699]' }
   ];
 
   const contactInfo = [
@@ -89,6 +90,8 @@ const Contact = () => {
                   <a
                     key={index}
                     href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className={`${social.color} w-10 h-10 rounded-full flex items-center justify-center text-white transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg`}
                     aria-label={social.label}
                   >
