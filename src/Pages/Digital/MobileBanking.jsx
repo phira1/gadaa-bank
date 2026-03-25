@@ -201,10 +201,15 @@ const MobileBanking = () => {
             <p className="text-gray-700 text-xl mb-8">
               No queues. No paperwork. Just convenient, secure banking from the palm of your hand.
             </p>
-            <div className="flex items-center justify-center text-red-600">
+            <a 
+              href="https://play.google.com/store/apps/details?id=com.gadaaDigital"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center text-red-600 hover:text-red-700 transition-colors"
+            >
               <FaMobileAlt className="mr-3 text-2xl" />
               <span className="text-lg font-semibold">Download the Gadaa Mobile App Today</span>
-            </div>
+            </a>
           </div>
         </div>
 
@@ -217,7 +222,9 @@ const MobileBanking = () => {
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a 
-              href="#"
+              href="https://play.google.com/store/apps/details?id=com.gadaaDigital"
+              target="_blank"
+              rel="noopener noreferrer"
               className="px-8 py-3 bg-white text-red-600 font-bold rounded-lg hover:bg-gray-100 shadow-lg transition duration-300"
             >
               Download App
