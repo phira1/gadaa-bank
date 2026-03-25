@@ -208,7 +208,11 @@ const OtherServices = () => {
       </div>
 
       {/* Original Other Services Section */}
-      <div ref={otherServicesRef} className="bg-gray-50 py-8 md:py-12">
+      <div 
+        ref={otherServicesRef}
+        id="other-sharia"
+        className="bg-gray-50 py-8 md:py-12"
+      >
         <div className="container mx-auto px-3">
           <div className="text-center mb-8 md:mb-10">
             <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">

@@ -160,7 +160,7 @@ const ServicesPage = () => {
         { name: 'Amanah', status: 'available', link: '/services/amanah' },
         { name: 'Mudarabah Saving Accounts', status: 'available', link: '/services/mudarabah-saving-accounts' },
         { name: 'Financing & investment', status: 'available', link: '/services/financing-investment' },
-        { name: 'Other Services', status: 'available', link: '/services/other-services' }
+        { name: 'Other Services', status: 'available', link: '/services/other-services#other-sharia' } // <-- hash added
       ],
       stats: 'Sharia Compliant',
       badge: 'Ethical',
@@ -560,7 +560,65 @@ const ServicesPage = () => {
 
       {/* Main Content */}
       <div className="container mx-auto px-3 md:px-4 py-6 md:py-20 relative">
-        {/* Section Title */}
+        {/* MOVED CTA SECTION - Now appears right after hero images */}
+        <motion.div 
+          ref={ctaRef}
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={isCtaInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
+          transition={{ duration: 0.6, type: "spring", stiffness: 100 }}
+          className="relative rounded-lg md:rounded-3xl overflow-hidden mb-6 md:mb-20"
+        >
+          {/* Animated background elements */}
+          <motion.div 
+            initial={{ scale: 0 }}
+            animate={isCtaInView ? { scale: 1 } : { scale: 0 }}
+            transition={{ duration: 0.8 }}
+            className="absolute inset-0 bg-gradient-to-br from-red-600 via-red-700 to-black"
+          ></motion.div>
+          
+          <div className="relative z-10 p-4 md:p-8 lg:p-12 text-center">
+            <div className="max-w-3xl mx-auto">
+              <motion.div 
+                initial={{ scale: 0, rotate: -180 }}
+                animate={isCtaInView ? { scale: 1, rotate: 0 } : { scale: 0, rotate: -180 }}
+                transition={{ duration: 0.6, delay: 0.2, type: "spring", stiffness: 100 }}
+                className="inline-flex items-center justify-center w-10 h-10 md:w-16 md:h-16 bg-white/20 rounded-full backdrop-blur-sm mb-3 md:mb-6 border border-white/30"
+              >
+                <FaCrown className="text-white text-lg md:text-2xl" />
+              </motion.div>
+              
+              <motion.h2 
+                variants={fadeInUp}
+                initial="hidden"
+                animate={isCtaInView ? "visible" : "hidden"}
+                className="text-lg md:text-2xl lg:text-4xl font-bold text-white mb-2 md:mb-4 lg:mb-6"
+              >
+                Ready to Explore Our Services?
+              </motion.h2>
+              
+              <motion.p 
+                variants={fadeInUp}
+                initial="hidden"
+                animate={isCtaInView ? "visible" : "hidden"}
+                transition={{ delay: 0.1 }}
+                className="text-xs md:text-sm lg:text-base text-white/90 mb-3 md:mb-8 max-w-2xl mx-auto px-2"
+              >
+                Click on any service category above to see detailed features and products
+              </motion.p>
+              
+              <motion.p 
+                initial={{ opacity: 0 }}
+                animate={isCtaInView ? { opacity: 0.7 } : { opacity: 0 }}
+                transition={{ delay: 0.8 }}
+                className="text-white/70 mt-3 md:mt-6 text-xs md:text-sm"
+              >
+                Our customer service team is available 24/7 to assist you
+              </motion.p>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Section Title - Our Banking Services */}
         <motion.div 
           ref={servicesRef}
           initial={{ opacity: 0, y: 40 }}
@@ -597,7 +655,6 @@ const ServicesPage = () => {
 
         {/* Our Banking Services */}
         <motion.div 
-          ref={servicesRef}
           variants={staggerContainer}
           initial="hidden"
           animate={isServicesInView ? "visible" : "hidden"}
@@ -794,73 +851,6 @@ const ServicesPage = () => {
               </motion.div>
             ))}
           </motion.div>
-        </motion.div>
-
-        {/* Final CTA */}
-        <motion.div 
-          ref={ctaRef}
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={isCtaInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
-          transition={{ duration: 0.6, type: "spring", stiffness: 100 }}
-          className="relative rounded-lg md:rounded-3xl overflow-hidden mb-6 md:mb-20"
-        >
-          {/* Animated background elements */}
-          <motion.div 
-            initial={{ scale: 0 }}
-            animate={isCtaInView ? { scale: 1 } : { scale: 0 }}
-            transition={{ duration: 0.8 }}
-            className="absolute inset-0 bg-gradient-to-br from-red-600 via-red-700 to-black"
-          ></motion.div>
-          
-          <div className="relative z-10 p-4 md:p-8 lg:p-12 text-center">
-            <div className="max-w-3xl mx-auto">
-              <motion.div 
-                initial={{ scale: 0, rotate: -180 }}
-                animate={isCtaInView ? { scale: 1, rotate: 0 } : { scale: 0, rotate: -180 }}
-                transition={{ duration: 0.6, delay: 0.2, type: "spring", stiffness: 100 }}
-                className="inline-flex items-center justify-center w-10 h-10 md:w-16 md:h-16 bg-white/20 rounded-full backdrop-blur-sm mb-3 md:mb-6 border border-white/30"
-              >
-                <FaCrown className="text-white text-lg md:text-2xl" />
-              </motion.div>
-              
-              <motion.h2 
-                variants={fadeInUp}
-                initial="hidden"
-                animate={isCtaInView ? "visible" : "hidden"}
-                className="text-lg md:text-2xl lg:text-4xl font-bold text-white mb-2 md:mb-4 lg:mb-6"
-              >
-                Ready to Explore Our Services?
-              </motion.h2>
-              
-              <motion.p 
-                variants={fadeInUp}
-                initial="hidden"
-                animate={isCtaInView ? "visible" : "hidden"}
-                transition={{ delay: 0.1 }}
-                className="text-xs md:text-sm lg:text-base text-white/90 mb-3 md:mb-8 max-w-2xl mx-auto px-2"
-              >
-                Click on any service category above to see detailed features and products
-              </motion.p>
-              
-              <motion.div 
-                variants={staggerContainer}
-                initial="hidden"
-                animate={isCtaInView ? "visible" : "hidden"}
-                className="flex flex-col sm:flex-row gap-2 md:gap-4 lg:gap-6 justify-center"
-              >
-              
-              </motion.div>
-              
-              <motion.p 
-                initial={{ opacity: 0 }}
-                animate={isCtaInView ? { opacity: 0.7 } : { opacity: 0 }}
-                transition={{ delay: 0.8 }}
-                className="text-white/70 mt-3 md:mt-6 text-xs md:text-sm"
-              >
-                Our customer service team is available 24/7 to assist you
-              </motion.p>
-            </div>
-          </div>
         </motion.div>
       </div>
 
