@@ -27,6 +27,8 @@ const InternetBanking = () => {
     { icon: FaGlobe, title: '24/7 Access', description: 'Bank anytime, anywhere with web-based platform' },
   ];
 
+  const loginUrl = "https://ibs.gadaabank.com.et/internet-banking/login";
+
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
@@ -59,12 +61,22 @@ const InternetBanking = () => {
             <p className="text-gray-700">Gadaa Bank › Internet Banking</p>
           </div>
           <div className="flex space-x-4">
-            <button className="px-6 py-2 bg-red-600 text-white font-bold rounded-lg hover:bg-red-700 transition duration-300">
+            <a 
+              href={loginUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-6 py-2 bg-red-600 text-white font-bold rounded-lg hover:bg-red-700 transition duration-300"
+            >
               Sign In
-            </button>
-            <button className="px-6 py-2 border-2 border-red-600 text-red-600 font-bold rounded-lg hover:bg-red-50 transition duration-300">
+            </a>
+            <a 
+              href={loginUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-6 py-2 border-2 border-red-600 text-red-600 font-bold rounded-lg hover:bg-red-50 transition duration-300"
+            >
               Register
-            </button>
+            </a>
           </div>
         </div>
 
@@ -264,9 +276,14 @@ const InternetBanking = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="px-8 py-3 bg-white text-red-600 font-bold rounded-lg hover:bg-gray-100 shadow-lg transition duration-300">
+            <a 
+              href={loginUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-8 py-3 bg-white text-red-600 font-bold rounded-lg hover:bg-gray-100 shadow-lg transition duration-300"
+            >
               Register Now
-            </button>
+            </a>
             <Link 
               to="/contact"
               className="px-8 py-3 border-2 border-white text-white font-bold rounded-lg hover:bg-white/10 transition duration-300"
