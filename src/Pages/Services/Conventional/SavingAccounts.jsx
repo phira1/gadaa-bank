@@ -61,8 +61,8 @@ const SavingAccounts = () => {
   useEffect(() => {
     if (isHeroInView) {
       heroControls.start('visible');
-      // Animate interest rate counter
-      const targetRate = 4.5;
+      // Animate interest rate counter to 7%
+      const targetRate = 7;
       const duration = 2000;
       const steps = 60;
       const increment = targetRate / steps;
@@ -136,9 +136,9 @@ const SavingAccounts = () => {
   ];
 
   const stats = [
-    { value: '0', label: 'Minimum Opening Balance', suffix: 'ETB', icon: FaCoins },
+    { value: '50', label: 'Minimum Opening Balance', suffix: 'ETB', icon: FaCoins },
     { value: '24/7', label: 'Account Access', suffix: '', icon: FaMobileAlt },
-    { value: '50+', label: 'Branch Network', suffix: '', icon: FaMapMarkerAlt },
+    { value: '100+', label: 'Branch Network', suffix: '', icon: FaMapMarkerAlt },
     { value: '99.9%', label: 'Uptime', suffix: '', icon: FaCheckCircle }
   ];
 
@@ -424,7 +424,7 @@ const SavingAccounts = () => {
                 >
                   {interestRate}%
                 </motion.div>
-                <div className="text-white/90 text-base md:text-lg font-semibold">Annual Interest Rate</div>
+                <div className="text-white/90 text-base md:text-lg font-semibold">Interest Rate</div>
                 <div className="text-white/70 text-sm md:text-base mt-1 md:mt-2">Compounded Monthly</div>
                 <div className="mt-4 md:mt-6">
                   <div className="w-full bg-white/20 h-2 rounded-full overflow-hidden">
@@ -683,23 +683,25 @@ const SavingAccounts = () => {
                 className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center items-center"
               >
                 <motion.div variants={itemVariants}>
-                  <Link 
-                    to="/contact"
+                  <a 
+                    href="https://ibs.gadaabank.com.et/alpha-onboarding/get-started"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="group px-6 md:px-8 lg:px-12 py-3 md:py-4 lg:py-5 bg-white text-red-600 font-bold rounded-xl md:rounded-2xl hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-xl flex items-center justify-center gap-2 md:gap-3 text-sm md:text-base"
                   >
                     <span>Open An Account Now</span>
                     <FaArrowRight className="group-hover:translate-x-2 transition-transform duration-300" />
-                  </Link>
+                  </a>
                 </motion.div>
                 
                 <motion.div variants={itemVariants}>
-                  <Link 
-                    to="/contact"
+                  <a 
+                    href="tel:+251641"
                     className="group px-6 md:px-8 lg:px-12 py-3 md:py-4 lg:py-5 border-2 border-white text-white font-bold rounded-xl md:rounded-2xl hover:bg-white/10 transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2 md:gap-3 text-sm md:text-base"
                   >
                     <FaPhoneAlt />
                     <span>Speak with Advisor</span>
-                  </Link>
+                  </a>
                 </motion.div>
               </motion.div>
 
@@ -710,9 +712,9 @@ const SavingAccounts = () => {
                 className="mt-8 md:mt-12 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 lg:gap-8"
               >
                 {[
-                  { icon: FaMapMarkerAlt, title: 'Visit Branch', desc: '50+ locations' },
+                  { icon: FaMapMarkerAlt, title: 'Visit Branch', desc: '100+ locations' },
                   { icon: FaEnvelope, title: 'Email Us', desc: 'savings@gadaabank.com' },
-                  { icon: FaPhoneAlt, title: 'Call Center', desc: '+251-XXX-XXX-XXX' }
+                  { icon: FaPhoneAlt, title: 'Call Center', desc: '+251-641' }
                 ].map((item, index) => (
                   <motion.div 
                     key={index}
