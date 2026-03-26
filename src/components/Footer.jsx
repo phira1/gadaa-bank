@@ -1,7 +1,6 @@
 import React from 'react';
-import { FaFacebookF, FaLinkedinIn, FaInstagram, FaYoutube, FaTelegram } from 'react-icons/fa';
-import { FaXTwitter } from 'react-icons/fa6';
 import { Link } from 'react-scroll';
+import { socialLinks } from '../data/socialLinks';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -14,14 +13,17 @@ const Footer = () => {
     { label: 'Resources', href: 'resources' }
   ];
 
-  const socialLinks = [
-    { icon: FaFacebookF, label: 'Facebook', href: 'https://www.facebook.com/gadaabanksc', color: 'bg-[#3b5998] hover:bg-[#2d4373]' },
-    { icon: FaXTwitter, label: 'X', href: 'https://x.com/gadaabanksc', color: 'bg-black hover:bg-gray-800' },
-    { icon: FaLinkedinIn, label: 'LinkedIn', href: 'https://www.linkedin.com/company/gadaa-bank-sc', color: 'bg-[#0077b5] hover:bg-[#005582]' },
-    { icon: FaInstagram, label: 'Instagram', href: 'https://www.instagram.com/gadaabanksc/', color: 'bg-gradient-to-r from-[#405de6] via-[#833ab4] to-[#fd1d1d] hover:opacity-90' },
-    { icon: FaYoutube, label: 'YouTube', href: 'https://www.youtube.com/@Gadaa-Bank', color: 'bg-[#ff0000] hover:bg-[#cc0000]' },
-    { icon: FaTelegram, label: 'Telegram', href: 'https://t.me/GadaaBankOfficial', color: 'bg-[#0088cc] hover:bg-[#006699]' }
-  ];
+  const getBgColor = (label) => {
+    switch (label) {
+      case 'Facebook': return 'bg-[#3b5998] hover:bg-[#2d4373]';
+      case 'X': return 'bg-black hover:bg-gray-800';
+      case 'LinkedIn': return 'bg-[#0077b5] hover:bg-[#005582]';
+      case 'Instagram': return 'bg-gradient-to-r from-[#405de6] via-[#833ab4] to-[#fd1d1d] hover:opacity-90';
+      case 'YouTube': return 'bg-[#ff0000] hover:bg-[#cc0000]';
+      case 'Telegram': return 'bg-[#0088cc] hover:bg-[#006699]';
+      default: return 'bg-gray-500';
+    }
+  };
 
   return (
     <footer id="contact-footer" className="bg-gray-900 text-white py-12">
@@ -29,9 +31,9 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           {/* Brand Section */}
           <div className="space-y-4 animate-fadeInUp">
-            <img 
-              src="/images/download2.jpg" 
-              alt="Gadaa Bank Logo" 
+            <img
+              src="/images/download2.jpg"
+              alt="Gadaa Bank Logo"
               className="h-12 w-auto"
             />
             <p className="text-lg font-semibold text-red-500">New Generations Bank</p>
@@ -46,7 +48,7 @@ const Footer = () => {
             <ul className="space-y-2">
               {quickLinks.map((link, index) => (
                 <li key={index}>
-                  <Link 
+                  <Link
                     to={link.href}
                     smooth={true}
                     duration={500}
@@ -68,8 +70,7 @@ const Footer = () => {
             </address>
             <p className="text-gray-300 mb-2 text-sm">Hotline: <span className="font-semibold">641</span></p>
             <p className="text-gray-300 mb-6 text-sm">Email: info@gadaabank.com.et</p>
-            
-            {/* Social Media with Hover Effects */}
+
             <div>
               <h5 className="text-lg font-semibold mb-3">Follow Us</h5>
               <div className="flex flex-wrap gap-2">
@@ -79,9 +80,9 @@ const Footer = () => {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`${social.color} w-9 h-9 rounded-full flex items-center justify-center text-white transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg`}
+                    className={`${getBgColor(social.label)} w-9 h-9 rounded-full flex items-center justify-center text-white transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg`}
                     aria-label={social.label}
-                    style={{animationDelay: `${index * 100}ms`}}
+                    style={{ animationDelay: `${index * 100}ms` }}
                   >
                     <social.icon size={16} />
                   </a>

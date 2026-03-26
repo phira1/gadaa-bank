@@ -25,6 +25,8 @@ import GuaranteeFacilities from './Pages/Services/Conventional/GuaranteeFaciliti
 import ForexService from './Pages/Services/International/ForexService'  // CHANGED: capital P
 import TradeFinance from './Pages/Services/International/TradeFinance'  // CHANGED: capital P
 import MoneyTransfer from './Pages/Services/International/MoneyTransfer'  // CHANGED: capital P
+import DiasporaFcyProducts from './Pages/Services/International/DiasporaFcyProducts'  // NEW
+import CorrespondentAccounts from './Pages/Services/International/CorrespondentAccounts'  // NEW
 
 // Interest Free Banking - Individual Service Pages
 import DepositProduct from './Pages/Services/InterestFree/DepositProduct'  // CHANGED: capital P
@@ -64,6 +66,7 @@ import InvestorContactPage from './Pages/Investors/InvestorContactPage'  // CHAN
 // Other Pages
 import TermsPage from './Pages/Terms/TermsPage'  // CHANGED: capital P
 import ContactPage from './Pages/Contact/ContactPage'  // CHANGED: capital P
+import CommunityPage from './Pages/Community/CommunityPage'  // NEW
 
 function App() {
   return (
@@ -94,6 +97,8 @@ function App() {
         <Route path="services/forex-service" element={<ForexService />} />
         <Route path="services/trade-finance" element={<TradeFinance />} />
         <Route path="services/money-transfer" element={<MoneyTransfer />} />
+        <Route path="services/diaspora-fcy-products" element={<DiasporaFcyProducts />} />
+        <Route path="services/correspondent-accounts" element={<CorrespondentAccounts />} />
         
         {/* Interest Free Banking - Individual Services */}
         <Route path="services/deposit-product" element={<DepositProduct />} />
@@ -107,6 +112,9 @@ function App() {
         <Route path="services/diaspora-account" element={<DiasporaAccount />} />
         <Route path="services/diaspora-loan-facilities" element={<DiasporaLoanFacilities />} />
         <Route path="services/ngo-corporate-loan-packages" element={<NgoCorporateLoanPackages />} />
+        
+        {/* Community Banking */}
+        <Route path="community" element={<CommunityPage />} />
         
         {/* Digital Routes */}
         <Route path="digital" element={<DigitalPage />} />
