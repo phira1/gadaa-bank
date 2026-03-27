@@ -403,7 +403,7 @@ const AboutPage = () => {
                   className="grid grid-cols-2 gap-3 md:gap-4"
                 >
                   {[
-                    { value: '100+', label: 'Branches', bg: 'bg-red-50', text: 'text-red-600' },
+                    { value: '110+', label: 'Branches', bg: 'bg-red-50', text: 'text-red-600' },
                     { value: '32K+', label: 'Shareholders', bg: 'bg-gray-900', text: 'text-white' },
                     { value: '1.43B+', label: 'Capital', bg: 'bg-red-50', text: 'text-red-600' },
                     { value: '100+', label: 'Banking Products', bg: 'bg-gray-900', text: 'text-white' }
@@ -550,8 +550,7 @@ const AboutPage = () => {
                     transition={{ delay: 0.1 }}
                     className="text-white/90 leading-relaxed text-sm md:text-base relative z-10"
                   >
-                    To provide innovative banking solutions that empower individuals, 
-                    businesses, and communities towards sustainable economic growth.
+                    We are committed to deliver superior and customer-centric full-fledged banking services to our community in a friendly environment by deploying competent employees and art-of-technology whilst optimizing shareholders' value.
                   </motion.p>
                 </motion.div>
               </div>

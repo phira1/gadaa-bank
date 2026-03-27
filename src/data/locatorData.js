@@ -1,0 +1,165 @@
+// src/data/locatorData.js
+
+export const atmLocations = [
+  {
+    id: 1,
+    city: "Adama",
+    address: "In Oromia Region, East Shewa Zone, Adama Town, Degaga Kebele, H.No.1201",
+    mapLink: "https://maps.google.com/?q=In+Oromia+Region%2C+East+Shewa+Zone%2C+Adama+Town%2C+Degaga+Kebele%2C+H.No.1201"
+  },
+  {
+    id: 2,
+    city: "Bishoftu",
+    address: "In Oromia Region, East Shoa zone, Bishoftu town, Kebele 05, H.N. New Matti Biuling",
+    mapLink: "https://maps.google.com/?q=In+Oromia+Region%2C+East+Shoa+zone%2C+Bishoftu+town%2C+Kebele+05%2C+H.N.+New+Matti+Biuling"
+  },
+  {
+    id: 3,
+    city: "Chafe Anani",
+    address: "In Addis Ababa City, Lideta Subcity, wereda 09, H. No. NEW, Alsam Cheleleq building",
+    mapLink: "https://maps.google.com/?q=In+Addis+Ababa+City%2C+Lideta+Subcity%2C+wereda+09%2C+H.+No.+NEW%2C+Alsam+Cheleleq+building"
+  },
+  {
+    id: 4,
+    city: "Dire Dawa",
+    address: "Dire Dawa City Administration, Dire Dawa City, H.N. New, next to Walgamor Building",
+    mapLink: "https://maps.google.com/?q=Dire+Dawa+City+Administration%2C+Dire+Dawa+City%2C+H.N.+New%2C+next+to+Walgamor+Building"
+  },
+  {
+    id: 5,
+    city: "Dollo Bidena",
+    address: "In Addis Ababa City, Kirkos Subcity, Wereda 03, H.N 745 infront of Wengelawit Building",
+    mapLink: "https://maps.google.com/?q=In+Addis+Ababa+City%2C+Kirkos+Subcity%2C+Wereda+03%2C+H.N+745+infront+of+Wengelawit+Building"
+  },
+  {
+    id: 6,
+    city: "Ertu",
+    address: "In Addis Ababa City, Nifas Silk Lafto Sub city, Wereda 03, H.N. New, Habtam Center Building",
+    mapLink: "https://maps.google.com/?q=In+Addis+Ababa+City%2C+Nifas+Silk+Lafto+Sub+city%2C+Wereda+03%2C+H.N.+New%2C+Habtam+Center+Building"
+  },
+  {
+    id: 7,
+    city: "Gefersa Nono",
+    address: "In Oromia Sheger city, Melka Nono Sub city, Tariku Building",
+    mapLink: "https://maps.google.com/?q=In+Oromia+Sheger+city%2C+Melka+Nono+Sub+city%2C+Tariku+Building"
+  },
+  {
+    id: 8,
+    city: "Hirmata",
+    address: "In Oromia region, Jimma zone, Jimma Town, kebele Hirmata, H.No: New inside Merkato",
+    mapLink: "https://maps.google.com/?q=In+Oromia+region%2C+Jimma+zone%2C+Jimma+Town%2C+kebele+Hirmata%2C+H.No%3A+New+inside+Merkato"
+  },
+  {
+    id: 9,
+    city: "Lemi kura",
+    address: "In Addis Ababa City, Lemi Kura Sub-City, Woreda 10 H.No. 202, Fox Building",
+    mapLink: "https://maps.google.com/?q=In+Addis+Ababa+City%2C+Lemi+Kura+Sub-City%2C+Woreda+10+H.No.+202%2C+Fox+Building"
+  },
+  {
+    id: 10,
+    city: "Nekemte",
+    address: "In Oromia Region, Nekemte city, Kebele Qeso 05, H.No. New around Ajip, Gutema Builing",
+    mapLink: "https://maps.google.com/?q=In+Oromia+Region%2C+Nekemte+city%2C+Kebele+Qeso+05%2C+H.No.+New+around+Ajip%2C+Gutema+Builing"
+  }
+];
+
+export const branchLocations = [
+  { id: 1, city: "Abba mela", address: "Finfinnee, Arada sub city ,Woreda 01 , former Atekelt tera,Kalifa Bussines Center 1st Floor", mapLink: "https://maps.google.com/?q=Finfinnee%2C+Arada+sub+city+%2CWoreda+01+%2C+former+Atekelt+tera%2CKalifa+Bussines+Center+1st+Floor" },
+  { id: 2, city: "Adama", address: "Oromia, East Shewa Zone, Adama Town, Degaga Kebele", mapLink: "https://maps.google.com/?q=Oromia%2C+East+Shewa+Zone%2C+Adama+Town%2C+Degaga+Kebele" },
+  { id: 3, city: "Agemsa", address: "Finfinnee, Addis Ketema S/City, Woreda 01, Mercato Gesho Tera, On Afia Market Center", mapLink: "https://maps.google.com/?q=Finfinnee%2C+Addis+Ketema+S%2FCity%2C+Woreda+01%2C+Mercato+Gesho+Tera%2C+On+Afia+Market+Center" },
+  { id: 4, city: "Aggaaroo", address: "Oromia, Jima, Aggaaroo town,kebele 1", mapLink: "https://maps.google.com/?q=Oromia%2C+Jima%2C+Aggaaroo+town%2Ckebele+1" },
+  { id: 5, city: "Al Noor Branch(IFB)", address: "Oromiyaa, Bale Robe, Robe town, around Central", mapLink: "https://maps.google.com/?q=Oromiyaa%2C+Bale+Robe%2C+Robe+town%2C+around+Central" },
+  { id: 6, city: "Alemgena", address: "Oromia special zone, Sebata awash wereda , Kebele 02", mapLink: "https://maps.google.com/?q=Oromia+special+zone%2C+Sebata+awash+wereda+%2C+Kebele+02" },
+  { id: 7, city: "Ambo", address: "Oromia region , West Shew zone, Ambo Town , kebele 01", mapLink: "https://maps.google.com/?q=Oromia+region+%2C+West+Shew+zone%2C+Ambo+Town+%2C+kebele+01" },
+  { id: 8, city: "Asella", address: "Oromia Region, Arsi Zone,Asella Woreda, Kebele Hinku", mapLink: "https://maps.google.com/?q=Oromia+Region%2C+Arsi+Zone%2CAsella+Woreda%2C+Kebele+Hinku" },
+  { id: 9, city: "Assosa Branch", address: "Benishangul Gumuz Regional state,Asosa town, kebele 04,Blen Dana Hotel Ground Flour", mapLink: "https://maps.google.com/?q=Benishangul+Gumuz+Regional+state%2CAsosa+town%2C+kebele+04%2CBlen+Dana+Hotel+Ground+Flour" },
+  { id: 10, city: "Babo", address: "Finfinnee, Nifas Silk Lafto Sub-City, Woreda: 04 H.No. 1828", mapLink: "https://maps.google.com/?q=Finfinnee%2C+Nifas+Silk+Lafto+Sub-City%2C+Woreda%3A+04+H.No.+1828" },
+  { id: 11, city: "Bako", address: "Oromia Regional State Bako City , WestShewa Zone, 01 Kebele", mapLink: "https://maps.google.com/?q=Oromia+Regional+State+Bako+City+%2C+WestShewa+Zone%2C+01+Kebele" },
+  { id: 12, city: "Bale Robe", address: "Oromia Region, Robe City, Kebele 02, H.No. 430", mapLink: "https://maps.google.com/?q=Oromia+Region%2C+Robe+City%2C+Kebele+02%2C+H.No.+430" },
+  { id: 13, city: "Baraka Branch ( IFB only)", address: "Finfinnee, Addis Ketema Sub city,Woreda 01,Mercato -Sidamo Tera ,Zeway Tower 3rd floor", mapLink: "https://maps.google.com/?q=Finfinnee%2C+Addis+Ketema+Sub+city%2CWoreda+01%2CMercato+-Sidamo+Tera+%2CZeway+Tower+3rd+floor" },
+  { id: 14, city: "Batu", address: "Oromia, Eastern Showa Zone,Batu Town ,Kebele 02 , Around Tele", mapLink: "https://maps.google.com/?q=Oromia%2C+Eastern+Showa+Zone%2CBatu+Town+%2CKebele+02+%2C+Around+Tele" },
+  { id: 15, city: "Bedale", address: "Oromia Region, Oromia Zone Buno Bedele Zone, Bedele City, Kebele 01", mapLink: "https://maps.google.com/?q=Oromia+Region%2C+Oromia+Zone+Buno+Bedele+Zone%2C+Bedele+City%2C+Kebele+01" },
+  { id: 16, city: "Betel", address: "In Addis Ababa City, Kolfe keraniyo Sub-City, Woreda: 07 .", mapLink: "https://maps.google.com/?q=In+Addis+Ababa+City%2C+Kolfe+keraniyo+Sub-City%2C+Woreda%3A+07+." },
+  { id: 17, city: "Bilal (IFB)", address: "Finfinnee, kolfe keraniyo sub city,around torhayiloch ,Dream Tower ground floor", mapLink: "https://maps.google.com/?q=Finfinnee%2C+kolfe+keraniyo+sub+city%2Caround+torhayiloch+%2CDream+Tower+ground+floor" },
+  { id: 18, city: "Bishoftu", address: "Oromia Region ,East Shoa zone, Bishoftu town ,Kebele 05", mapLink: "https://maps.google.com/?q=Oromia+Region+%2CEast+Shoa+zone%2C+Bishoftu+town+%2CKebele+05" },
+  { id: 19, city: "Bole Bulbula", address: "A.A City Administration, Bole S/City, Woreda 12 , .", mapLink: "https://maps.google.com/?q=A.A+City+Administration%2C+Bole+S%2FCity%2C+Woreda+12+%2C+." },
+  { id: 20, city: "Bole Lami", address: "Finfinnee, Bole sub city, woreda 10 ,Locally known around Hayat fiyel bet", mapLink: "https://maps.google.com/?q=Finfinnee%2C+Bole+sub+city%2C+woreda+10+%2CLocally+known+around+Hayat+fiyel+bet" },
+  { id: 21, city: "Bule Hora", address: "Oromia Region, Oromia Region West Guji Zone, Bule Hora City, Kebele 01, .", mapLink: "https://maps.google.com/?q=Oromia+Region%2C+Oromia+Region+West+Guji+Zone%2C+Bule+Hora+City%2C+Kebele+01%2C+." },
+  { id: 22, city: "Burayu", address: "In Oromia Region,Oromia Special Zone,Burayu City, Kebele Gefersa Burayu , .", mapLink: "https://maps.google.com/?q=In+Oromia+Region%2COromia+Special+Zone%2CBurayu+City%2C+Kebele+Gefersa+Burayu+%2C+." },
+  { id: 23, city: "Burka Wayu", address: "Finfinnee, Nifas Silk lafto Sub city,Woreda 13, Area Known as Haile Garment, Around sefera", mapLink: "https://maps.google.com/?q=Finfinnee%2C+Nifas+Silk+lafto+Sub+city%2CWoreda+13%2C+Area+Known+as+Haile+Garment%2C+Around+sefera" },
+  { id: 24, city: "Chafe Anani", address: "In Addis Ababa Region ,Lideta Subcity , wereda 09", mapLink: "https://maps.google.com/?q=In+Addis+Ababa+Region+%2CLideta+Subcity+%2C+wereda+09" },
+  { id: 25, city: "Dadhacha Arara", address: "Oromia Regional state, East shewa zone , Adama City, Administration Tedecha Arara Kebele, H.No. 254", mapLink: "https://maps.google.com/?q=Oromia+Regional+state%2C+East+shewa+zone+%2C+Adama+City%2C+Administration+Tedecha+Arara+Kebele%2C+H.No.+254" },
+  { id: 26, city: "Dembi Dollo", address: "Oromia Regional State, Qeellam Wallaggaa Zone, Dambi Doollo Town,lafto Sub City Kebele", mapLink: "https://maps.google.com/?q=Oromia+Regional+State%2C+Qeellam+Wallaggaa+Zone%2C+Dambi+Doollo+Town%2Clafto+Sub+City+Kebele" },
+  { id: 27, city: "Derartu Tulu Adebabay", address: "In Addis Ababa City, Yeka Sub-City, Woreda: 13 .", mapLink: "https://maps.google.com/?q=In+Addis+Ababa+City%2C+Yeka+Sub-City%2C+Woreda%3A+13+." },
+  { id: 28, city: "Dhagaa Booraa Branch", address: "Finfinnee, Bole Sub city woreda 03,Hayahulet area,Abegaz Hotel Ground Floor ,House Number new.", mapLink: "https://maps.google.com/?q=Finfinnee%2C+Bole+Sub+city+woreda+03%2CHayahulet+area%2CAbegaz+Hotel+Ground+Floor+%2CHouse+Number+new." },
+  { id: 29, city: "Dhagaa Booraa Branch", address: "Finfinnee, Bole Sub city woreda 03,Bole Brass Area", mapLink: "https://maps.google.com/?q=Finfinnee%2C+Bole+Sub+city+woreda+03%2CBole+Brass+Area" },
+  { id: 30, city: "Dire Dawa", address: "Dire Dawa City Administration Dire Dawa City , .", mapLink: "https://maps.google.com/?q=Dire+Dawa+City+Administration+Dire+Dawa+City+%2C+." },
+  { id: 31, city: "Dirree Sololiyaa Branch", address: "Oromiyaa Regional state ,Shaggar City ,Buraayyuu Sub city,Dirree Sololiyaa", mapLink: "https://maps.google.com/?q=Oromiyaa+Regional+state+%2CShaggar+City+%2CBuraayyuu+Sub+city%2CDirree+Sololiyaa" },
+  { id: 32, city: "Dodola", address: "Oromia Region, west arsi zone, Dodola Twon,in between Samson Beyene Tower and Abdo Wario Tower, in front of CBE.", mapLink: "https://maps.google.com/?q=Oromia+Region%2C+west+arsi+zone%2C+Dodola+Twon%2Cin+between+Samson+Beyene+Tower+and+Abdo+Wario+Tower%2C+in+front+of+CBE." },
+  { id: 33, city: "Dollo Bidena", address: "In Addis Ababa Region ,Kirkos Subcity ,Wereda 03", mapLink: "https://maps.google.com/?q=In+Addis+Ababa+Region+%2CKirkos+Subcity+%2CWereda+03" },
+  { id: 34, city: "Dukem", address: "Oromia Regional State ,East Showa Zone,Dukem Town ,Melka Dukem Kebele", mapLink: "https://maps.google.com/?q=Oromia+Regional+State+%2CEast+Showa+Zone%2CDukem+Town+%2CMelka+Dukem+Kebele" },
+  { id: 35, city: "Edao Boru", address: "In Addis Ababa Region, Addis Ketema Sub city ,Wereda 04", mapLink: "https://maps.google.com/?q=In+Addis+Ababa+Region%2C+Addis+Ketema+Sub+city+%2CWereda+04" },
+  { id: 36, city: "Elilly", address: "In Addis Ababa City, Kirkos Sub-City, Woreda: 08 .", mapLink: "https://maps.google.com/?q=In+Addis+Ababa+City%2C+Kirkos+Sub-City%2C+Woreda%3A+08+." },
+  { id: 37, city: "Ertu", address: "In Addis Ababa Region , Nifas Silk Lafto Sub city , Wereda 03", mapLink: "https://maps.google.com/?q=In+Addis+Ababa+Region+%2C+Nifas+Silk+Lafto+Sub+city+%2C+Wereda+03" },
+  { id: 38, city: "Fiche", address: "In Oromia region , North Shew zone, Fitche town , kebele 04, H.No New", mapLink: "https://maps.google.com/?q=In+Oromia+region+%2C+North+Shew+zone%2C+Fitche+town+%2C+kebele+04%2C+H.No+New" },
+  { id: 39, city: "Figa", address: "Addis Abeba City , Lemi Kura Sub-City, Wereda 09, .", mapLink: "https://maps.google.com/?q=Addis+Abeba+City+%2C+Lemi+Kura+Sub-City%2C+Wereda+09%2C+." },
+  { id: 40, city: "Furi-Hilal/Full Fledged IFB Branch", address: "oromia Rehgional State, Sheger City Administration, Furi Woreda , Kebele 04, .", mapLink: "https://maps.google.com/?q=oromia+Rehgional+State%2C+Sheger+City+Administration%2C+Furi+Woreda+%2C+Kebele+04%2C+." },
+  { id: 41, city: "Furii", address: "In Oromia special zone,sebeta town furi , Kebele 04, H.No. 1264", mapLink: "https://maps.google.com/?q=In+Oromia+special+zone%2Csebeta+town+furi+%2C+Kebele+04%2C+H.No.+1264" },
+  { id: 42, city: "Gadaa Faajji", address: "Oromia Region,Sheger City ,Wereda furi ,Gedaa Faajji kebele", mapLink: "https://maps.google.com/?q=Oromia+Region%2CSheger+City+%2CWereda+furi+%2CGedaa+Faajji+kebele" },
+  { id: 43, city: "Garjii Branch", address: "Finfinnee, Bole Sub city, Woreda 13, Around Mebrat Haile.", mapLink: "https://maps.google.com/?q=Finfinnee%2C+Bole+Sub+city%2C+Woreda+13%2C+Around+Mebrat+Haile." },
+  { id: 44, city: "Gefersa Guje", address: "In Oromia Special zone, Burayu town , Gefersa Guje kebele", mapLink: "https://maps.google.com/?q=In+Oromia+Special+zone%2C+Burayu+town+%2C+Gefersa+Guje+kebele" },
+  { id: 45, city: "Gefersa Nono", address: "In Oromia Special zone, Burayu town , Gefersa Nono kebele.", mapLink: "https://maps.google.com/?q=In+Oromia+Special+zone%2C+Burayu+town+%2C+Gefersa+Nono+kebele." },
+  { id: 46, city: "Gelan", address: "In Oromia special zone,Gelan town , Kebele Gelan, .", mapLink: "https://maps.google.com/?q=In+Oromia+special+zone%2CGelan+town+%2C+Kebele+Gelan%2C+." },
+  { id: 47, city: "Gimbi", address: "Oromia Region, Gimbi City , West Wellega zone kebele 02, H. No. 1013", mapLink: "https://maps.google.com/?q=Oromia+Region%2C+Gimbi+City+%2C+West+Wellega+zone+kebele+02%2C+H.+No.+1013" },
+  { id: 48, city: "Ginchi", address: "In Oromia region , West Shew zone, Dandi Wereda, Ginchi town , kebele 02", mapLink: "https://maps.google.com/?q=In+Oromia+region+%2C+West+Shew+zone%2C+Dandi+Wereda%2C+Ginchi+town+%2C+kebele+02" },
+  { id: 49, city: "Golbo", address: "In AddisAbeba city Kirkos Sub City, wereda 05, .", mapLink: "https://maps.google.com/?q=In+AddisAbeba+city+Kirkos+Sub+City%2C+wereda+05%2C+." },
+  { id: 50, city: "Goro", address: "Addis Ababa City Administration ,Lami-Kura Sub City ,Woreda 09,.,Around Goro Adebabay", mapLink: "https://maps.google.com/?q=Addis+Ababa+City+Administration+%2CLami-Kura+Sub+City+%2CWoreda+09%2C.%2CAround+Goro+Adebabay" },
+  { id: 51, city: "Gulele", address: "Finfinnee, Addis ketema Sub city , woreda 05,Around Medanalem High School", mapLink: "https://maps.google.com/?q=Finfinnee%2C+Addis+ketema+Sub+city+%2C+woreda+05%2CAround+Medanalem+High+School" },
+  { id: 52, city: "Hachalu Hundesa", address: "Addis Ababa city Administration,Akaki Kality sub city,Woreda 14 ,House Number new, Area Known as Gelan Condominium.", mapLink: "https://maps.google.com/?q=Addis+Ababa+city+Administration%2CAkaki+Kality+sub+city%2CWoreda+14+%2CHouse+Number+new%2C+Area+Known+as+Gelan+Condominium." },
+  { id: 53, city: "Harar", address: "Harar Region,Harar city, Kebele 18, .", mapLink: "https://maps.google.com/?q=Harar+Region%2CHarar+city%2C+Kebele+18%2C+." },
+  { id: 54, city: "Hawasa", address: "Sidama Regional state ,Hawasa City,Tesso Kebele ,Around Aroge Menahara,Next to South Star Hotel,Infront of Meskel Adebaby.", mapLink: "https://maps.google.com/?q=Sidama+Regional+state+%2CHawasa+City%2CTesso+Kebele+%2CAround+Aroge+Menahara%2CNext+to+South+Star+Hotel%2CInfront+of+Meskel+Adebaby." },
+  { id: 55, city: "Hirmata", address: "In Oromia region , Jimma zone, Jimma Town , kebele Hirmata, .", mapLink: "https://maps.google.com/?q=In+Oromia+region+%2C+Jimma+zone%2C+Jimma+Town+%2C+kebele+Hirmata%2C+." },
+  { id: 56, city: "Holota", address: "Oromia, buno Bedale, badele city, dhaba hotel ground floor", mapLink: "https://maps.google.com/?q=Oromia%2C+buno+Bedale%2C+badele+city%2C+dhaba+hotel+ground+floor" },
+  { id: 57, city: "Hurufa Rare", address: "Finfinnee, Addis Ketema Sub city ,Wereda 08", mapLink: "https://maps.google.com/?q=Finfinnee%2C+Addis+Ketema+Sub+city+%2CWereda+08" },
+  { id: 58, city: "Jamoo Branch", address: "Finfinnee, Nifas silk Lafto sub city,Jamoo 1 Area,Infront of All-Mart ,Nati guest House Ground Floor", mapLink: "https://maps.google.com/?q=Finfinnee%2C+Nifas+silk+Lafto+sub+city%2CJamoo+1+Area%2CInfront+of+All-Mart+%2CNati+guest+House+Ground+Floor" },
+  { id: 59, city: "Jimma", address: "Oromia Regional State Jimma City , Hawitu Mendera Kebele", mapLink: "https://maps.google.com/?q=Oromia+Regional+State+Jimma+City+%2C+Hawitu+Mendera+Kebele" },
+  { id: 60, city: "Kality", address: "Finfinnee, Akaki Kality Sub City, wereda 08, .", mapLink: "https://maps.google.com/?q=Finfinnee%2C+Akaki+Kality+Sub+City%2C+wereda+08%2C+." },
+  { id: 61, city: "Kality Sub Branch", address: "Finfinnee, Akaki Kality Sub City, Woreda 03, House new", mapLink: "https://maps.google.com/?q=Finfinnee%2C+Akaki+Kality+Sub+City%2C+Woreda+03%2C+House+new" },
+  { id: 62, city: "Kedamay Weyane", address: "Tigray, Mekele city, Kedamay Weyane Sub city, around Kedamay weyane mall", mapLink: "https://maps.google.com/?q=Tigray%2C+Mekele+city%2C+Kedamay+Weyane+Sub+city%2C+around+Kedamay+weyane+mall" },
+  { id: 63, city: "Kedamay Weyane Branch", address: "Tigray regional state,Mekele city,Kedamay Weyane Sub city, around Kedamay weyane mall", mapLink: "https://maps.google.com/?q=Tigray+regional+state%2CMekele+city%2CKedamay+Weyane+Sub+city%2C+around+Kedamay+weyane+mall" },
+  { id: 64, city: "Keta Burayu", address: "Oromia Region,Oromia Special Zone,Burayu City, Kebele Burayu Keta, .,", mapLink: "https://maps.google.com/?q=Oromia+Region%2COromia+Special+Zone%2CBurayu+City%2C+Kebele+Burayu+Keta%2C+.%2C" },
+  { id: 65, city: "Ketele Jateni", address: "Finfinnee, Addis Ketema Sub-City, Woreda: 10 H.No. 234", mapLink: "https://maps.google.com/?q=Finfinnee%2C+Addis+Ketema+Sub-City%2C+Woreda%3A+10+H.No.+234" },
+  { id: 66, city: "Kuusaa Branch", address: "Finfinnee, bole sub city ,woreda 03 ,bole brass around moenco", mapLink: "https://maps.app.goo.gl/yoKQEKt8w5EKumGf8" }, // kept original link
+  { id: 67, city: "Kuusaa Branch", address: "Finfinnee, Bole Sub city woreda 03,Bole Brass Area ,", mapLink: "https://maps.google.com/?q=Finfinnee%2C+Bole+Sub+city+woreda+03%2CBole+Brass+Area+%2C" },
+  { id: 68, city: "Laaftoo Branch", address: "Finfinnee, nifas silk lafto sub city,Lafto around Bilal masjid,house number nw", mapLink: "https://maps.google.com/?q=Finfinnee%2C+nifas+silk+lafto+sub+city%2CLafto+around+Bilal+masjid%2Chouse+number+nw" },
+  { id: 69, city: "Lege Tafo", address: "Oromia Special zone, Lege Tafo Lege dadi town ,kebele 01", mapLink: "https://maps.google.com/?q=Oromia+Special+zone%2C+Lege+Tafo+Lege+dadi+town+%2Ckebele+01" },
+  { id: 70, city: "Lemi Kura", address: "Finfinnee, Lemi Kura Sub-City, Woreda፡10 H.No. 202", mapLink: "https://maps.google.com/?q=Finfinnee%2C+Lemi+Kura+Sub-City%2C+Woreda%E1%8D%A110+H.No.+202" },
+  { id: 71, city: "Lumee", address: "Finfinnee ,nifas silk lafto sub city,Adey Ababa area", mapLink: "https://maps.google.com/?q=Finfinnee+%2Cnifas+silk+lafto+sub+city%2CAdey+Ababa+area" },
+  { id: 72, city: "Lumee Branch", address: "Finfinnee,nifas silk lafto sub city, Saris adey Ababa area,house number nw", mapLink: "https://maps.google.com/?q=Finfinnee%2Cnifas+silk+lafto+sub+city%2C+Saris+adey+Ababa+area%2Chouse+number+nw" },
+  { id: 73, city: "Mekele", address: "Tigray ,mekele City ,Kedamay Woyene,Near Sheba University College,Infront of My Cafe", mapLink: "https://maps.google.com/?q=Tigray+%2Cmekele+City+%2CKedamay+Woyene%2CNear+Sheba+University+College%2CInfront+of+My+Cafe" },
+  { id: 74, city: "Meki", address: "Oromia,East Showa Zone,Meki Town ,Kebele 02,Around Harmony", mapLink: "https://maps.google.com/?q=Oromia%2CEast+Showa+Zone%2CMeki+Town+%2CKebele+02%2CAround+Harmony" },
+  { id: 75, city: "Mettu", address: "Oromia Region, Metu City, Kebele : Abe Mole .", mapLink: "https://maps.google.com/?q=Oromia+Region%2C+Metu+City%2C+Kebele+%3A+Abe+Mole+." },
+  { id: 76, city: "Mojo Branch", address: "Oromiyaa, East showa Zone, Mojo town ,kebele 01,infornt of mojo town municipality", mapLink: "https://maps.google.com/?q=Oromiyaa%2C+East+showa+Zone%2C+Mojo+town+%2Ckebele+01%2Cinfornt+of+mojo+town+municipality" },
+  { id: 77, city: "Moyale Sub Branch", address: "Oromia Region ,Boyale City, Borena Zone, Kebele 01, H. N. 04", mapLink: "https://maps.google.com/?q=Oromia+Region+%2CBoyale+City%2C+Borena+Zone%2C+Kebele+01%2C+H.+N.+04" },
+  { id: 78, city: "Negele Arsi", address: "Oromia Region,West Arsi Zone, Negele town, Kebele 01,", mapLink: "https://maps.google.com/?q=Oromia+Region%2CWest+Arsi+Zone%2C+Negele+town%2C+Kebele+01%2C" },
+  { id: 79, city: "Nekemte", address: "Oromia Region, Nekemte city, Kebele Qeso 05,", mapLink: "https://maps.google.com/?q=Oromia+Region%2C+Nekemte+city%2C+Kebele+Qeso+05%2C" },
+  { id: 80, city: "Odaa Branch", address: "Finfinne, kirkos, Mexico, KK building ground floor", mapLink: "https://maps.google.com/?q=Finfinne%2C+kirkos%2C+Mexico%2C+KK+building+ground+floor" },
+  { id: 81, city: "Qurqura", address: "Oromia Region , East Shoa zone ,Bishoftu Town , 01 Kebele", mapLink: "https://maps.google.com/?q=Oromia+Region+%2C+East+Shoa+zone+%2CBishoftu+Town+%2C+01+Kebele" },
+  { id: 82, city: "Roobalee Branch", address: "Finfinnee, Kirkos Sub city,Woreda09,on the road from Dembel to Meskel flower,infront of Wegret Constructions PLC", mapLink: "https://maps.google.com/?q=Finfinnee%2C+Kirkos+Sub+city%2CWoreda09%2Con+the+road+from+Dembel+to+Meskel+flower%2Cinfront+of+Wegret+Constructions+PLC" },
+  { id: 83, city: "Sebeta", address: "Oromia Special zone, Sebeta town , kebele 01", mapLink: "https://maps.google.com/?q=Oromia+Special+zone%2C+Sebeta+town+%2C+kebele+01" },
+  { id: 84, city: "Shakiso", address: "Oromia Regional State Shakiso City , Guji Zone, 01 Kebele, .", mapLink: "https://maps.google.com/?q=Oromia+Regional+State+Shakiso+City+%2C+Guji+Zone%2C+01+Kebele%2C+." },
+  { id: 85, city: "Shashamane", address: "Oromia Region, West Arsi Zone,Shashamane Woreda, Kebele 02", mapLink: "https://maps.google.com/?q=Oromia+Region%2C+West+Arsi+Zone%2CShashamane+Woreda%2C+Kebele+02" },
+  { id: 86, city: "Shubbu Ejersa", address: "Finfinnee, Bole Sub-city ,Woreda 03, Around Atlas Square", mapLink: "https://maps.google.com/?q=Finfinnee%2C+Bole+Sub-city+%2CWoreda+03%2C+Around+Atlas+Square" },
+  { id: 87, city: "Sulula Gerbi", address: "Finfinnee, Addis Ketema Sub city , Woreda 01, Sobelen Bussines Center,2nd Floor", mapLink: "https://maps.google.com/?q=Finfinnee%2C+Addis+Ketema+Sub+city+%2C+Woreda+01%2C+Sobelen+Bussines+Center%2C2nd+Floor" },
+  { id: 88, city: "Sululta", address: "Oromia special zone,sululta city, Kebele 01,", mapLink: "https://maps.google.com/?q=Oromia+special+zone%2Csululta+city%2C+Kebele+01%2C" },
+  { id: 89, city: "Torbaan Oboo", address: "Oromia Regional state ,Eastern showa zone ,Adama city ,Kebele 11 mazoria,infront of Dire Dawa Tower ,Birhanu Tower ground Floor", mapLink: "https://maps.google.com/?q=Oromia+Regional+state+%2CEastern+showa+zone+%2CAdama+city+%2CKebele+11+mazoria%2Cinfront+of+Dire+Dawa+Tower+%2CBirhanu+Tower+ground+Floor" },
+  { id: 90, city: "Torbaan Oboo", address: "Oromia, eastern showa, Adama city ,Kebele 11 mazoria", mapLink: "https://maps.google.com/?q=Oromia%2C+eastern+showa%2C+Adama+city+%2CKebele+11+mazoria" },
+  { id: 91, city: "Torban Ekka", address: "Finfinnee,Lami Kura sub city ,Woreda 13, Area Known As wessen.", mapLink: "https://maps.google.com/?q=Finfinnee%2CLami+Kura+sub+city+%2CWoreda+13%2C+Area+Known+As+wessen." },
+  { id: 92, city: "Tulu Dimtu", address: "Finfinnee, Akaki Kality Sub-City, Wereda 09", mapLink: "https://maps.google.com/?q=Finfinnee%2C+Akaki+Kality+Sub-City%2C+Wereda+09" },
+  { id: 93, city: "Uta Wayu", address: "Oromia, West Arsi Zone, Shashamane Woreda, Kebele 01", mapLink: "https://maps.google.com/?q=Oromia%2C+West+Arsi+Zone%2C+Shashamane+Woreda%2C+Kebele+01" },
+  { id: 94, city: "Wadessa", address: "Finfinnee, Arada Sub city, Piazza, FDRE PUBLIC SERVANTS SOCIAL SECURITY ADMINISTRATION TOWER,1ST FLOOR, Around Ethio Ceramic", mapLink: "https://maps.google.com/?q=Finfinnee%2C+Arada+Sub+city%2C+Piazza%2C+FDRE+PUBLIC+SERVANTS+SOCIAL+SECURITY+ADMINISTRATION+TOWER%2C1ST+FLOOR%2C+Around+Ethio+Ceramic" },
+  { id: 95, city: "Woliso", address: "Oromia, Southwest Shewa, WolisoTown, Kebele 04", mapLink: "https://maps.google.com/?q=Oromia%2C+Southwest+Shewa%2C+WolisoTown%2C+Kebele+04" },
+  { id: 96, city: "Yabello", address: "Oromia, Borena zone, Yabello Town , kebele 01", mapLink: "https://maps.google.com/?q=Oromia%2C+Borena+zone%2C+Yabello+Town+%2C+kebele+01" }
+];
+
+export const agentLocations = []; // Will be filled later

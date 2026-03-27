@@ -69,6 +69,11 @@ import TermsPage from './Pages/Terms/TermsPage'
 import ContactPage from './Pages/Contact/ContactPage'
 import CommunityPage from './Pages/Community/CommunityPage'
 
+// Locator Pages
+import ATMLocator from './Pages/Locator/ATMLocator'
+import BranchLocator from './Pages/Locator/BranchLocator'
+import AgentLocator from './Pages/Locator/AgentLocator'
+
 function App() {
   return (
     <Routes>
@@ -139,6 +144,11 @@ function App() {
         <Route path="investors/shareholder-events" element={<ShareholderEventsPage />} />
         <Route path="investors/press-releases" element={<PressReleasesPage />} />
         <Route path="investors/contact" element={<InvestorContactPage />} />
+        
+        {/* Locator Routes */}
+        <Route path="locators/atm" element={<ATMLocator />} />
+        <Route path="locators/branch" element={<BranchLocator />} />
+        <Route path="locators/agent" element={<AgentLocator />} />
         
         {/* Other Routes */}
         <Route path="terms" element={<TermsPage />} />
