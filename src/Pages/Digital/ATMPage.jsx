@@ -6,13 +6,14 @@ import {
   FaMapMarkerAlt,
   FaPhone,
   FaEnvelope,
-  FaSearch,
   FaBuilding,
   FaUserFriends,
   FaMoneyBillWave,
   FaCreditCard,
-  FaShieldAlt
+  FaShieldAlt,
+  FaHeadset
 } from 'react-icons/fa';
+import { contactInfo, departments } from '../../data/contactData';
 
 const ATMPage = () => {
   const locatorTypes = [
@@ -20,18 +21,21 @@ const ATMPage = () => {
       icon: FaMapMarkerAlt, 
       title: 'ATM Locator', 
       description: 'Find nearest ATMs',
+      path: '/locators/atm',
       color: 'from-red-600 to-red-800'
     },
     { 
       icon: FaBuilding, 
       title: 'Branch Locator', 
       description: 'Locate Gadaa Bank branches',
+      path: '/locators/branch',
       color: 'from-gray-900 to-black'
     },
     { 
       icon: FaUserFriends, 
       title: 'Agent Locator', 
       description: 'Find authorized agents',
+      path: '/locators/agent',
       color: 'from-red-700 to-red-900'
     },
   ];
@@ -45,6 +49,11 @@ const ATMPage = () => {
     'Multi-currency support'
   ];
 
+  // Helper to get contact details
+  const hotline = contactInfo.find(info => info.title === 'Hotline')?.details || '641';
+  const email = contactInfo.find(info => info.title === 'Email')?.details || 'info@gadaabank.com.et';
+  const mainOffice = contactInfo.find(info => info.title === 'Head Office')?.details || 'Gotera, Kirkos SubCity W-03, HNo-#745';
+
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
@@ -52,6 +61,8 @@ const ATMPage = () => {
         <div className="container mx-auto px-4">
           <nav className="flex items-center space-x-2 text-sm">
             <Link to="/" className="text-white/80 hover:text-white">Home</Link>
+            <span className="text-red-500">›</span>
+            <Link to="/digital" className="text-white/80 hover:text-white">Digital Banking</Link>
             <span className="text-red-500">›</span>
             <span className="text-white font-semibold">ATM Services</span>
           </nav>
@@ -141,8 +152,9 @@ const ATMPage = () => {
             {locatorTypes.map((locator, index) => {
               const Icon = locator.icon;
               return (
-                <div 
+                <Link 
                   key={index}
+                  to={locator.path}
                   className={`bg-gradient-to-br ${locator.color} rounded-2xl p-8 text-white shadow-xl hover:shadow-2xl hover:-translate-y-2 transition-all duration-500`}
                 >
                   <div className="text-center">
@@ -151,11 +163,11 @@ const ATMPage = () => {
                     </div>
                     <h3 className="text-2xl font-bold mb-3">{locator.title}</h3>
                     <p className="text-white/80 mb-6">{locator.description}</p>
-                    <button className="px-6 py-2 bg-white/20 hover:bg-white/30 rounded-lg font-semibold transition-all duration-300">
+                    <div className="px-6 py-2 bg-white/20 hover:bg-white/30 rounded-lg font-semibold transition-all duration-300 inline-block">
                       Find Now
-                    </button>
+                    </div>
                   </div>
-                </div>
+                </Link>
               );
             })}
           </div>
@@ -173,10 +185,11 @@ const ATMPage = () => {
               <div className="grid md:grid-cols-3 gap-6">
                 <div className="flex flex-col items-center">
                   <div className="w-14 h-14 bg-white/10 rounded-full flex items-center justify-center mb-4">
-                    <FaPhone className="text-white text-xl" />
+                    <FaHeadset className="text-white text-xl" />
                   </div>
                   <h3 className="font-bold text-lg mb-2">Call Us</h3>
-                  <p className="text-white/70">+251-XXX-ATM-HELP</p>
+                  <p className="text-white/70">{hotline}</p>
+                  <p className="text-white/50 text-sm">24/7 Customer Service</p>
                 </div>
                 
                 <div className="flex flex-col items-center">
@@ -184,15 +197,17 @@ const ATMPage = () => {
                     <FaEnvelope className="text-white text-xl" />
                   </div>
                   <h3 className="font-bold text-lg mb-2">Email</h3>
-                  <p className="text-white/70">atm@gadaabank.com</p>
+                  <p className="text-white/70">{email}</p>
+                  <p className="text-white/50 text-sm">General Inquiries</p>
                 </div>
                 
                 <div className="flex flex-col items-center">
                   <div className="w-14 h-14 bg-white/10 rounded-full flex items-center justify-center mb-4">
-                    <FaSearch className="text-white text-xl" />
+                    <FaBuilding className="text-white text-xl" />
                   </div>
-                  <h3 className="font-bold text-lg mb-2">Online</h3>
-                  <p className="text-white/70">Submit Inquiry</p>
+                  <h3 className="font-bold text-lg mb-2">Head Office</h3>
+                  <p className="text-white/70">{mainOffice}</p>
+                  <p className="text-white/50 text-sm">Addis Ababa, Ethiopia</p>
                 </div>
               </div>
             </div>

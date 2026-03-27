@@ -60,29 +60,20 @@ const DigitalPage = () => {
     }
   ];
 
-  const stats = [
-    { value: '50K+', label: 'Active Users' },
-    { value: '24/7', label: 'Service Availability' },
-    { value: '100%', label: 'Secure Transactions' },
-    { value: 'Instant', label: 'Processing Speed' }
-  ];
-
   const securityFeatures = [
-    { icon: FaLock, title: 'Encryption', detail: '256-bit SSL encryption' },
-    { icon: FaShieldAlt, title: 'Protection', detail: 'Real-time fraud detection' },
-    { icon: FaGlobe, title: 'Monitoring', detail: '24/7 security monitoring' }
+    { icon: FaLock, title: 'Encryption' },
+    { icon: FaShieldAlt, title: 'Protection' },
+    { icon: FaGlobe, title: 'Monitoring' }
   ];
 
   // Create refs for scroll animations
   const heroRef = useRef(null);
-  const statsRef = useRef(null);
   const servicesRef = useRef(null);
   const securityRef = useRef(null);
   const ctaRef = useRef(null);
   
   // Use InView hooks
   const isHeroInView = useInView(heroRef, { once: true, amount: 0.3 });
-  const isStatsInView = useInView(statsRef, { once: true, amount: 0.3 });
   const isServicesInView = useInView(servicesRef, { once: true, amount: 0.2 });
   const isSecurityInView = useInView(securityRef, { once: true, amount: 0.3 });
   const isCtaInView = useInView(ctaRef, { once: true, amount: 0.3 });
@@ -111,30 +102,6 @@ const DigitalPage = () => {
     }
   };
 
-  const fadeInLeft = {
-    hidden: { opacity: 0, x: -40 },
-    visible: { 
-      opacity: 1, 
-      x: 0,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut"
-      }
-    }
-  };
-
-  const scaleUp = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: { 
-      opacity: 1, 
-      scale: 1,
-      transition: {
-        duration: 0.5,
-        ease: "easeOut"
-      }
-    }
-  };
-
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -155,19 +122,6 @@ const DigitalPage = () => {
       transition: {
         delay: i * 0.1,
         duration: 0.4,
-        ease: "easeOut"
-      }
-    })
-  };
-
-  const statItemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: (i) => ({
-      opacity: 1,
-      y: 0,
-      transition: {
-        delay: i * 0.15,
-        duration: 0.5,
         ease: "easeOut"
       }
     })
@@ -253,34 +207,6 @@ const DigitalPage = () => {
 
       {/* Main Content */}
       <div className="container mx-auto px-4 py-12">
-        {/* Stats Section - Stagger animation */}
-        <div ref={statsRef} className="mb-16">
-          <motion.div 
-            variants={staggerContainer}
-            initial="hidden"
-            animate={isStatsInView ? "visible" : "hidden"}
-            className="flex flex-wrap justify-center gap-8 md:gap-12"
-          >
-            {stats.map((stat, index) => (
-              <motion.div 
-                key={index} 
-                variants={statItemVariants}
-                custom={index}
-                className="text-center"
-              >
-                <motion.div 
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                  className="text-3xl md:text-4xl font-bold text-gray-900 mb-2"
-                >
-                  {stat.value}
-                </motion.div>
-                <div className="text-sm text-gray-600 font-medium">{stat.label}</div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-
         {/* Services Section Title */}
         <motion.div 
           ref={servicesRef}
@@ -349,7 +275,7 @@ const DigitalPage = () => {
           </motion.div>
         </div>
 
-        {/* Security Section */}
+        {/* Security Section - Simplified (icons and titles only) */}
         <motion.div 
           ref={securityRef}
           initial={{ opacity: 0, y: 40 }}
@@ -374,8 +300,7 @@ const DigitalPage = () => {
               transition={{ delay: 0.1 }}
               className="text-gray-600 text-base mb-10 max-w-3xl mx-auto"
             >
-              All our digital banking services are protected with bank-level security, 
-              including 256-bit encryption, two-factor authentication, and 24/7 fraud monitoring.
+              All our digital banking services are protected with bank-level security.
             </motion.p>
             
             {/* Horizontal layout for mobile and desktop */}
@@ -403,8 +328,7 @@ const DigitalPage = () => {
                   >
                     <feature.icon className="text-lg md:text-xl text-gray-900" />
                   </motion.div>
-                  <div className="text-lg md:text-xl font-bold text-gray-900 mb-2">{feature.title}</div>
-                  <div className="text-gray-600 text-sm md:text-base text-center px-2">{feature.detail}</div>
+                  <div className="text-lg md:text-xl font-bold text-gray-900">{feature.title}</div>
                 </motion.div>
               ))}
             </motion.div>
