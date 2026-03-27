@@ -1,72 +1,73 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
-import MainLayout from './Pages/Layout/MainLayout'  // CHANGED: capital P
-import HomePage from './Pages/Home/HomePage'  // CHANGED: capital P
+import MainLayout from './Pages/Layout/MainLayout'
+import HomePage from './Pages/Home/HomePage'
 
 // About Pages
-import AboutPage from './Pages/About/AboutPage'  // CHANGED: capital P
-import CompanyHistory from './Pages/About/CompanyHistory'  // CHANGED: capital P
-import OrganizationalStructure from './Pages/About/OrganizationalStructure'  // CHANGED: capital P
-import CompanyTeams from './Pages/About/CompanyTeams'  // CHANGED: capital P
-import OtherProfiles from './Pages/About/OtherProfiles'  // CHANGED: capital P
+import AboutPage from './Pages/About/AboutPage'
+import CompanyHistory from './Pages/About/CompanyHistory'
+import OrganizationalStructure from './Pages/About/OrganizationalStructure'
+import CompanyTeams from './Pages/About/CompanyTeams'          // Board of Directors
+import ManagementTeam from './Pages/About/ManagementTeam'    // NEW
+import OtherProfiles from './Pages/About/OtherProfiles'
 
 // Services Pages
-import ServicesPage from './Pages/Services/ServicesPage'  // CHANGED: capital P
+import ServicesPage from './Pages/Services/ServicesPage'
 
 // Conventional Banking - Individual Service Pages
-import SavingAccounts from './Pages/Services/Conventional/SavingAccounts'  // CHANGED: capital P
-import CurrentAccounts from './Pages/Services/Conventional/CurrentAccounts'  // CHANGED: capital P
-import TimeDeposit from './Pages/Services/Conventional/TimeDeposit'  // CHANGED: capital P
-import PersonalLoans from './Pages/Services/Conventional/PersonalLoans'  // CHANGED: capital P
-import BusinessLoans from './Pages/Services/Conventional/BusinessLoans'  // CHANGED: capital P
-import GuaranteeFacilities from './Pages/Services/Conventional/GuaranteeFacilities'  // CHANGED: capital P
+import SavingAccounts from './Pages/Services/Conventional/SavingAccounts'
+import CurrentAccounts from './Pages/Services/Conventional/CurrentAccounts'
+import TimeDeposit from './Pages/Services/Conventional/TimeDeposit'
+import PersonalLoans from './Pages/Services/Conventional/PersonalLoans'
+import BusinessLoans from './Pages/Services/Conventional/BusinessLoans'
+import GuaranteeFacilities from './Pages/Services/Conventional/GuaranteeFacilities'
 
 // International Banking - Individual Service Pages
-import ForexService from './Pages/Services/International/ForexService'  // CHANGED: capital P
-import TradeFinance from './Pages/Services/International/TradeFinance'  // CHANGED: capital P
-import MoneyTransfer from './Pages/Services/International/MoneyTransfer'  // CHANGED: capital P
-import DiasporaFcyProducts from './Pages/Services/International/DiasporaFcyProducts'  // NEW
-import CorrespondentAccounts from './Pages/Services/International/CorrespondentAccounts'  // NEW
+import ForexService from './Pages/Services/International/ForexService'
+import TradeFinance from './Pages/Services/International/TradeFinance'
+import MoneyTransfer from './Pages/Services/International/MoneyTransfer'
+import DiasporaFcyProducts from './Pages/Services/International/DiasporaFcyProducts'
+import CorrespondentAccounts from './Pages/Services/International/CorrespondentAccounts'
 
 // Interest Free Banking - Individual Service Pages
-import DepositProduct from './Pages/Services/InterestFree/DepositProduct'  // CHANGED: capital P
-import WadiahSaving from './Pages/Services/InterestFree/WadiahSaving'  // CHANGED: capital P
-import Amanah from './Pages/Services/InterestFree/Amanah'  // CHANGED: capital P
-import MudarabahSavingAccounts from './Pages/Services/InterestFree/MudarabahSavingAccounts'  // CHANGED: capital P
-import FinancingInvestment from './Pages/Services/InterestFree/FinancingInvestment'  // CHANGED: capital P
-import OtherServices from './Pages/Services/InterestFree/OtherServices'  // CHANGED: capital P
+import DepositProduct from './Pages/Services/InterestFree/DepositProduct'
+import WadiahSaving from './Pages/Services/InterestFree/WadiahSaving'
+import Amanah from './Pages/Services/InterestFree/Amanah'
+import MudarabahSavingAccounts from './Pages/Services/InterestFree/MudarabahSavingAccounts'
+import FinancingInvestment from './Pages/Services/InterestFree/FinancingInvestment'
+import OtherServices from './Pages/Services/InterestFree/OtherServices'
 
 // Corporate Banking - Individual Service Pages
-import DiasporaAccount from './Pages/Services/Corporate/DiasporaAccount'  // CHANGED: capital P
-import DiasporaLoanFacilities from './Pages/Services/Corporate/DiasporaLoanFacilities'  // CHANGED: capital P
-import NgoCorporateLoanPackages from './Pages/Services/Corporate/NgoCorporateLoanPackages'  // CHANGED: capital P
+import DiasporaAccount from './Pages/Services/Corporate/DiasporaAccount'
+import DiasporaLoanFacilities from './Pages/Services/Corporate/DiasporaLoanFacilities'
+import NgoCorporateLoanPackages from './Pages/Services/Corporate/NgoCorporateLoanPackages'
 
 // Digital Pages
-import DigitalPage from './Pages/Digital/DigitalPage'  // CHANGED: capital P
-import MobileBanking from './Pages/Digital/MobileBanking'  // CHANGED: capital P
-import InternetBanking from './Pages/Digital/InternetBanking'  // CHANGED: capital P
-import CardBanking from './Pages/Digital/CardBanking'  // CHANGED: capital P
-import ATMPage from './Pages/Digital/ATMPage'  // CHANGED: capital P
-import MerchantPage from './Pages/Digital/MerchantPage'  // CHANGED: capital P
+import DigitalPage from './Pages/Digital/DigitalPage'
+import MobileBanking from './Pages/Digital/MobileBanking'
+import InternetBanking from './Pages/Digital/InternetBanking'
+import CardBanking from './Pages/Digital/CardBanking'
+import ATMPage from './Pages/Digital/ATMPage'
+import MerchantPage from './Pages/Digital/MerchantPage'
 
 // Resources Pages
-import ResourcesPage from './Pages/Resources/ResourcesPage'  // CHANGED: capital P
-import NewsPage from './Pages/Resources/NewsPage'  // CHANGED: capital P
-import VacancyPage from './Pages/Resources/VacancyPage'  // CHANGED: capital P
-import AnnualReportPage from './Pages/Resources/AnnualReportPage'  // CHANGED: capital P
+import ResourcesPage from './Pages/Resources/ResourcesPage'
+import NewsPage from './Pages/Resources/NewsPage'
+import VacancyPage from './Pages/Resources/VacancyPage'
+import AnnualReportPage from './Pages/Resources/AnnualReportPage'
 
 // Investors Pages
-import InvestorsPage from './Pages/Investors/InvestorsPage'  // CHANGED: capital P
-import ProspectusPage from './Pages/Investors/ProspectusPage'  // CHANGED: capital P
-import FinancialReportsPage from './Pages/Investors/FinancialReportsPage'  // CHANGED: capital P
-import ShareholderEventsPage from './Pages/Investors/ShareholderEventsPage'  // CHANGED: capital P
-import PressReleasesPage from './Pages/Investors/PressReleasesPage'  // CHANGED: capital P
-import InvestorContactPage from './Pages/Investors/InvestorContactPage'  // CHANGED: capital P
+import InvestorsPage from './Pages/Investors/InvestorsPage'
+import ProspectusPage from './Pages/Investors/ProspectusPage'
+import FinancialReportsPage from './Pages/Investors/FinancialReportsPage'
+import ShareholderEventsPage from './Pages/Investors/ShareholderEventsPage'
+import PressReleasesPage from './Pages/Investors/PressReleasesPage'
+import InvestorContactPage from './Pages/Investors/InvestorContactPage'
 
 // Other Pages
-import TermsPage from './Pages/Terms/TermsPage'  // CHANGED: capital P
-import ContactPage from './Pages/Contact/ContactPage'  // CHANGED: capital P
-import CommunityPage from './Pages/Community/CommunityPage'  // NEW
+import TermsPage from './Pages/Terms/TermsPage'
+import ContactPage from './Pages/Contact/ContactPage'
+import CommunityPage from './Pages/Community/CommunityPage'
 
 function App() {
   return (
@@ -79,7 +80,8 @@ function App() {
         <Route path="about" element={<AboutPage />} />
         <Route path="about/company-history" element={<CompanyHistory />} />
         <Route path="about/organizational-structure" element={<OrganizationalStructure />} />
-        <Route path="about/company-teams" element={<CompanyTeams />} />
+        <Route path="about/company-teams" element={<CompanyTeams />} />        {/* Board of Directors */}
+        <Route path="about/management-team" element={<ManagementTeam />} />   {/* NEW: Management Team */}
         <Route path="about/other-profiles" element={<OtherProfiles />} />
         
         {/* Services Routes */}

@@ -13,14 +13,8 @@ export const navItems = [
     dropdownItems: [
       { label: 'Company History', path: '/about/company-history' },
       { label: 'Organizational Structure', path: '/about/organizational-structure' },
-      {
-        label: 'Company Teams',
-        path: '/about/company-teams',
-        subItems: [
-          { label: 'Board of Directors', path: '/about/company-teams#board' },
-          { label: 'Management Team', path: '/about/company-teams#management' }
-        ]
-      },
+      { label: 'Board of Directors', path: '/about/company-teams' },   // changed from "Company Teams"
+      { label: 'Management Team', path: '/about/management-team' },    // new entry
       {
         label: 'Other Profiles',
         path: '/about/other-profiles',
