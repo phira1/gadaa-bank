@@ -1,7 +1,6 @@
-// src/components/LoanCalculator.jsx
 import React, { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { FaCalculator, FaChartLine, FaMoneyBillWave, FaPercent, FaCalendarAlt } from 'react-icons/fa';
+import { FaCalculator, FaChartLine, FaMoneyBillWave, FaPercent, FaCalendarAlt, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { loanDefaults, loanRanges } from '../data/loanData';
 
 const formatCurrency = (value) => {
@@ -16,82 +15,108 @@ const LoanCalculator = () => {
   const [loanAmount, setLoanAmount] = useState(loanDefaults.amount);
   const [interestRate, setInterestRate] = useState(loanDefaults.rate);
   const [loanTermMonths, setLoanTermMonths] = useState(loanDefaults.termMonths);
+  const [currentPage, setCurrentPage] = useState(1);
+  const rowsPerPage = 12;
 
   // Calculate loan details
-  const { monthlyPayment, totalPayment, totalInterest } = useMemo(() => {
+  const { monthlyPayment, totalPayment, totalInterest, amortizationRows } = useMemo(() => {
     if (loanAmount <= 0 || interestRate <= 0 || loanTermMonths <= 0) {
-      return { monthlyPayment: 0, totalPayment: 0, totalInterest: 0 };
+      return { monthlyPayment: 0, totalPayment: 0, totalInterest: 0, amortizationRows: [] };
     }
     const monthlyRate = interestRate / 100 / 12;
     if (monthlyRate === 0) {
       const monthly = loanAmount / loanTermMonths;
+      const rows = [];
+      let remaining = loanAmount;
+      for (let i = 1; i <= loanTermMonths; i++) {
+        const principal = monthly;
+        remaining -= principal;
+        rows.push({
+          month: i,
+          payment: monthly,
+          principal,
+          interest: 0,
+          remaining: remaining > 0 ? remaining : 0,
+        });
+      }
       return {
         monthlyPayment: monthly,
         totalPayment: loanAmount,
         totalInterest: 0,
+        amortizationRows: rows,
       };
     }
     const factor = Math.pow(1 + monthlyRate, loanTermMonths);
     const monthly = (loanAmount * monthlyRate * factor) / (factor - 1);
     const total = monthly * loanTermMonths;
-    return {
-      monthlyPayment: monthly,
-      totalPayment: total,
-      totalInterest: total - loanAmount,
-    };
-  }, [loanAmount, interestRate, loanTermMonths]);
+    const totalInterestAmt = total - loanAmount;
 
-  // Format values
-  const formattedMonthly = formatCurrency(monthlyPayment);
-  const formattedTotal = formatCurrency(totalPayment);
-  const formattedInterest = formatCurrency(totalInterest);
-
-  // Slider handlers
-  const handleAmountChange = (e) => setLoanAmount(Number(e.target.value));
-  const handleRateChange = (e) => setInterestRate(Number(e.target.value));
-  const handleTermChange = (e) => setLoanTermMonths(Number(e.target.value));
-
-  // Input handlers with validation
-  const handleAmountInput = (e) => {
-    let val = Number(e.target.value);
-    if (isNaN(val)) val = loanRanges.amount.min;
-    val = Math.min(loanRanges.amount.max, Math.max(loanRanges.amount.min, val));
-    setLoanAmount(val);
-  };
-  const handleRateInput = (e) => {
-    let val = Number(e.target.value);
-    if (isNaN(val)) val = loanRanges.rate.min;
-    val = Math.min(loanRanges.rate.max, Math.max(loanRanges.rate.min, val));
-    setInterestRate(val);
-  };
-  const handleTermInput = (e) => {
-    let val = Number(e.target.value);
-    if (isNaN(val)) val = loanRanges.termMonths.min;
-    val = Math.min(loanRanges.termMonths.max, Math.max(loanRanges.termMonths.min, val));
-    setLoanTermMonths(val);
-  };
-
-  // Simple amortization table (optional, shows first 12 months if term <= 12)
-  const showAmortization = loanTermMonths <= 12 && loanTermMonths > 0;
-  const amortizationRows = useMemo(() => {
-    if (!showAmortization) return [];
     const rows = [];
     let remaining = loanAmount;
-    const monthlyRate = interestRate / 100 / 12;
     for (let i = 1; i <= loanTermMonths; i++) {
       const interest = remaining * monthlyRate;
-      const principal = monthlyPayment - interest;
+      const principal = monthly - interest;
       remaining -= principal;
       rows.push({
         month: i,
-        payment: monthlyPayment,
+        payment: monthly,
         principal,
         interest,
         remaining: remaining > 0 ? remaining : 0,
       });
     }
-    return rows;
-  }, [loanAmount, interestRate, loanTermMonths, monthlyPayment, showAmortization]);
+    return {
+      monthlyPayment: monthly,
+      totalPayment: total,
+      totalInterest: totalInterestAmt,
+      amortizationRows: rows,
+    };
+  }, [loanAmount, interestRate, loanTermMonths]);
+
+  const totalPages = Math.ceil(amortizationRows.length / rowsPerPage);
+  const paginatedRows = amortizationRows.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
+
+  const handlePageChange = (newPage) => {
+    setCurrentPage(Math.min(totalPages, Math.max(1, newPage)));
+  };
+
+  const formattedMonthly = formatCurrency(monthlyPayment);
+  const formattedTotal = formatCurrency(totalPayment);
+  const formattedInterest = formatCurrency(totalInterest);
+
+  // Slider handlers
+  const handleAmountSlider = (e) => setLoanAmount(Number(e.target.value));
+  const handleRateSlider = (e) => setInterestRate(Number(e.target.value));
+  const handleTermSlider = (e) => setLoanTermMonths(Number(e.target.value));
+
+  // Input handlers - allow empty string, otherwise parse number
+  const handleAmountInput = (e) => {
+    const val = e.target.value;
+    if (val === '') {
+      setLoanAmount(0);
+    } else {
+      const num = Number(val);
+      if (!isNaN(num)) setLoanAmount(num);
+    }
+  };
+  const handleRateInput = (e) => {
+    const val = e.target.value;
+    if (val === '') {
+      setInterestRate(0);
+    } else {
+      const num = Number(val);
+      if (!isNaN(num)) setInterestRate(num);
+    }
+  };
+  const handleTermInput = (e) => {
+    const val = e.target.value;
+    if (val === '') {
+      setLoanTermMonths(0);
+    } else {
+      const num = Number(val);
+      if (!isNaN(num)) setLoanTermMonths(num);
+    }
+  };
 
   return (
     <div className="bg-white rounded-2xl shadow-xl p-6 md:p-8 border border-gray-100">
@@ -118,13 +143,13 @@ const LoanCalculator = () => {
             min={loanRanges.amount.min}
             max={loanRanges.amount.max}
             step={loanRanges.amount.step}
-            value={loanAmount}
-            onChange={handleAmountChange}
+            value={Math.min(Math.max(loanAmount, loanRanges.amount.min), loanRanges.amount.max)}
+            onChange={handleAmountSlider}
             className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-red-600"
           />
           <input
             type="number"
-            value={loanAmount}
+            value={loanAmount === 0 ? '' : loanAmount}
             onChange={handleAmountInput}
             className="mt-2 w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 text-sm"
           />
@@ -143,14 +168,14 @@ const LoanCalculator = () => {
             min={loanRanges.rate.min}
             max={loanRanges.rate.max}
             step={loanRanges.rate.step}
-            value={interestRate}
-            onChange={handleRateChange}
+            value={Math.min(Math.max(interestRate, loanRanges.rate.min), loanRanges.rate.max)}
+            onChange={handleRateSlider}
             className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-red-600"
           />
           <input
             type="number"
             step="0.1"
-            value={interestRate}
+            value={interestRate === 0 ? '' : interestRate}
             onChange={handleRateInput}
             className="mt-2 w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 text-sm"
           />
@@ -162,20 +187,22 @@ const LoanCalculator = () => {
             <label className="text-sm font-medium text-gray-700 flex items-center">
               <FaCalendarAlt className="mr-2 text-red-600" /> Loan Term (months)
             </label>
-            <span className="text-sm font-semibold text-gray-900">{loanTermMonths} months</span>
+            <span className="text-sm font-semibold text-gray-900">
+              {loanTermMonths} months ({Math.floor(loanTermMonths / 12)} years {loanTermMonths % 12} months)
+            </span>
           </div>
           <input
             type="range"
             min={loanRanges.termMonths.min}
             max={loanRanges.termMonths.max}
             step={loanRanges.termMonths.step}
-            value={loanTermMonths}
-            onChange={handleTermChange}
+            value={Math.min(Math.max(loanTermMonths, loanRanges.termMonths.min), loanRanges.termMonths.max)}
+            onChange={handleTermSlider}
             className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-red-600"
           />
           <input
             type="number"
-            value={loanTermMonths}
+            value={loanTermMonths === 0 ? '' : loanTermMonths}
             onChange={handleTermInput}
             className="mt-2 w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 text-sm"
           />
@@ -198,8 +225,8 @@ const LoanCalculator = () => {
         </div>
       </div>
 
-      {/* Amortization Table (optional) */}
-      {showAmortization && (
+      {/* Amortization Table */}
+      {amortizationRows.length > 0 && (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -220,7 +247,7 @@ const LoanCalculator = () => {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
-                {amortizationRows.map((row) => (
+                {paginatedRows.map((row) => (
                   <tr key={row.month} className="hover:bg-gray-50">
                     <td className="px-4 py-2 font-medium">{row.month}</td>
                     <td className="px-4 py-2 text-right">{formatCurrency(row.payment)}</td>
@@ -232,14 +259,33 @@ const LoanCalculator = () => {
               </tbody>
             </table>
           </div>
-          <p className="text-xs text-gray-500 mt-2">*Shows full schedule for terms up to 12 months</p>
-        </motion.div>
-      )}
 
-      {!showAmortization && loanTermMonths > 12 && (
-        <p className="text-center text-sm text-gray-500 mt-4">
-          Amortization table is available for loan terms up to 12 months.
-        </p>
+          {/* Pagination Controls */}
+          {totalPages > 1 && (
+            <div className="flex justify-between items-center mt-4">
+              <button
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+                className="px-3 py-1 border rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-100 transition-colors"
+              >
+                <FaChevronLeft className="inline mr-1" size={12} /> Previous
+              </button>
+              <span className="text-sm text-gray-600">
+                Page {currentPage} of {totalPages}
+              </span>
+              <button
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                className="px-3 py-1 border rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-100 transition-colors"
+              >
+                Next <FaChevronRight className="inline ml-1" size={12} />
+              </button>
+            </div>
+          )}
+          <p className="text-xs text-gray-500 mt-2">
+            *Showing {Math.min(rowsPerPage, amortizationRows.length)} rows per page. Amortization schedule for full term.
+          </p>
+        </motion.div>
       )}
     </div>
   );
