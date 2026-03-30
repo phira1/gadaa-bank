@@ -115,6 +115,7 @@ export const navItems = [
     hasDropdown: true,
     dropdownItems: [
       { label: 'Prospectus', path: '/investors/prospectus' },
+      { label: 'Memorandum of Association', path: '/investors/moa' },   // NEW
       { label: 'Financial Reports and Statements', path: '/investors/financial-reports' },
       { label: 'Shareholder events', path: '/investors/shareholder-events' },
       { label: 'Press Releases', path: '/investors/press-releases' },

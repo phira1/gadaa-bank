@@ -63,6 +63,7 @@ import FinancialReportsPage from './Pages/Investors/FinancialReportsPage'
 import ShareholderEventsPage from './Pages/Investors/ShareholderEventsPage'
 import PressReleasesPage from './Pages/Investors/PressReleasesPage'
 import InvestorContactPage from './Pages/Investors/InvestorContactPage'
+import MOAPage from './Pages/Investors/MOAPage'                // NEW
 
 // Other Pages
 import TermsPage from './Pages/Terms/TermsPage'
@@ -73,6 +74,9 @@ import CommunityPage from './Pages/Community/CommunityPage'
 import ATMLocator from './Pages/Locator/ATMLocator'
 import BranchLocator from './Pages/Locator/BranchLocator'
 import AgentLocator from './Pages/Locator/AgentLocator'
+
+// Tools Pages
+import LoanCalculatorPage from './Pages/Tools/LoanCalculatorPage'
 
 function App() {
   return (
@@ -144,11 +148,15 @@ function App() {
         <Route path="investors/shareholder-events" element={<ShareholderEventsPage />} />
         <Route path="investors/press-releases" element={<PressReleasesPage />} />
         <Route path="investors/contact" element={<InvestorContactPage />} />
+        <Route path="investors/moa" element={<MOAPage />} />                  {/* NEW */}
         
         {/* Locator Routes */}
         <Route path="locators/atm" element={<ATMLocator />} />
         <Route path="locators/branch" element={<BranchLocator />} />
         <Route path="locators/agent" element={<AgentLocator />} />
+        
+        {/* Tools Routes */}
+        <Route path="tools/loan-calculator" element={<LoanCalculatorPage />} />
         
         {/* Other Routes */}
         <Route path="terms" element={<TermsPage />} />

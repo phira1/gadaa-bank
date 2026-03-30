@@ -2,9 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaArrowLeft, FaFileAlt } from 'react-icons/fa';
 
-const ProspectusPage = () => {
-  const fileId = '17cSvLCghseCYBK9mbVUGPFrpHvmgESKH';
-  const embedUrl = `https://drive.google.com/file/d/${fileId}/preview`;
+const MOAPage = () => {
+  const fileId = '1RG9drnjl5dQeWg_TVuurXOAixeuaPLHf';
+  const driveUrl = `https://drive.google.com/file/d/${fileId}/view`;
 
   return (
     <div className="min-h-screen bg-white">
@@ -15,7 +15,7 @@ const ProspectusPage = () => {
             <span className="text-red-500">›</span>
             <Link to="/investors" className="text-white/80 hover:text-white">Investors</Link>
             <span className="text-red-500">›</span>
-            <span className="text-white font-semibold">Prospectus</span>
+            <span className="text-white font-semibold">Memorandum of Association</span>
           </nav>
         </div>
       </div>
@@ -35,39 +35,43 @@ const ProspectusPage = () => {
               <FaFileAlt className="text-white text-3xl" />
             </div>
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Prospectus
+              Memorandum of Association
             </h1>
-            <p className="text-gray-600">
-              Gadaa Bank Prospectus – Official Document
+            <p className="text-gray-600 mb-4">
+              መመስረቻ ፅሁፍ
             </p>
           </div>
 
-          <div className="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
-            <div className="bg-gray-50 px-4 py-3 border-b border-gray-200">
-              <h2 className="font-semibold text-gray-700">Document Preview</h2>
-            </div>
-            <div className="aspect-w-16 aspect-h-9 h-[70vh]">
-              <iframe
-                src={embedUrl}
-                className="w-full h-full"
-                title="Prospectus"
-                frameBorder="0"
-                allow="autoplay; encrypted-media"
-                allowFullScreen
-              ></iframe>
-            </div>
+          {/* Clickable Image */}
+          <div className="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden mb-8">
+            <a 
+              href={driveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block cursor-pointer hover:opacity-95 transition-opacity"
+            >
+              <img 
+                src="/images/moafile1.jpg" 
+                alt="Memorandum of Association Cover"
+                className="w-full h-auto"
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = "https://via.placeholder.com/800x1000?text=Memorandum+of+Association";
+                }}
+              />
+            </a>
           </div>
 
-          <div className="bg-red-50 rounded-lg p-6 text-center mt-8">
+          <div className="bg-red-50 rounded-lg p-6 text-center">
             <p className="text-gray-700">
-              If you cannot view the document, 
+              Click the image above to open the document, or 
               <a 
-                href={`https://drive.google.com/file/d/${fileId}/view`} 
+                href={driveUrl} 
                 className="text-red-600 font-medium underline ml-1" 
                 target="_blank" 
                 rel="noopener noreferrer"
               >
-                click here to open in new tab
+                click here
               </a>.
             </p>
           </div>
@@ -77,4 +81,4 @@ const ProspectusPage = () => {
   );
 };
 
-export default ProspectusPage;
+export default MOAPage;
