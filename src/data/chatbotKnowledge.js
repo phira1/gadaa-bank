@@ -3,14 +3,14 @@
 export const intents = [
   {
     id: 'help',
-    keywords: ['help', 'menu', 'what can you do', 'what do you know', 'capabilities'],
+    keywords: ['help', 'menu', 'what can you do', 'what do you know', 'capabilities', 'what is your role'],
     response: () => ({
       text: "I can help you with:\n• Gadaa Bank info (history, vision, mission, core values)\n• Board & management\n• Opening an account\n• Savings, current, time deposit accounts\n• Personal & business loans\n• Guarantee facilities\n• International banking (forex, trade finance, money transfer, diaspora)\n• Interest-free banking (Wadiah, Amanah, Mudarabah)\n• Digital banking (mobile, internet, card, ATM, merchant)\n• Corporate banking\n• News, vacancies, annual reports\n• Fees & tariffs\n• Branch/ATM/agent locators\n• Contact details\n\nJust ask me anything related to these topics!"
     })
   },
   {
     id: 'name',
-    keywords: ['what is your name', 'who are you', 'your name', 'who is this'],
+    keywords: ['what is your name', 'who are you', 'your name', 'who is this', 'tell me about your self'],
     response: () => ({
       text: "I'm Gadaa Bot, your virtual banking assistant. I'm here to help you with any questions about Gadaa Bank. What can I do for you today?"
     })
@@ -24,14 +24,14 @@ export const intents = [
   },
   {
     id: 'thanks',
-    keywords: ['thanks', 'thank you', 'thx', 'appreciate it'],
+    keywords: ['thanks', 'thank you', 'thx', 'appreciate it', 'galatoomi'],
     response: () => ({
       text: "You're very welcome! 😊 Thank you for banking with Gadaa Bank – New Generation's Bank. If you have any other questions, feel free to ask. Have a great day!"
     })
   },
   {
     id: 'greeting',
-    keywords: ['hi', 'hello', 'hey', 'good morning', 'good afternoon', 'good evening'],
+    keywords: ['hi', 'hello', 'hey', 'good morning', 'good afternoon', 'good evening', 'hey there'],
     response: () => ({
       text: "Hello! Welcome to Gadaa Bank. I'm Gadaa Bot, your digital assistant. How can I help you today?"
     })
