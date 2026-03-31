@@ -39,7 +39,7 @@ const HeroCarousel = () => {
       subtitle: "Bank",
       description: "Building futures with innovative financial solutions.",
       buttonText: "Open Account",
-      buttonLink: "https://ibs.gadaabank.com.et/alpha-onboarding/get-started", // changed to external URL
+      buttonLink: "https://ibs.gadaabank.com.et/alpha-onboarding/get-started",
       bgImage: "slide2.jpg",
       icon: <FaShieldAlt className="text-red-400" />,
       gradient: "linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.7) 35%, transparent 75%)",
@@ -61,7 +61,7 @@ const HeroCarousel = () => {
       subtitle: "Focused",
       description: "Personalized banking that empowers local communities.",
       buttonText: "Find Branch",
-      buttonLink: "/contact",
+      buttonLink: "/locators/branch", // changed from "/contact" to branch locator
       bgImage: "community-focused.jpg",
       icon: <FaUsers className="text-red-400" />,
       gradient: "linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.7) 35%, transparent 75%)",
@@ -171,16 +171,13 @@ const HeroCarousel = () => {
 
   return (
     <section id="home" className="relative overflow-hidden bg-black">
-      {/* ADDED PADDING HERE - Top padding for spacing below header/navigation */}
       <div className="relative z-10 container mx-auto px-3 sm:px-4 pt-6 pb-4 sm:pt-8 sm:pb-6 lg:pt-12 lg:pb-8">
-        {/* Three Column Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-6">
           {/* Left Section */}
           <div 
             className="hero-section group relative overflow-hidden rounded-lg lg:rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300"
             data-section-id="1"
           >
-            {/* Image Container */}
             <div className="relative h-[35vh] sm:h-[40vh] md:h-[65vh] lg:h-[75vh] xl:h-[80vh] max-h-[700px] min-h-[250px]">
               {sections[0].bgImage && (
                 <img 
@@ -199,10 +196,8 @@ const HeroCarousel = () => {
               ></div>
             </div>
 
-            {/* Text Content - REMOVED top padding, kept reduced button size */}
             <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 lg:pb-8 lg:px-6">
               <div className={getAnimationClass(1)}>
-                {/* Title */}
                 <div className="flex items-start justify-between mb-2 lg:mb-3">
                   <div>
                     <h2 className={`font-bold text-white leading-tight ${isMobile ? 'text-lg' : 'text-xl lg:text-2xl'}`}>
@@ -217,12 +212,10 @@ const HeroCarousel = () => {
                   </div>
                 </div>
 
-                {/* Description */}
                 <p className={`text-gray-200 mb-3 lg:mb-4 ${isMobile ? 'text-sm' : 'text-base lg:text-lg'}`}>
                   {sections[0].description}
                 </p>
 
-                {/* Button - REDUCED SIZE - Conditional render for external link */}
                 <div className="mt-1 lg:mt-3">
                   {isExternalLink(sections[0].buttonLink) ? (
                     <a 
@@ -259,9 +252,7 @@ const HeroCarousel = () => {
             className="hero-section relative overflow-hidden rounded-lg lg:rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300"
             data-section-id="2"
           >
-            {/* Carousel Container */}
             <div className="relative h-[35vh] sm:h-[40vh] md:h-[65vh] lg:h-[75vh] xl:h-[80vh] max-h-[700px] min-h-[250px]">
-              {/* Auto-sliding Images */}
               {middleCarouselImages.map((item, index) => (
                 <div
                   key={item.id}
@@ -284,7 +275,6 @@ const HeroCarousel = () => {
                 </div>
               ))}
 
-              {/* Content - REMOVED top padding, kept reduced button size */}
               <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 lg:pb-8 lg:px-6">
                 <div className={`${getAnimationClass(2)} transition-opacity duration-500 ${isAnimating ? 'opacity-50' : 'opacity-100'}`}>
                   <div className="flex items-start justify-between mb-2 lg:mb-3">
@@ -302,7 +292,6 @@ const HeroCarousel = () => {
                     {middleCarouselImages[currentCarouselIndex].description}
                   </p>
 
-                  {/* Button - REDUCED SIZE */}
                   <div className="mt-1 lg:mt-3">
                     <Link 
                       to={middleCarouselImages[currentCarouselIndex].link}
@@ -318,7 +307,6 @@ const HeroCarousel = () => {
                 </div>
               </div>
 
-              {/* Minimal Dots */}
               <div className="absolute bottom-16 sm:bottom-20 lg:bottom-24 right-3 sm:right-4 lg:right-5 flex gap-1.5">
                 {middleCarouselImages.map((_, index) => (
                   <button
@@ -347,7 +335,6 @@ const HeroCarousel = () => {
             className="hero-section group relative overflow-hidden rounded-lg lg:rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300"
             data-section-id="3"
           >
-            {/* Image Container */}
             <div className="relative h-[35vh] sm:h-[40vh] md:h-[65vh] lg:h-[75vh] xl:h-[80vh] max-h-[700px] min-h-[250px]">
               {sections[2].bgImage && (
                 <img 
@@ -366,7 +353,6 @@ const HeroCarousel = () => {
               ></div>
             </div>
 
-            {/* Text Content - REMOVED top padding, kept reduced button size */}
             <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 lg:pb-8 lg:px-6">
               <div className={getAnimationClass(3)}>
                 <div className="flex items-start justify-between mb-2 lg:mb-3">
@@ -387,7 +373,6 @@ const HeroCarousel = () => {
                   {sections[2].description}
                 </p>
 
-                {/* Button - REDUCED SIZE */}
                 <div className="mt-1 lg:mt-3">
                   <Link 
                     to={sections[2].buttonLink}
