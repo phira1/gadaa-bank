@@ -30,7 +30,7 @@ export const boardMembers = [
     qualifications: 'M.A in Development Studies',
     experience: 'More than 25 years of experience',
     committee: 'Nomination and Remuneration Committee Chairperson',
-    photo: 'mulu-solomon-bezuneh.jpg',
+    photo: 'mulu-solomon-bezuneh.png',
     linkedin: '#',
     email: 'm.bezuneh@gadaabank.com'
   },
@@ -63,7 +63,7 @@ export const boardMembers = [
     qualifications: 'MBA SPECIALIZED IN PROJECT MANAGEMENT',
     experience: '12 years of work experience',
     committee: 'Nomination and Remuneration Committee Member, Risk Management and Compliance Committee Member',
-    photo: 'hamdeno-mideso.jpg',
+    photo: 'hamdeno-mideso.png',
     linkedin: '#',
     email: 'h.mideso@gadaabank.com'
   },
@@ -74,7 +74,7 @@ export const boardMembers = [
     qualifications: 'PhD in Law',
     experience: 'More than 15 years of experience',
     committee: 'Risk Management and Compliance Committee Member, Audit Committee Member',
-    photo: 'kassim-kuffa-jarra.jpg',
+    photo: 'kassim-kuffa-jarra.png',
     linkedin: '#',
     email: 'k.jarra@gadaabank.com'
   },
@@ -107,7 +107,7 @@ export const boardMembers = [
     qualifications: 'MSc in Civil Engineering',
     experience: 'More than 14 years of experience',
     committee: 'Credit Committee Member',
-    photo: 'ashenafi-daba-abdi.jpg',
+    photo: 'ashenafi-daba-abdi.png',
     linkedin: '#',
     email: 'a.abdi@gadaabank.com'
   },
@@ -118,7 +118,7 @@ export const boardMembers = [
     qualifications: 'PhD in Economics',
     experience: '25 years of work experience',
     committee: 'Risk Management and Compliance Committee Chairperson',
-    photo: 'gutu-tesso.jpg',
+    photo: 'gutu-tesso.png',
     linkedin: '#',
     email: 'g.tesso@gadaabank.com'
   }
