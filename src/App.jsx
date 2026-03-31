@@ -53,6 +53,7 @@ import MerchantPage from './Pages/Digital/MerchantPage'
 // Resources Pages
 import ResourcesPage from './Pages/Resources/ResourcesPage'
 import NewsPage from './Pages/Resources/NewsPage'
+import NewsDetailPage from './Pages/Resources/NewsDetailPage'   // NEW
 import VacancyPage from './Pages/Resources/VacancyPage'
 import AnnualReportPage from './Pages/Resources/AnnualReportPage'
 
@@ -63,7 +64,7 @@ import FinancialReportsPage from './Pages/Investors/FinancialReportsPage'
 import ShareholderEventsPage from './Pages/Investors/ShareholderEventsPage'
 import PressReleasesPage from './Pages/Investors/PressReleasesPage'
 import InvestorContactPage from './Pages/Investors/InvestorContactPage'
-import MOAPage from './Pages/Investors/MOAPage'                // NEW
+import MOAPage from './Pages/Investors/MOAPage'
 
 // Other Pages
 import TermsPage from './Pages/Terms/TermsPage'
@@ -89,14 +90,14 @@ function App() {
         <Route path="about" element={<AboutPage />} />
         <Route path="about/company-history" element={<CompanyHistory />} />
         <Route path="about/organizational-structure" element={<OrganizationalStructure />} />
-        <Route path="about/company-teams" element={<CompanyTeams />} />        {/* Board of Directors */}
-        <Route path="about/management-team" element={<ManagementTeam />} />   {/* NEW: Management Team */}
+        <Route path="about/company-teams" element={<CompanyTeams />} />
+        <Route path="about/management-team" element={<ManagementTeam />} />
         <Route path="about/other-profiles" element={<OtherProfiles />} />
         
         {/* Services Routes */}
         <Route path="services" element={<ServicesPage />} />
         
-        {/* Conventional Banking - Individual Services */}
+        {/* Conventional Banking */}
         <Route path="services/saving-accounts" element={<SavingAccounts />} />
         <Route path="services/current-accounts" element={<CurrentAccounts />} />
         <Route path="services/time-deposit" element={<TimeDeposit />} />
@@ -104,14 +105,14 @@ function App() {
         <Route path="services/business-loans" element={<BusinessLoans />} />
         <Route path="services/guarantee-facilities" element={<GuaranteeFacilities />} />
         
-        {/* International Banking - Individual Services */}
+        {/* International Banking */}
         <Route path="services/forex-service" element={<ForexService />} />
         <Route path="services/trade-finance" element={<TradeFinance />} />
         <Route path="services/money-transfer" element={<MoneyTransfer />} />
         <Route path="services/diaspora-fcy-products" element={<DiasporaFcyProducts />} />
         <Route path="services/correspondent-accounts" element={<CorrespondentAccounts />} />
         
-        {/* Interest Free Banking - Individual Services */}
+        {/* Interest Free Banking */}
         <Route path="services/deposit-product" element={<DepositProduct />} />
         <Route path="services/wadiah-saving" element={<WadiahSaving />} />
         <Route path="services/amanah" element={<Amanah />} />
@@ -119,12 +120,11 @@ function App() {
         <Route path="services/financing-investment" element={<FinancingInvestment />} />
         <Route path="services/other-services" element={<OtherServices />} />
         
-        {/* Corporate Banking - Individual Services */}
+        {/* Corporate Banking */}
         <Route path="services/diaspora-account" element={<DiasporaAccount />} />
         <Route path="services/diaspora-loan-facilities" element={<DiasporaLoanFacilities />} />
         <Route path="services/ngo-corporate-loan-packages" element={<NgoCorporateLoanPackages />} />
         
-        {/* Community Banking */}
         <Route path="community" element={<CommunityPage />} />
         
         {/* Digital Routes */}
@@ -138,6 +138,7 @@ function App() {
         {/* Resources Routes */}
         <Route path="resources" element={<ResourcesPage />} />
         <Route path="resources/news" element={<NewsPage />} />
+        <Route path="resources/news/:id" element={<NewsDetailPage />} />   {/* NEW */}
         <Route path="resources/vacancy" element={<VacancyPage />} />
         <Route path="resources/annual-report" element={<AnnualReportPage />} />
         
@@ -148,7 +149,7 @@ function App() {
         <Route path="investors/shareholder-events" element={<ShareholderEventsPage />} />
         <Route path="investors/press-releases" element={<PressReleasesPage />} />
         <Route path="investors/contact" element={<InvestorContactPage />} />
-        <Route path="investors/moa" element={<MOAPage />} />                  {/* NEW */}
+        <Route path="investors/moa" element={<MOAPage />} />
         
         {/* Locator Routes */}
         <Route path="locators/atm" element={<ATMLocator />} />
@@ -162,7 +163,7 @@ function App() {
         <Route path="terms" element={<TermsPage />} />
         <Route path="contact" element={<ContactPage />} />
         
-        {/* Fallback/404 Route */}
+        {/* Fallback/404 */}
         <Route path="*" element={<HomePage />} />
       </Route>
     </Routes>
