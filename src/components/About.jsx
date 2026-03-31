@@ -11,7 +11,7 @@ const About = () => {
   const [hasAnimated, setHasAnimated] = useState(false);
 
   const targetValues = {
-    branches: 100,
+    branches: 110,
     shareholders: 32,
     capital: 1.43
   };

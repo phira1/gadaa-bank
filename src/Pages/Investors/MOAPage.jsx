@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaArrowLeft, FaFileAlt } from 'react-icons/fa';
+import { FaArrowLeft, FaFilePdf } from 'react-icons/fa';
+import { moaList } from '../../data/investorData';
 
 const MOAPage = () => {
-  const fileId = '1RG9drnjl5dQeWg_TVuurXOAixeuaPLHf';
-  const driveUrl = `https://drive.google.com/file/d/${fileId}/view`;
+  const doc = moaList[0]; // assume only one for now
 
   return (
     <div className="min-h-screen bg-white">
@@ -21,59 +21,53 @@ const MOAPage = () => {
       </div>
 
       <div className="container mx-auto px-4 py-8">
-        <Link 
-          to="/investors"
-          className="inline-flex items-center text-red-600 hover:text-red-700 mb-8 group"
-        >
+        <Link to="/investors" className="inline-flex items-center text-red-600 hover:text-red-700 mb-8 group">
           <FaArrowLeft className="mr-2 group-hover:-translate-x-1 transition-transform duration-300" />
           Back to Investors
         </Link>
 
+        <div className="text-center mb-8">
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Memorandum of Association</h1>
+          <p className="text-gray-600">መመስረቻ ፅሁፍ</p>
+        </div>
+
         <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-red-600 to-black rounded-full mb-6 shadow-lg">
-              <FaFileAlt className="text-white text-3xl" />
+          <div className="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
+            <div className="bg-gray-50 px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+              <h2 className="font-semibold text-gray-700">{doc.title}</h2>
+              <span className="text-sm text-gray-500">{doc.fileSize}</span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Memorandum of Association
-            </h1>
-            <p className="text-gray-600 mb-4">
-              መመስረቻ ፅሁፍ
-            </p>
-          </div>
-
-          {/* Clickable Image */}
-          <div className="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden mb-8">
-            <a 
-              href={driveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block cursor-pointer hover:opacity-95 transition-opacity"
-            >
-              <img 
-                src="/images/moafile1.jpg" 
-                alt="Memorandum of Association Cover"
-                className="w-full h-auto"
-                onError={(e) => {
-                  e.target.onerror = null;
-                  e.target.src = "https://via.placeholder.com/800x1000?text=Memorandum+of+Association";
-                }}
-              />
-            </a>
-          </div>
-
-          <div className="bg-red-50 rounded-lg p-6 text-center">
-            <p className="text-gray-700">
-              Click the image above to open the document, or 
-              <a 
-                href={driveUrl} 
-                className="text-red-600 font-medium underline ml-1" 
-                target="_blank" 
+            <div className="p-4">
+              <a
+                href={doc.pdfLink}
+                target="_blank"
                 rel="noopener noreferrer"
+                className="block hover:opacity-95 transition-opacity"
               >
-                click here
-              </a>.
-            </p>
+                <img
+                  src={doc.image}
+                  alt={doc.title}
+                  className="w-full h-auto rounded-lg shadow-md"
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = "https://via.placeholder.com/800x1000?text=Memorandum+of+Association";
+                  }}
+                />
+              </a>
+            </div>
+            <div className="bg-red-50 px-6 py-4 text-center">
+              <p className="text-gray-700">
+                Click the image above to open the document, or{" "}
+                <a
+                  href={doc.pdfLink}
+                  className="text-red-600 font-medium underline"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  click here
+                </a>.
+              </p>
+            </div>
           </div>
         </div>
       </div>

@@ -24,14 +24,14 @@ export const intents = [
   },
   {
     id: 'thanks',
-    keywords: ['thanks', 'thank you', 'thx', 'appreciate it', 'galatoomi'],
+    keywords: ['thanks', 'thank you', '10q', 'appreciate it', 'galatoomi', 'tnx'],
     response: () => ({
       text: "You're very welcome! 😊 Thank you for banking with Gadaa Bank – New Generation's Bank. If you have any other questions, feel free to ask. Have a great day!"
     })
   },
   {
     id: 'greeting',
-    keywords: ['hi', 'hello', 'hey', 'good morning', 'good afternoon', 'good evening', 'hey there'],
+    keywords: ['hi', 'hello', 'hey', 'good morning', 'good afternoon', 'good evening', 'hey there', 'akkam', 'nagaa dha', 'selam'],
     response: () => ({
       text: "Hello! Welcome to Gadaa Bank. I'm Gadaa Bot, your digital assistant. How can I help you today?"
     })
@@ -46,14 +46,14 @@ export const intents = [
   },
   {
     id: 'gadaa_meaning',
-    keywords: ['gadaa mean', 'what is gadaa', 'meaning of gadaa'],
+    keywords: ['gadaa mean', 'what is gadaa', 'meaning of gadaa', 'what does gadaa mean', 'what is the meaning of gadaa', 'gadaa meaning', 'gadaa system'],
     response: () => ({
       text: "Gadaa is the traditional socio-political and cultural system of the Oromo people. The word 'Gadaa' refers to both the age-set governance system and the generational structure that organizes Oromo society into successive leadership classes. It’s an indigenous democratic institution with peaceful power transfers every eight years. Our bank is named after this system to reflect our values of community, transparency, and sustainable growth."
     })
   },
   {
     id: 'core_values',
-    keywords: ['core values', 'gadaa values'],
+    keywords: ['core values', 'gadaa values', 'what are gadaa bank values', 'values of gadaa bank'],
     response: () => ({
       text: "Our five core values are:\n• Growth Mindset\n• Approachable\n• Diversity\n• Accountability\n• Accessibility\n\nThese guide everything we do at Gadaa Bank."
     })
@@ -68,14 +68,14 @@ export const intents = [
   },
   {
     id: 'password_reset',
-    keywords: ['password', 'username', 'reset', 'forgot'],
+    keywords: ['password', 'username', 'reset', 'forgot', 'i do not remember', 'i lost my password'],
     response: (hotline) => ({
       text: `If you've forgotten your username or password, please call our 24/7 hotline at ${hotline} or email support@gadaabank.com.et for assistance. You can also visit any branch with your ID.`
     })
   },
   {
     id: 'balance_inquiry',
-    keywords: ['balance', 'check balance', 'account balance'],
+    keywords: ['balance', 'check balance', 'account balance', 'current balance', 'amount balance'],
     response: () => ({
       text: "To check your account balance, please use our Gadaa Mobile App or Internet Banking. You can also visit any Gadaa Bank branch with your passbook or ID.",
       link: "/digital/mobile"
@@ -83,7 +83,7 @@ export const intents = [
   },
   {
     id: 'branch_hours',
-    keywords: ['branch hours', 'branch time', 'branch open', 'work hours', 'working hours', 'branch schedule', 'when branch open'],
+    keywords: ['branch hours', 'branch time', 'branch open', 'work hours', 'working hours', 'branch schedule', 'when branch open', 'work time', 'time of work', 'when bank is close', 'working time of gadaa bank', 'working stime'],
     response: (workingHours) => {
       if (workingHours && workingHours.length > 0) {
         const hoursText = workingHours.map(h => `${h.day}: ${h.time}`).join('\n');
@@ -114,7 +114,7 @@ export const intents = [
   },
   {
     id: 'mobile_app',
-    keywords: ['mobile app', 'download app', 'app download', 'gadaa app'],
+    keywords: ['mobile app', 'download app', 'app download', 'gadaa app', 'playstore', 'application', 'app'],
     response: () => ({
       text: "You can download the Gadaa Mobile App from the Google Play Store or Apple App Store. For step‑by‑step setup instructions, please visit our Digital Banking page.",
       link: "/digital/mobile"
@@ -122,7 +122,7 @@ export const intents = [
   },
   {
     id: 'vision',
-    keywords: ['vision'],
+    keywords: ['vision', 'gadaa bank vision', 'gadaa vision', 'vision of gadaa bank'],
     response: () => ({
       text: "Our vision: 'To Inspire and Enable Your Dream.' We envision a future where every Ethiopian has access to financial tools that transform aspirations into reality.",
       link: '/about'
@@ -130,7 +130,7 @@ export const intents = [
   },
   {
     id: 'mission',
-    keywords: ['mission'],
+    keywords: ['mission', 'gadaa bank mission', 'what is gadaa bank mission', 'mission of gadaa bank', 'plan of gadaa bank'],
     response: () => ({
       text: "Our mission: 'We are committed to deliver superior and customer-centric full-fledged banking services to our community in a friendly environment by deploying competent employees and art-of-technology whilst optimizing shareholders' value.'",
       link: '/about'
@@ -138,7 +138,7 @@ export const intents = [
   },
   {
     id: 'founded',
-    keywords: ['founded', 'established', 'when was bank established', 'when did bank start'],
+    keywords: ['founded', 'established', 'when was bank established', 'when did bank start', 'when did the bank founded', 'when did gadaa bank come'],
     response: () => ({
       text: "Gadaa Bank was established with more than 28,000 founding shareholders. The founding shareholders meeting was in August 2021, and the bank earned its license on 26th April 2022. It began operations with over ETB 1.167 billion subscribed capital. The bank is often called 'New Generation's Bank' because over 90% of shareholders are young Ethiopians."
     })
@@ -152,7 +152,7 @@ export const intents = [
   },
   {
     id: 'history',
-    keywords: ['history', 'about bank', 'bank story'],
+    keywords: ['history', 'about bank', 'bank story', 'tell me about gadaa bank', 'what is gadaa bank', 'tell me about the bank'],
     response: () => ({
       text: "Gadaa Bank was established to contribute to economic empowerment of low- and medium-income Ethiopians. Founded by over 28,000 shareholders, we officially launched in 2022. We now have 110+ branches and 100+ banking products. Explore our full history at /about/company-history.",
       link: '/about/company-history'
@@ -177,7 +177,7 @@ export const intents = [
   },
   {
     id: 'management',
-    keywords: ['management', 'ceo', 'president'],
+    keywords: ['management', 'ceo', 'president', 'director', 'directors', 'chief', 'manager', 'who is the presidant', 'presidant', 'minister'],
     response: (managementData) => {
       if (managementData && managementData.length) {
         const ceo = managementData.find(m => m.position?.toLowerCase().includes('ceo') || m.position?.toLowerCase().includes('president'));
@@ -200,7 +200,7 @@ export const intents = [
   },
   {
     id: 'open_account',
-    keywords: ['open account', 'account opening', 'how to open account'],
+    keywords: ['open account', 'account opening', 'how to open account', 'new account', 'open new account', 'register', 'log in', 'onboarding', 'gadaa bank account'],
     response: () => ({
       text: "You can open an account online by visiting our onboarding portal. Click the link to start.",
       link: 'https://ibs.gadaabank.com.et/alpha-onboarding/get-started'
@@ -288,7 +288,7 @@ export const intents = [
   },
   {
     id: 'ifb_general',
-    keywords: ['interest free', 'islamic', 'sharia'],
+    keywords: ['interest free', 'islamic', 'sharia', 'ifb', 'islam', 'muslim'],
     response: () => ({
       text: "We offer Sharia‑compliant banking: Wadiah Savings (safe custody), Amanah Current, Mudarabah Savings, and Mudarabah Investment accounts. All are interest‑free and approved by our Sharia Advisory Board. Visit /interest-free for details.",
       link: '/interest-free'
@@ -328,7 +328,7 @@ export const intents = [
   },
   {
     id: 'atm_service',
-    keywords: ['atm service', 'atm use'],
+    keywords: ['atm service', 'atm use', 'do you have atm', 'how many atm'],
     response: () => ({
       text: "Find ATMs near you using our ATM locator, or get information about our ATM services. Locator: /locators/atm.",
       link: '/locators/atm'
@@ -344,7 +344,7 @@ export const intents = [
   },
   {
     id: 'digital_banking',
-    keywords: ['digital', 'mobile banking', 'internet banking'],
+    keywords: ['digital', 'mobile banking', 'internet banking', 'gadaa bank digital', 'gadaa digital', 'digital banking', 'digital service', 'digital product'],
     response: () => ({
       text: "Our digital services include Mobile Banking, Internet Banking, Card Banking, ATM, and Merchant Payments. All are secure with bank‑level encryption. Explore at /digital.",
       link: '/digital'
@@ -368,7 +368,7 @@ export const intents = [
   },
   {
     id: 'news',
-    keywords: ['news'],
+    keywords: ['news', 'oduu', 'zena', 'whats new', 'what is new', 'new', 'announcement'],
     response: () => ({
       text: "Stay updated with the latest news and announcements from Gadaa Bank. Visit our news page at /resources/news.",
       link: '/resources/news'
@@ -376,7 +376,7 @@ export const intents = [
   },
   {
     id: 'vacancy',
-    keywords: ['vacancy', 'job', 'career'],
+    keywords: ['vacancy', 'job', 'career', 'positions', 'open vacancy', 'new job', 'apply job'],
     response: () => ({
       text: "Current job openings and application instructions are available at /resources/vacancy. Check regularly for new positions.",
       link: '/resources/vacancy'
@@ -384,7 +384,7 @@ export const intents = [
   },
   {
     id: 'annual_report',
-    keywords: ['annual report'],
+    keywords: ['annual report', 'report', 'reports', 'gadaa bank annual', 'annual', 'profit', 'gadaa bank profit'],
     response: () => ({
       text: "You can download our annual reports from /resources/annual-report.",
       link: '/resources/annual-report'
@@ -400,7 +400,7 @@ export const intents = [
   },
   {
     id: 'branch_locator',
-    keywords: ['branch'],
+    keywords: ['branch', 'location', 'gadaa bank location', 'where is the branch', 'headoffice', 'office'],
     response: () => ({
       text: "Find a branch near you at /locators/branch.",
       link: '/locators/branch'
@@ -424,7 +424,7 @@ export const intents = [
   },
   {
     id: 'contact',
-    keywords: ['contact', 'call', 'phone', 'complaint'],
+    keywords: ['contact', 'call', 'phone', 'complaint', 'complain', 'yaada', 'comment', 'phone number', 'support'],
     response: (hotline, email) => ({
       text: `You can reach us 24/7 at ${hotline} or email ${email}. You can also submit a complaint via the contact page.`,
       link: '/contact'
@@ -432,7 +432,7 @@ export const intents = [
   },
   {
     id: 'general_services',
-    keywords: ['service', 'product'],
+    keywords: ['service', 'product', 'gadaa bank products', 'what are adaa bank services and products'],
     response: () => ({
       text: "We offer a wide range of products: Conventional Banking, International Banking, Interest Free Banking, Corporate Banking, and more. Explore all at /services.",
       link: '/services'
