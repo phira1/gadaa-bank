@@ -87,28 +87,6 @@ const CompanyTeams = () => {
         <BoardSubcommittees committees={committees} fadeInUp={fadeInUp} />
 
         <StatsSection items={statsItems} className="mb-8" />
-
-        <motion.div
-          className="bg-gradient-to-r from-red-50 to-white rounded-2xl p-8 shadow-xl border border-red-100"
-          variants={fadeInUp}
-          initial="hidden"
-          animate="visible"
-        >
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">Board Secretary's Office</h3>
-              <p className="text-gray-700">For official board communications and governance matters</p>
-            </div>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <button className="px-6 py-3 bg-red-600 text-white font-bold rounded-xl hover:bg-red-700 hover:scale-105 transition-all duration-300">
-                Contact Board Secretary
-              </button>
-              <button className="px-6 py-3 border-2 border-red-600 text-red-600 font-bold rounded-xl hover:bg-red-50 transition-all duration-300">
-                View Governance Documents
-              </button>
-            </div>
-          </div>
-        </motion.div>
       </div>
     </div>
   );
