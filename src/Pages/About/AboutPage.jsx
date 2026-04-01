@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { FaChevronLeft, FaChevronRight, FaHistory, FaUsers, FaSitemap, FaUserTie } from 'react-icons/fa'
 import { motion, useInView, useScroll, useTransform } from 'framer-motion'
+import { statsItems } from '../../data/statsData'  // <-- NEW import
 
 const AboutPage = () => {
   const [currentSlide, setCurrentSlide] = useState(0)
@@ -394,7 +395,7 @@ const AboutPage = () => {
                   </motion.div>
                 </motion.div>
 
-                {/* Stats Section */}
+                {/* Stats Section – now data‑driven */}
                 <motion.div 
                   ref={statsRef}
                   variants={staggerContainer}
@@ -402,12 +403,7 @@ const AboutPage = () => {
                   animate={isStatsInView ? "visible" : "hidden"}
                   className="grid grid-cols-2 gap-3 md:gap-4"
                 >
-                  {[
-                    { value: '110+', label: 'Branches', bg: 'bg-red-50', text: 'text-red-600' },
-                    { value: '32K+', label: 'Shareholders', bg: 'bg-gray-900', text: 'text-white' },
-                    { value: '1.43B+', label: 'Capital', bg: 'bg-red-50', text: 'text-red-600' },
-                    { value: '100+', label: 'Banking Products', bg: 'bg-gray-900', text: 'text-white' }
-                  ].map((stat, index) => (
+                  {statsItems.map((stat, index) => (
                     <motion.div
                       key={index}
                       variants={itemVariants}
