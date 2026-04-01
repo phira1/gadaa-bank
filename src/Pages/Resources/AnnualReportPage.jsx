@@ -6,7 +6,7 @@ import { reportsData } from '../../data/reportsData';
 const AnnualReportPage = () => {
   return (
     <div className="min-h-screen bg-white">
-      {/* Header */}
+      {/* Header / Breadcrumb */}
       <div className="bg-gradient-to-r from-black via-gray-900 to-black py-4">
         <div className="container mx-auto px-4">
           <nav className="flex items-center space-x-2 text-sm">
@@ -19,7 +19,8 @@ const AnnualReportPage = () => {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-8 md:py-12">
+      {/* Main content – added top padding to avoid navbar overlap */}
+      <div className="container mx-auto px-4 py-8 md:py-12 pt-20 md:pt-24">
         <div className="text-center mb-12">
           <div className="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-red-600 to-black rounded-full mb-6 shadow-lg">
             <FaFilePdf className="text-white text-4xl" />
