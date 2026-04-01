@@ -8,7 +8,7 @@ import {
 export const stats = [
   { value: '50', label: 'Minimum Opening Balance', suffix: 'ETB', icon: FaCoins },
   { value: '24/7', label: 'Account Access', suffix: '', icon: FaMobileAlt },
-  { value: '100+', label: 'Branch Network', suffix: '', icon: FaMapMarkerAlt },
+  { value: '110+', label: 'Branch Network', suffix: '', icon: FaMapMarkerAlt },
   { value: '99.9%', label: 'Uptime', suffix: '', icon: FaCheckCircle }
 ];
 
