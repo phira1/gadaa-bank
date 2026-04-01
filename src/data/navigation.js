@@ -13,8 +13,8 @@ export const navItems = [
     dropdownItems: [
       { label: 'Company History', path: '/about/company-history' },
       { label: 'Organizational Structure', path: '/about/organizational-structure' },
-      { label: 'Board of Directors', path: '/about/company-teams' },   // changed from "Company Teams"
-      { label: 'Management Team', path: '/about/management-team' },    // new entry
+      { label: 'Board of Directors', path: '/about/company-teams' },
+      { label: 'Management Team', path: '/about/management-team' },
       {
         label: 'Other Profiles',
         path: '/about/other-profiles',
@@ -22,7 +22,8 @@ export const navItems = [
           { label: 'Sharia Advisory Committee', path: '/about/other-profiles#sharia' },
           { label: 'Social Responsibility', path: '/about/other-profiles#responsibility' }
         ]
-      }
+      },
+      { label: 'Partners', path: '/about/partners' } // NEW
     ]
   },
   {
@@ -105,7 +106,9 @@ export const navItems = [
     dropdownItems: [
       { label: 'News', path: '/resources/news' },
       { label: 'Vacancy', path: '/resources/vacancy' },
-      { label: 'Annual Report', path: '/resources/annual-report' }
+      { label: 'Annual Report', path: '/resources/annual-report' },
+      { label: 'Security Awareness', path: '/resources/security-awareness' }, // NEW
+      { label: 'NBE Requirements', path: '/resources/nbe-requirements' }       // NEW
     ]
   },
   {
@@ -115,7 +118,7 @@ export const navItems = [
     hasDropdown: true,
     dropdownItems: [
       { label: 'Prospectus', path: '/investors/prospectus' },
-      { label: 'Memorandum of Association', path: '/investors/moa' },   // NEW
+      { label: 'Memorandum of Association', path: '/investors/moa' },
       { label: 'Financial Reports and Statements', path: '/investors/financial-reports' },
       { label: 'Shareholder events', path: '/investors/shareholder-events' },
       { label: 'Press Releases', path: '/investors/press-releases' },
@@ -132,6 +135,10 @@ export const navItems = [
     id: 'contact',
     label: 'Contact Us',
     path: '/contact',
-    hasDropdown: false
+    hasDropdown: true, // changed from false
+    dropdownItems: [
+      { label: 'Contact Us', path: '/contact' },
+      { label: 'Complaint Registration', path: '/contact/complaint' } // NEW
+    ]
   }
 ];

@@ -10,6 +10,7 @@ import OrganizationalStructure from './Pages/About/OrganizationalStructure'
 import CompanyTeams from './Pages/About/CompanyTeams'          // Board of Directors
 import ManagementTeam from './Pages/About/ManagementTeam'    // NEW
 import OtherProfiles from './Pages/About/OtherProfiles'
+import PartnersPage from './Pages/About/PartnersPage'        // NEW
 
 // Services Pages
 import ServicesPage from './Pages/Services/ServicesPage'
@@ -53,9 +54,11 @@ import MerchantPage from './Pages/Digital/MerchantPage'
 // Resources Pages
 import ResourcesPage from './Pages/Resources/ResourcesPage'
 import NewsPage from './Pages/Resources/NewsPage'
-import NewsDetailPage from './Pages/Resources/NewsDetailPage'   // NEW
+import NewsDetailPage from './Pages/Resources/NewsDetailPage'
 import VacancyPage from './Pages/Resources/VacancyPage'
 import AnnualReportPage from './Pages/Resources/AnnualReportPage'
+import SecurityAwarenessPage from './Pages/Resources/SecurityAwarenessPage'   // NEW
+import NBERequirementsPage from './Pages/Resources/NBERequirementsPage'       // NEW
 
 // Investors Pages
 import InvestorsPage from './Pages/Investors/InvestorsPage'
@@ -69,6 +72,7 @@ import MOAPage from './Pages/Investors/MOAPage'
 // Other Pages
 import TermsPage from './Pages/Terms/TermsPage'
 import ContactPage from './Pages/Contact/ContactPage'
+import ComplaintFormPage from './Pages/Contact/ComplaintFormPage'   // NEW
 import CommunityPage from './Pages/Community/CommunityPage'
 
 // Locator Pages
@@ -93,6 +97,7 @@ function App() {
         <Route path="about/company-teams" element={<CompanyTeams />} />
         <Route path="about/management-team" element={<ManagementTeam />} />
         <Route path="about/other-profiles" element={<OtherProfiles />} />
+        <Route path="about/partners" element={<PartnersPage />} />   {/* NEW */}
         
         {/* Services Routes */}
         <Route path="services" element={<ServicesPage />} />
@@ -138,9 +143,11 @@ function App() {
         {/* Resources Routes */}
         <Route path="resources" element={<ResourcesPage />} />
         <Route path="resources/news" element={<NewsPage />} />
-        <Route path="resources/news/:id" element={<NewsDetailPage />} />   {/* NEW */}
+        <Route path="resources/news/:id" element={<NewsDetailPage />} />
         <Route path="resources/vacancy" element={<VacancyPage />} />
         <Route path="resources/annual-report" element={<AnnualReportPage />} />
+        <Route path="resources/security-awareness" element={<SecurityAwarenessPage />} />   {/* NEW */}
+        <Route path="resources/nbe-requirements" element={<NBERequirementsPage />} />       {/* NEW */}
         
         {/* Investors Routes */}
         <Route path="investors" element={<InvestorsPage />} />
@@ -162,6 +169,7 @@ function App() {
         {/* Other Routes */}
         <Route path="terms" element={<TermsPage />} />
         <Route path="contact" element={<ContactPage />} />
+        <Route path="contact/complaint" element={<ComplaintFormPage />} />   {/* NEW */}
         
         {/* Fallback/404 */}
         <Route path="*" element={<HomePage />} />
