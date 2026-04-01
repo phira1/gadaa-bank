@@ -7,7 +7,7 @@ import ContactHeader from './components/ContactHeader';
 import ContactInfoCards from './components/ContactInfoCards';
 import ContactForm from './components/ContactForm';
 import ContactMap from './components/ContactMap';
-import DepartmentsList from './components/DepartmentsList';
+// import DepartmentsList from './components/DepartmentsList'; // REMOVED
 import WorkingHours from './components/WorkingHours';
 import SocialMedia from './components/SocialMedia';
 import ContactCTA from './components/ContactCTA';
@@ -31,7 +31,6 @@ const ContactPage = () => {
   const contactCardsRef = useRef(null);
   const formRef = useRef(null);
   const mapRef = useRef(null);
-  const departmentsRef = useRef(null);
   const hoursRef = useRef(null);
   const socialRef = useRef(null);
   const ctaRef = useRef(null);
@@ -41,7 +40,6 @@ const ContactPage = () => {
   const contactCardsControls = useAnimation();
   const formControls = useAnimation();
   const mapControls = useAnimation();
-  const departmentsControls = useAnimation();
   const hoursControls = useAnimation();
   const socialControls = useAnimation();
   const ctaControls = useAnimation();
@@ -51,7 +49,6 @@ const ContactPage = () => {
   const contactCardsInView = useInView(contactCardsRef, { once: true, amount: 0.2 });
   const formInView = useInView(formRef, { once: true, amount: 0.2 });
   const mapInView = useInView(mapRef, { once: true, amount: 0.2 });
-  const departmentsInView = useInView(departmentsRef, { once: true, amount: 0.2 });
   const hoursInView = useInView(hoursRef, { once: true, amount: 0.2 });
   const socialInView = useInView(socialRef, { once: true, amount: 0.2 });
   const ctaInView = useInView(ctaRef, { once: true, amount: 0.2 });
@@ -72,10 +69,6 @@ const ContactPage = () => {
   useEffect(() => {
     if (mapInView) mapControls.start('visible');
   }, [mapInView, mapControls]);
-
-  useEffect(() => {
-    if (departmentsInView) departmentsControls.start('visible');
-  }, [departmentsInView, departmentsControls]);
 
   useEffect(() => {
     if (hoursInView) hoursControls.start('visible');
@@ -171,11 +164,7 @@ const ContactPage = () => {
                 controls={mapControls}
                 slideInRight={slideInRight}
               />
-              <DepartmentsList
-                refProp={departmentsRef}
-                controls={departmentsControls}
-                fadeInUp={fadeInUp}
-              />
+              {/* DepartmentsList removed */}
             </div>
           </div>
         </div>
