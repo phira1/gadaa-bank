@@ -445,5 +445,47 @@ export const intents = [
       text: "Our regular savings account offers 7% interest compounded monthly. You can check other accounts on our services page.",
       link: '/services/saving-accounts'
     })
+  },
+
+  // ========== NEW INTENTS (Phase 1) ==========
+  {
+    id: 'strategic_objectives',
+    keywords: ['strategic objectives', 'gadaa bank objectives', 'bank objectives', 'what are your objectives', 'bank goals', 'gadaa goals'],
+    response: () => ({
+      text: "Gadaa Bank's strategic objectives are: Increase Financial Inclusion, Digital Transformation, Sustainable Growth, and Empower Youth. Learn more on our About page.",
+      link: '/about'
+    })
+  },
+  {
+    id: 'nbe_requirements',
+    keywords: ['nbe requirements', 'nbe guidelines', 'national bank of ethiopia directives', 'regulatory documents', 'central bank rules', 'nbe directives', 'banking regulations'],
+    response: () => ({
+      text: "Access National Bank of Ethiopia directives, circulars, and regulatory guidelines applicable to Gadaa Bank. Visit our NBE Requirements page.",
+      link: '/resources/nbe-requirements'
+    })
+  },
+  {
+    id: 'security_awareness',
+    keywords: ['security awareness', 'online security', 'banking security', 'protect account', 'phishing', 'fraud prevention', 'safe banking', 'security tips'],
+    response: () => ({
+      text: "Stay safe online with our security tips: Use strong passwords, enable two‑factor authentication, beware of phishing, and always verify website URL. For more details, visit our Security Awareness page.",
+      link: '/resources/security-awareness'
+    })
+  },
+  {
+    id: 'partners',
+    keywords: ['partners', 'partner banks', 'subsidiaries', 'correspondent banks', 'technology partners', 'gadaa partners', 'bank partners'],
+    response: () => ({
+      text: "Gadaa Bank collaborates with trusted partners including subsidiaries, correspondent banks, and technology partners. Learn more on our Partners page.",
+      link: '/about/partners'
+    })
+  },
+  {
+    id: 'complaint_registration',
+    keywords: ['complaint', 'complaint registration', 'file complaint', 'customer complaint', 'feedback', 'report issue', 'submit complaint', 'customer feedback'],
+    response: () => ({
+      text: "We value your feedback. Please fill out the complaint registration form to share your concerns. Our team will respond within 48 hours.",
+      link: '/contact/complaint'
+    })
   }
 ];
