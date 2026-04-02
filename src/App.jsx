@@ -7,15 +7,15 @@ import HomePage from './Pages/Home/HomePage'
 import AboutPage from './Pages/About/AboutPage'
 import CompanyHistory from './Pages/About/CompanyHistory'
 import OrganizationalStructure from './Pages/About/OrganizationalStructure'
-import CompanyTeams from './Pages/About/CompanyTeams'          // Board of Directors
-import ManagementTeam from './Pages/About/ManagementTeam'    // NEW
+import CompanyTeams from './Pages/About/CompanyTeams'
+import ManagementTeam from './Pages/About/ManagementTeam'
 import OtherProfiles from './Pages/About/OtherProfiles'
-import PartnersPage from './Pages/About/PartnersPage'        // NEW
+import PartnersPage from './Pages/About/PartnersPage'
 
 // Services Pages
 import ServicesPage from './Pages/Services/ServicesPage'
 
-// Conventional Banking - Individual Service Pages
+// Conventional Banking
 import SavingAccounts from './Pages/Services/Conventional/SavingAccounts'
 import CurrentAccounts from './Pages/Services/Conventional/CurrentAccounts'
 import TimeDeposit from './Pages/Services/Conventional/TimeDeposit'
@@ -23,14 +23,14 @@ import PersonalLoans from './Pages/Services/Conventional/PersonalLoans'
 import BusinessLoans from './Pages/Services/Conventional/BusinessLoans'
 import GuaranteeFacilities from './Pages/Services/Conventional/GuaranteeFacilities'
 
-// International Banking - Individual Service Pages
+// International Banking
 import ForexService from './Pages/Services/International/ForexService'
 import TradeFinance from './Pages/Services/International/TradeFinance'
 import MoneyTransfer from './Pages/Services/International/MoneyTransfer'
 import DiasporaFcyProducts from './Pages/Services/International/DiasporaFcyProducts'
 import CorrespondentAccounts from './Pages/Services/International/CorrespondentAccounts'
 
-// Interest Free Banking - Individual Service Pages
+// Interest Free Banking
 import DepositProduct from './Pages/Services/InterestFree/DepositProduct'
 import WadiahSaving from './Pages/Services/InterestFree/WadiahSaving'
 import Amanah from './Pages/Services/InterestFree/Amanah'
@@ -38,7 +38,7 @@ import MudarabahSavingAccounts from './Pages/Services/InterestFree/MudarabahSavi
 import FinancingInvestment from './Pages/Services/InterestFree/FinancingInvestment'
 import OtherServices from './Pages/Services/InterestFree/OtherServices'
 
-// Corporate Banking - Individual Service Pages
+// Corporate Banking
 import DiasporaAccount from './Pages/Services/Corporate/DiasporaAccount'
 import DiasporaLoanFacilities from './Pages/Services/Corporate/DiasporaLoanFacilities'
 import NgoCorporateLoanPackages from './Pages/Services/Corporate/NgoCorporateLoanPackages'
@@ -57,9 +57,9 @@ import NewsPage from './Pages/Resources/NewsPage'
 import NewsDetailPage from './Pages/Resources/NewsDetailPage'
 import VacancyPage from './Pages/Resources/VacancyPage'
 import AnnualReportPage from './Pages/Resources/AnnualReportPage'
-import SecurityAwarenessPage from './Pages/Resources/SecurityAwarenessPage'   // NEW
-import NBERequirementsPage from './Pages/Resources/NBERequirementsPage'       // NEW
-import SitemapPage from './Pages/Resources/SitemapPage'                       // NEW
+import SecurityAwarenessPage from './Pages/Resources/SecurityAwarenessPage'
+import NBERequirementsPage from './Pages/Resources/NBERequirementsPage'
+import SitemapPage from './Pages/Resources/SitemapPage'
 
 // Investors Pages
 import InvestorsPage from './Pages/Investors/InvestorsPage'
@@ -73,7 +73,7 @@ import MOAPage from './Pages/Investors/MOAPage'
 // Other Pages
 import TermsPage from './Pages/Terms/TermsPage'
 import ContactPage from './Pages/Contact/ContactPage'
-import ComplaintFormPage from './Pages/Contact/ComplaintFormPage'   // NEW
+import ComplaintFormPage from './Pages/Contact/ComplaintFormPage'
 import CommunityPage from './Pages/Community/CommunityPage'
 
 // Locator Pages
@@ -82,7 +82,9 @@ import BranchLocator from './Pages/Locator/BranchLocator'
 import AgentLocator from './Pages/Locator/AgentLocator'
 
 // Tools Pages
+import ToolsPage from './Pages/Tools/ToolsPage'                     // NEW
 import LoanCalculatorPage from './Pages/Tools/LoanCalculatorPage'
+import ProductComparisonPage from './Pages/Tools/ProductComparisonPage'
 
 function App() {
   return (
@@ -98,7 +100,7 @@ function App() {
         <Route path="about/company-teams" element={<CompanyTeams />} />
         <Route path="about/management-team" element={<ManagementTeam />} />
         <Route path="about/other-profiles" element={<OtherProfiles />} />
-        <Route path="about/partners" element={<PartnersPage />} />   {/* NEW */}
+        <Route path="about/partners" element={<PartnersPage />} />
         
         {/* Services Routes */}
         <Route path="services" element={<ServicesPage />} />
@@ -147,8 +149,8 @@ function App() {
         <Route path="resources/news/:id" element={<NewsDetailPage />} />
         <Route path="resources/vacancy" element={<VacancyPage />} />
         <Route path="resources/annual-report" element={<AnnualReportPage />} />
-        <Route path="resources/security-awareness" element={<SecurityAwarenessPage />} />   {/* NEW */}
-        <Route path="resources/nbe-requirements" element={<NBERequirementsPage />} />       {/* NEW */}
+        <Route path="resources/security-awareness" element={<SecurityAwarenessPage />} />
+        <Route path="resources/nbe-requirements" element={<NBERequirementsPage />} />
         
         {/* Investors Routes */}
         <Route path="investors" element={<InvestorsPage />} />
@@ -165,15 +167,17 @@ function App() {
         <Route path="locators/agent" element={<AgentLocator />} />
         
         {/* Tools Routes */}
+        <Route path="tools" element={<ToolsPage />} />                         {/* NEW */}
         <Route path="tools/loan-calculator" element={<LoanCalculatorPage />} />
+        <Route path="tools/compare-products" element={<ProductComparisonPage />} />
         
         {/* Other Routes */}
         <Route path="terms" element={<TermsPage />} />
         <Route path="contact" element={<ContactPage />} />
-        <Route path="contact/complaint" element={<ComplaintFormPage />} />   {/* NEW */}
+        <Route path="contact/complaint" element={<ComplaintFormPage />} />
         
         {/* Sitemap Route */}
-        <Route path="sitemap" element={<SitemapPage />} />   {/* NEW */}
+        <Route path="sitemap" element={<SitemapPage />} />
         
         {/* Fallback/404 */}
         <Route path="*" element={<HomePage />} />

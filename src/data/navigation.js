@@ -109,7 +109,8 @@ export const navItems = [
       { label: 'Annual Report', path: '/resources/annual-report' },
       { label: 'Security Awareness', path: '/resources/security-awareness' },
       { label: 'NBE Requirements', path: '/resources/nbe-requirements' },
-      { label: 'Sitemap', path: '/sitemap' }   // <-- ADDED
+      { label: 'Tools', path: '/tools' },                     // NEW
+      { label: 'Sitemap', path: '/sitemap' }
     ]
   },
   {
