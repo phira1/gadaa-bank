@@ -59,6 +59,7 @@ import VacancyPage from './Pages/Resources/VacancyPage'
 import AnnualReportPage from './Pages/Resources/AnnualReportPage'
 import SecurityAwarenessPage from './Pages/Resources/SecurityAwarenessPage'   // NEW
 import NBERequirementsPage from './Pages/Resources/NBERequirementsPage'       // NEW
+import SitemapPage from './Pages/Resources/SitemapPage'                       // NEW
 
 // Investors Pages
 import InvestorsPage from './Pages/Investors/InvestorsPage'
@@ -170,6 +171,9 @@ function App() {
         <Route path="terms" element={<TermsPage />} />
         <Route path="contact" element={<ContactPage />} />
         <Route path="contact/complaint" element={<ComplaintFormPage />} />   {/* NEW */}
+        
+        {/* Sitemap Route */}
+        <Route path="sitemap" element={<SitemapPage />} />   {/* NEW */}
         
         {/* Fallback/404 */}
         <Route path="*" element={<HomePage />} />

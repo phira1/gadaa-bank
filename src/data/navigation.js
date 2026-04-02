@@ -23,7 +23,7 @@ export const navItems = [
           { label: 'Social Responsibility', path: '/about/other-profiles#responsibility' }
         ]
       },
-      { label: 'Partners', path: '/about/partners' } // NEW
+      { label: 'Partners', path: '/about/partners' }
     ]
   },
   {
@@ -107,8 +107,9 @@ export const navItems = [
       { label: 'News', path: '/resources/news' },
       { label: 'Vacancy', path: '/resources/vacancy' },
       { label: 'Annual Report', path: '/resources/annual-report' },
-      { label: 'Security Awareness', path: '/resources/security-awareness' }, // NEW
-      { label: 'NBE Requirements', path: '/resources/nbe-requirements' }       // NEW
+      { label: 'Security Awareness', path: '/resources/security-awareness' },
+      { label: 'NBE Requirements', path: '/resources/nbe-requirements' },
+      { label: 'Sitemap', path: '/sitemap' }   // <-- ADDED
     ]
   },
   {
@@ -135,10 +136,10 @@ export const navItems = [
     id: 'contact',
     label: 'Contact Us',
     path: '/contact',
-    hasDropdown: true, // changed from false
+    hasDropdown: true,
     dropdownItems: [
       { label: 'Contact Us', path: '/contact' },
-      { label: 'Complaint Registration', path: '/contact/complaint' } // NEW
+      { label: 'Complaint Registration', path: '/contact/complaint' }
     ]
   }
 ];
