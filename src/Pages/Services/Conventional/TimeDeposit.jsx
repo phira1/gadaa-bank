@@ -11,16 +11,11 @@ import {
   FaHandshake,
   FaClock,
   FaArrowRight,
-  FaPhoneAlt,
-  FaMapMarkerAlt,
-  FaEnvelope,
   FaUserCheck,
   FaUsers,
   FaShieldAlt,
   FaBalanceScale,
   FaHandHoldingUsd,
-  FaChevronUp,
-  FaBolt,
   FaSyncAlt
 } from 'react-icons/fa';
 import { motion, useAnimation } from 'framer-motion';
@@ -37,7 +32,6 @@ const TimeDeposit = () => {
   useEffect(() => {
     const observers = [];
 
-    // Main section observer
     const mainObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -50,12 +44,10 @@ const TimeDeposit = () => {
       { threshold: 0.1 }
     );
 
-    // Stats observer for counter animation
     const statsObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            // Animate deposit counter
             animateDepositCounter(100000);
           }
         });
@@ -63,12 +55,10 @@ const TimeDeposit = () => {
       { threshold: 0.5 }
     );
 
-    // Features observer for staggered animation
     const featuresObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            // Trigger feature animations
             const featureCards = entry.target.querySelectorAll('.feature-card');
             featureCards.forEach((card, index) => {
               setTimeout(() => {
@@ -352,7 +342,6 @@ const TimeDeposit = () => {
 
       {/* Hero Section with Background Image */}
       <div className="relative w-full h-[40vh] md:h-[50vh] overflow-hidden">
-        {/* Background Image */}
         <img
           src="/images/time-deposit.jpg"
           alt="Time Deposit"
@@ -363,11 +352,7 @@ const TimeDeposit = () => {
             e.target.parentElement.style.background = 'linear-gradient(to bottom right, #dc2626, #000000)';
           }}
         />
-        
-        {/* Dark Overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent md:bg-gradient-to-r md:from-black/70 md:via-black/50 md:to-transparent"></div>
-
-        {/* Text Content */}
         <div className="absolute inset-0 flex items-center p-6 md:p-12 text-white">
           <div className="max-w-6xl mx-auto w-full">
             <div className="max-w-xl">
@@ -379,7 +364,6 @@ const TimeDeposit = () => {
                   Time Deposit
                 </h1>
               </div>
-              
               <p className="text-xl md:text-2xl text-white/90 font-light leading-relaxed">
                 Earn more with your savings by placing it in a fixed deposit to maximise its growth potential.
               </p>
@@ -448,7 +432,6 @@ const TimeDeposit = () => {
                   animate={{ scale: [1, 1.2, 1] }}
                   transition={{ duration: 3, repeat: Infinity }}
                 />
-                
                 <div className="relative z-10">
                   <div className="w-16 h-16 bg-gradient-to-br from-red-100 to-white rounded-xl flex items-center justify-center mb-6 mx-auto shadow-md">
                     <FaCoins className="text-3xl text-red-600" />
@@ -472,7 +455,7 @@ const TimeDeposit = () => {
             </div>
           </motion.div>
 
-          {/* Features & Benefits - 2x2 Grid on Mobile */}
+          {/* Features & Benefits */}
           <motion.div 
             ref={featuresRef}
             variants={itemVariants} 
@@ -519,7 +502,7 @@ const TimeDeposit = () => {
             </div>
           </motion.div>
 
-          {/* Eligible Entities - 2x2 Grid on Mobile */}
+          {/* Eligible Entities */}
           <motion.div 
             ref={eligibilityRef}
             variants={itemVariants} 
@@ -583,35 +566,13 @@ const TimeDeposit = () => {
             </div>
           </motion.div>
 
-          {/* CTA */}
+          {/* CTA - Open Account (External Link) */}
           <motion.div 
             variants={itemVariants}
             className="bg-gradient-to-br from-red-600 via-red-700 to-black rounded-2xl sm:rounded-3xl p-6 md:p-8 lg:p-10 text-center text-white shadow-xl relative overflow-hidden"
             whileHover={{ scale: 1.01 }}
             transition={{ type: "spring", stiffness: 200 }}
           >
-            {/* Floating particles */}
-            {[...Array(6)].map((_, i) => (
-              <motion.div
-                key={i}
-                className="absolute w-2 h-2 bg-white/10 rounded-full"
-                animate={{
-                  y: [0, -80, 0],
-                  x: [0, Math.random() * 40 - 20, 0],
-                }}
-                transition={{
-                  duration: 6 + Math.random() * 4,
-                  repeat: Infinity,
-                  delay: i * 0.5,
-                  ease: "easeInOut"
-                }}
-                style={{
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`
-                }}
-              />
-            ))}
-
             <div className="relative z-10 max-w-2xl mx-auto">
               <motion.div 
                 className="inline-flex items-center justify-center w-14 h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 bg-white/10 rounded-full mb-6 backdrop-blur-sm border border-white/20"
@@ -636,95 +597,24 @@ const TimeDeposit = () => {
                 Grow Your Wealth Today
               </motion.h2>
               
-              <motion.p 
-                className="text-sm md:text-base lg:text-lg text-white/90 mb-6 md:mb-8"
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.3 }}
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
-                Did you want to enjoy higher returns with our time deposit account?
-              </motion.p>
-
-              <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center mb-6 md:mb-8">
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                <a
+                  href="https://ibs.gadaabank.com.et/alpha-onboarding/get-started"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-flex items-center gap-2 md:gap-3 px-8 py-3 md:px-10 md:py-4 bg-white text-red-600 font-bold rounded-lg hover:bg-gray-100 shadow-lg transition-all duration-300"
                 >
-                  <Link 
-                    to="/contact"
-                    className="group px-6 py-2.5 md:px-8 md:py-3 lg:px-10 lg:py-4 bg-white text-red-600 font-bold rounded-lg hover:bg-gray-100 shadow-lg flex items-center justify-center gap-2 md:gap-3 text-xs md:text-sm lg:text-base transition-all duration-300"
-                  >
-                    <span>Open An Account</span>
-                    <FaArrowRight className="group-hover:translate-x-1 md:group-hover:translate-x-2 transition-transform duration-300 text-xs" />
-                  </Link>
-                </motion.div>
-                
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Link 
-                    to="/contact"
-                    className="group px-6 py-2.5 md:px-8 md:py-3 lg:px-10 lg:py-4 border border-white text-white font-bold rounded-lg hover:bg-white/10 shadow-lg flex items-center justify-center gap-2 md:gap-3 text-xs md:text-sm lg:text-base transition-all duration-300"
-                  >
-                    <FaPhoneAlt className="text-xs" />
-                    <span>Investment Advisor</span>
-                  </Link>
-                </motion.div>
-              </div>
-
-              <motion.div 
-                className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6"
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.5 }}
-              >
-                {[
-                  { icon: FaMapMarkerAlt, title: 'Visit Branch', desc: 'Multiple locations' },
-                  { icon: FaEnvelope, title: 'Email', desc: 'invest@gadaabank.com' },
-                  { icon: FaPhoneAlt, title: 'Call Center', desc: '+251-XXX-XXX-XXX' }
-                ].map((contact, index) => (
-                  <motion.div
-                    key={index}
-                    className="flex items-center space-x-3 md:space-x-4"
-                    whileHover={{ x: 3 }}
-                    transition={{ type: "spring" }}
-                  >
-                    <div className="w-10 h-10 md:w-12 md:h-12 bg-white/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <contact.icon className="text-white text-sm md:text-base" />
-                    </div>
-                    <div className="text-left">
-                      <div className="font-semibold text-xs md:text-sm lg:text-base">{contact.title}</div>
-                      <div className="text-white/70 text-xs md:text-sm">{contact.desc}</div>
-                    </div>
-                  </motion.div>
-                ))}
+                  <span>Open An Account</span>
+                  <FaArrowRight className="group-hover:translate-x-1 transition-transform duration-300" />
+                </a>
               </motion.div>
             </div>
           </motion.div>
         </motion.div>
       </div>
-
-      {/* Floating CTA Button */}
-      <motion.div 
-        className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-40"
-        initial={{ scale: 0, rotate: -180 }}
-        animate={{ scale: 1, rotate: 0 }}
-        transition={{ delay: 1, type: "spring", stiffness: 200 }}
-        whileHover={{ rotate: 90, scale: 1.1 }}
-      >
-        <Link 
-          to="/contact"
-          className="group w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-red-600 to-black rounded-full flex items-center justify-center shadow-lg hover:shadow-xl"
-        >
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-          >
-            <FaBolt className="text-white text-lg md:text-xl" />
-          </motion.div>
-        </Link>
-      </motion.div>
     </div>
   );
 };

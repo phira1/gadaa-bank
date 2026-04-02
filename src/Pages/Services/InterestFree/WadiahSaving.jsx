@@ -53,9 +53,8 @@ const WadiahSaving = () => {
         </Link>
       </div>
 
-      {/* Hero Section with Background Image */}
+      {/* Hero Section */}
       <div className="relative w-full h-[40vh] md:h-[50vh] overflow-hidden">
-        {/* Background Image */}
         <img
           src="/images/wadiah.jpg"
           alt="Wadiah Saving Account"
@@ -66,11 +65,7 @@ const WadiahSaving = () => {
             e.target.parentElement.style.background = 'linear-gradient(to bottom right, #dc2626, #000000)';
           }}
         />
-        
-        {/* Dark Overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent md:bg-gradient-to-r md:from-black/70 md:via-black/50 md:to-transparent"></div>
-
-        {/* Text Content */}
         <div className="absolute inset-0 flex items-center p-6 md:p-12 text-white">
           <div className="max-w-6xl mx-auto w-full">
             <div className="max-w-xl">
@@ -82,7 +77,6 @@ const WadiahSaving = () => {
                   Wadiah Saving Account
                 </h1>
               </div>
-              
               <p className="text-xl md:text-2xl text-white/90 font-light leading-relaxed">
                 Safe custody account based on Islamic banking principles
               </p>
@@ -124,12 +118,11 @@ const WadiahSaving = () => {
             </div>
           </div>
 
-          {/* Features Grid - 2x3 on Mobile */}
+          {/* Features Grid */}
           <div className="mb-10">
             <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6 text-center">
               Key <span className="text-red-600">Features</span>
             </h2>
-            
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
               {features.map((feature, index) => (
                 <div 
@@ -155,27 +148,23 @@ const WadiahSaving = () => {
               <FaUniversity className="mr-3" />
               How Wadiah Works
             </h2>
-            
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-6 md:mb-8">
               <div className="text-center p-4 md:p-6 bg-white/10 rounded-xl">
                 <div className="text-2xl md:text-3xl font-bold mb-1 md:mb-2">1</div>
                 <h3 className="font-bold mb-1 md:mb-2 text-sm md:text-base">Deposit Funds</h3>
                 <p className="text-white/80 text-xs md:text-sm">You deposit money for safekeeping</p>
               </div>
-              
               <div className="text-center p-4 md:p-6 bg-white/10 rounded-xl">
                 <div className="text-2xl md:text-3xl font-bold mb-1 md:mb-2">2</div>
                 <h3 className="font-bold mb-1 md:mb-2 text-sm md:text-base">Bank Guarantee</h3>
                 <p className="text-white/80 text-xs md:text-sm">Bank guarantees safety of funds</p>
               </div>
-              
               <div className="text-center p-4 md:p-6 bg-white/10 rounded-xl">
                 <div className="text-2xl md:text-3xl font-bold mb-1 md:mb-2">3</div>
                 <h3 className="font-bold mb-1 md:mb-2 text-sm md:text-base">Withdraw Anytime</h3>
                 <p className="text-white/80 text-xs md:text-sm">Access your money when needed</p>
               </div>
             </div>
-
             <div className="bg-white/10 p-4 md:p-6 rounded-xl">
               <h3 className="font-bold mb-2 md:mb-3 text-base md:text-lg">Islamic Principle:</h3>
               <p className="text-white/90 text-sm md:text-base">
@@ -225,15 +214,16 @@ const WadiahSaving = () => {
             <p className="text-base md:text-lg lg:text-xl text-white/90 mb-6 md:mb-8">
               Experience secure, interest-free banking today
             </p>
-            
             <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
-              <Link 
-                to="/contact"
+              <a 
+                href="https://ibs.gadaabank.com.et/alpha-onboarding/get-started"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="px-6 md:px-8 py-2.5 md:py-3 bg-white text-red-600 font-bold rounded-lg hover:bg-gray-100 shadow-lg transition duration-300 flex items-center justify-center text-sm md:text-base"
               >
                 <FaHandHoldingUsd className="mr-2" />
                 Open Account
-              </Link>
+              </a>
               <Link 
                 to="/contact"
                 className="px-6 md:px-8 py-2.5 md:py-3 border-2 border-white text-white font-bold rounded-lg hover:bg-white/10 transition duration-300 text-sm md:text-base"

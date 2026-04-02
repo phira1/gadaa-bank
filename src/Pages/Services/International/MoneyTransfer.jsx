@@ -221,13 +221,13 @@ const MoneyTransfer = () => {
 
       {/* Breadcrumb with Animation */}
       <motion.div 
-        className="bg-gradient-to-r from-black via-gray-900 to-black py-6 relative overflow-hidden"
+        className="bg-gradient-to-r from-black via-gray-900 to-black py-4 md:py-6 relative overflow-hidden"
         initial={{ y: -50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ type: "spring", stiffness: 100, damping: 15 }}
       >
         <div className="container mx-auto px-4 relative z-10">
-          <nav className="flex items-center space-x-2 text-sm">
+          <nav className="flex items-center space-x-2 text-xs md:text-sm">
             <Link to="/" className="text-white/80 hover:text-white font-medium transition-all duration-300">
               Home
             </Link>
@@ -248,7 +248,7 @@ const MoneyTransfer = () => {
       </motion.div>
 
       {/* Back Button */}
-      <div className="container mx-auto px-4 pt-8">
+      <div className="container mx-auto px-4 pt-6 md:pt-8">
         <motion.div
           initial={{ x: -30, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
@@ -256,17 +256,16 @@ const MoneyTransfer = () => {
         >
           <Link 
             to="/services"
-            className="inline-flex items-center text-red-600 hover:text-red-700 font-medium group transition-all duration-300"
+            className="inline-flex items-center text-red-600 hover:text-red-700 font-medium group transition-all duration-300 text-sm md:text-base"
           >
-            <FaArrowLeft className="mr-3 transform group-hover:-translate-x-1 transition-transform duration-300" />
+            <FaArrowLeft className="mr-2 md:mr-3 transform group-hover:-translate-x-1 transition-transform duration-300" />
             <span className="group-hover:underline">Back to All Services</span>
           </Link>
         </motion.div>
       </div>
 
-      {/* Hero Section with Background Image */}
-      <div className="relative w-full h-[40vh] md:h-[50vh] overflow-hidden">
-        {/* Background Image */}
+      {/* Hero Section */}
+      <div className="relative w-full h-[35vh] md:h-[50vh] overflow-hidden">
         <img
           src="/images/moneytransfer.jpg"
           alt="Money Transfer Services"
@@ -277,24 +276,19 @@ const MoneyTransfer = () => {
             e.target.parentElement.style.background = 'linear-gradient(to bottom right, #dc2626, #000000)';
           }}
         />
-        
-        {/* Dark Overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent md:bg-gradient-to-r md:from-black/70 md:via-black/50 md:to-transparent"></div>
-
-        {/* Text Content - Positioned on Left Side */}
-        <div className="absolute inset-0 flex items-center p-6 md:p-12 text-white">
+        <div className="absolute inset-0 flex items-center p-4 md:p-12 text-white">
           <div className="max-w-6xl mx-auto w-full">
             <div className="max-w-xl">
-              <div className="flex items-center mb-6">
-                <div className="w-16 h-16 bg-gradient-to-br from-red-600/90 to-black/90 rounded-full flex items-center justify-center mr-4 backdrop-blur-sm border border-white/20">
-                  <FaMoneyBillWave className="text-white text-2xl" />
+              <div className="flex items-center mb-3 md:mb-6">
+                <div className="w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-red-600/90 to-black/90 rounded-full flex items-center justify-center mr-3 md:mr-4 backdrop-blur-sm border border-white/20">
+                  <FaMoneyBillWave className="text-white text-xl md:text-2xl" />
                 </div>
-                <h1 className="text-4xl md:text-5xl font-bold">
+                <h1 className="text-2xl md:text-5xl font-bold">
                   Money Transfer
                 </h1>
               </div>
-              
-              <p className="text-xl md:text-2xl text-white/90 font-light leading-relaxed">
+              <p className="text-sm md:text-2xl text-white/90 font-light leading-relaxed">
                 Fast and reliable money transfer services to send money to other local banks and agents
               </p>
             </div>
@@ -303,7 +297,7 @@ const MoneyTransfer = () => {
       </div>
 
       {/* Main Content */}
-      <div className="container mx-auto px-4 py-12">
+      <div className="container mx-auto px-4 py-8 md:py-12">
         <motion.div 
           className="max-w-6xl mx-auto"
           variants={containerVariants}
@@ -313,22 +307,22 @@ const MoneyTransfer = () => {
           {/* Description */}
           <motion.div 
             variants={itemVariants}
-            className="mb-12"
+            className="mb-8 md:mb-12"
             whileHover={{ scale: 1.01 }}
             transition={{ type: "spring", stiffness: 300 }}
           >
-            <div className="bg-gradient-to-br from-white to-gray-50 rounded-2xl p-8 shadow-xl border border-gray-200">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center">
+            <div className="bg-gradient-to-br from-white to-gray-50 rounded-xl md:rounded-2xl p-4 md:p-8 shadow-xl border border-gray-200">
+              <h2 className="text-lg md:text-2xl font-bold text-gray-900 mb-3 md:mb-4 flex items-center">
                 <motion.div
                   animate={{ rotate: 360 }}
                   transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                  className="mr-3"
+                  className="mr-2 md:mr-3"
                 >
-                  <FaSyncAlt className="text-red-600 text-lg" />
+                  <FaSyncAlt className="text-red-600 text-sm md:text-lg" />
                 </motion.div>
                 Money Transfer Services
               </h2>
-              <p className="text-gray-700 leading-relaxed">
+              <p className="text-gray-700 leading-relaxed text-sm md:text-base">
                 By Using Gadaa Bank's fast and reliable Money transfer services, you can send money to other local banks and agents. Our Foreign Exchange Remittances services are classified into two major categories:
               </p>
             </div>
@@ -338,10 +332,10 @@ const MoneyTransfer = () => {
           <motion.div 
             ref={servicesRef}
             variants={itemVariants} 
-            className="mb-12"
+            className="mb-10 md:mb-12"
           >
             <motion.h2 
-              className="text-3xl font-bold text-gray-900 mb-8 text-center"
+              className="text-2xl md:text-3xl font-bold text-gray-900 mb-6 md:mb-8 text-center"
               initial={{ y: 30, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.2 }}
@@ -359,21 +353,20 @@ const MoneyTransfer = () => {
                   whileInView="visible"
                   whileHover="hover"
                   viewport={{ once: true, amount: 0.3 }}
-                  className="service-card bg-white rounded-xl p-8 shadow-lg border border-gray-200 hover:border-red-200 transition-all duration-300"
+                  className="service-card bg-white rounded-xl p-6 md:p-8 shadow-lg border border-gray-200 hover:border-red-200 transition-all duration-300"
                 >
                   <motion.div 
-                    className="w-16 h-16 bg-gradient-to-br from-red-100 to-white rounded-xl flex items-center justify-center mb-6 mx-auto shadow-md"
+                    className="w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-red-100 to-white rounded-xl flex items-center justify-center mb-4 md:mb-6 mx-auto shadow-md"
                     whileHover={{ rotate: 360, scale: 1.1 }}
                     transition={{ duration: 0.5 }}
                   >
-                    <service.icon className="text-2xl text-red-600" />
+                    <service.icon className="text-xl md:text-2xl text-red-600" />
                   </motion.div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-4 text-center">{service.title}</h3>
-                  <p className="text-gray-600 leading-relaxed text-center">{service.description}</p>
-                  
-                  <div className="mt-6 pt-6 border-t border-gray-100 text-center">
-                    <div className="inline-flex items-center text-red-600 text-sm font-semibold">
-                      <FaCheckCircle className="mr-2 text-red-600" />
+                  <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-2 md:mb-4 text-center">{service.title}</h3>
+                  <p className="text-gray-600 leading-relaxed text-center text-sm md:text-base">{service.description}</p>
+                  <div className="mt-4 md:mt-6 pt-4 md:pt-6 border-t border-gray-100 text-center">
+                    <div className="inline-flex items-center text-red-600 text-xs md:text-sm font-semibold">
+                      <FaCheckCircle className="mr-1 md:mr-2 text-red-600" />
                       Available via SWIFT (GDAAETAA)
                     </div>
                   </div>
@@ -388,9 +381,9 @@ const MoneyTransfer = () => {
             variants={itemVariants} 
             className="mb-12"
           >
-            <div className="bg-gradient-to-r from-red-50 to-white rounded-xl p-8 shadow-xl border border-red-100">
+            <div className="bg-gradient-to-r from-red-50 to-white rounded-xl p-6 md:p-8 shadow-xl border border-red-100">
               <motion.h2 
-                className="text-3xl font-bold text-gray-900 mb-6 text-center"
+                className="text-2xl md:text-3xl font-bold text-gray-900 mb-4 md:mb-6 text-center"
                 initial={{ y: 30, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.2 }}
@@ -399,7 +392,7 @@ const MoneyTransfer = () => {
               </motion.h2>
               
               <motion.p 
-                className="text-gray-700 text-center text-lg mb-8 max-w-3xl mx-auto"
+                className="text-gray-700 text-center text-sm md:text-lg mb-6 md:mb-8 max-w-3xl mx-auto"
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.3 }}
@@ -407,7 +400,7 @@ const MoneyTransfer = () => {
                 Gadaa Bank has partnered with leading international operators to give you worldwide coverage and convenience
               </motion.p>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                 {partners.map((partner, index) => (
                   <motion.div
                     key={index}
@@ -416,11 +409,10 @@ const MoneyTransfer = () => {
                     whileInView="visible"
                     whileHover="hover"
                     viewport={{ once: true, amount: 0.3 }}
-                    className={`bg-gradient-to-br ${partner.color} rounded-xl p-8 shadow-lg border border-gray-300 hover:border-red-300 transition-all duration-300`}
+                    className={`bg-gradient-to-br ${partner.color} rounded-xl p-6 md:p-8 shadow-lg border border-gray-300 hover:border-red-300 transition-all duration-300`}
                   >
                     <div className="flex flex-col items-center">
-                      {/* Partner Logo with Fallback */}
-                      <div className="w-full h-32 mb-6 flex items-center justify-center">
+                      <div className="w-full h-24 md:h-32 mb-4 md:mb-6 flex items-center justify-center">
                         <img
                           src={partner.logo}
                           alt={`${partner.name} Logo`}
@@ -444,13 +436,11 @@ const MoneyTransfer = () => {
                           }}
                         />
                       </div>
-                      
-                      <h3 className="text-xl font-bold text-gray-900 mb-3 text-center">{partner.name}</h3>
-                      <p className="text-gray-600 text-center mb-4">{partner.description}</p>
-                      
-                      <div className="mt-4 pt-4 border-t border-gray-200 w-full">
-                        <div className="flex items-center justify-center text-red-600 text-sm font-semibold">
-                          <FaCheckCircle className="mr-2" />
+                      <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-2 md:mb-3 text-center">{partner.name}</h3>
+                      <p className="text-gray-600 text-center text-sm md:text-base mb-3 md:mb-4">{partner.description}</p>
+                      <div className="mt-3 md:mt-4 pt-3 md:pt-4 border-t border-gray-200 w-full">
+                        <div className="flex items-center justify-center text-red-600 text-xs md:text-sm font-semibold">
+                          <FaCheckCircle className="mr-1 md:mr-2" />
                           Active Partnership
                         </div>
                       </div>
@@ -460,26 +450,26 @@ const MoneyTransfer = () => {
               </div>
 
               <motion.div 
-                className="mt-8 p-6 bg-gradient-to-br from-white to-gray-50 rounded-xl border border-gray-200 text-center"
+                className="mt-8 p-4 md:p-6 bg-gradient-to-br from-white to-gray-50 rounded-xl border border-gray-200 text-center"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
               >
-                <div className="w-12 h-12 bg-gradient-to-br from-red-100 to-white rounded-xl flex items-center justify-center mb-4 mx-auto">
-                  <FaMapMarkerAlt className="text-xl text-red-600" />
+                <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-red-100 to-white rounded-xl flex items-center justify-center mb-3 md:mb-4 mx-auto">
+                  <FaMapMarkerAlt className="text-lg md:text-xl text-red-600" />
                 </div>
-                <h4 className="text-xl font-bold text-gray-900 mb-3">For more information</h4>
-                <p className="text-gray-700 mb-4">Please visit your nearest branch!</p>
+                <h4 className="text-base md:text-xl font-bold text-gray-900 mb-2 md:mb-3">For more information</h4>
+                <p className="text-gray-700 text-sm md:text-base mb-3 md:mb-4">Please visit your nearest branch!</p>
                 
                 <motion.div
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
                   <Link 
-                    to="/branches"
-                    className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-red-600 to-black text-white font-bold rounded-xl hover:shadow-xl transition-all duration-300"
+                    to="/locators/branch"
+                    className="inline-flex items-center px-4 py-2 md:px-6 md:py-3 bg-gradient-to-r from-red-600 to-black text-white font-bold rounded-lg md:rounded-xl hover:shadow-xl transition-all duration-300 text-sm md:text-base"
                   >
-                    <FaMapMarkerAlt className="mr-2" />
+                    <FaMapMarkerAlt className="mr-1 md:mr-2" />
                     <span>Locate Branch</span>
                   </Link>
                 </motion.div>
@@ -487,131 +477,14 @@ const MoneyTransfer = () => {
             </div>
           </motion.div>
 
-          {/* CTA */}
-          <motion.div 
-            variants={itemVariants}
-            className="bg-gradient-to-br from-red-600 via-red-700 to-black rounded-2xl sm:rounded-3xl p-8 sm:p-10 text-center text-white shadow-xl relative overflow-hidden"
-            whileHover={{ scale: 1.01 }}
-            transition={{ type: "spring", stiffness: 200 }}
-          >
-            {/* Floating particles */}
-            {[...Array(6)].map((_, i) => (
-              <motion.div
-                key={i}
-                className="absolute w-2 h-2 bg-white/10 rounded-full"
-                animate={{
-                  y: [0, -80, 0],
-                  x: [0, Math.random() * 40 - 20, 0],
-                }}
-                transition={{
-                  duration: 6 + Math.random() * 4,
-                  repeat: Infinity,
-                  delay: i * 0.5,
-                  ease: "easeInOut"
-                }}
-                style={{
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`
-                }}
-              />
-            ))}
+          {/* ===== THE OLD CTA SECTION (START TRANSFERRING TODAY) HAS BEEN REMOVED ===== */}
 
-            <div className="relative z-10 max-w-2xl mx-auto">
-              <motion.div 
-                className="inline-flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 bg-white/10 rounded-full mb-6 sm:mb-8 backdrop-blur-sm border border-white/20"
-                animate={{ 
-                  rotate: [0, 360],
-                  scale: [1, 1.05, 1]
-                }}
-                transition={{
-                  rotate: { duration: 20, repeat: Infinity, ease: "linear" },
-                  scale: { duration: 3, repeat: Infinity }
-                }}
-              >
-                <FaMoneyBillWave className="text-white text-2xl sm:text-3xl" />
-              </motion.div>
-              
-              <motion.h2 
-                className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 sm:mb-8"
-                initial={{ y: 30, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.2 }}
-              >
-                Start Transferring Today
-              </motion.h2>
-              
-              <motion.p 
-                className="text-base sm:text-lg text-white/90 mb-8 sm:mb-10"
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.3 }}
-              >
-                Experience fast, secure, and reliable money transfer services with Gadaa Bank
-              </motion.p>
-
-              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8 sm:mb-10">
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Link 
-                    to="/contact"
-                    className="group px-8 py-3 sm:px-10 sm:py-4 bg-white text-red-600 font-bold rounded-lg sm:rounded-xl hover:bg-gray-100 shadow-lg flex items-center justify-center gap-2 sm:gap-3 text-sm sm:text-base transition-all duration-300"
-                  >
-                    <FaPhoneAlt className="text-xs sm:text-sm" />
-                    <span>Contact Transfer Desk</span>
-                  </Link>
-                </motion.div>
-                
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Link 
-                    to="/branches"
-                    className="group px-8 py-3 sm:px-10 sm:py-4 border border-white text-white font-bold rounded-lg sm:rounded-xl hover:bg-white/10 shadow-lg flex items-center justify-center gap-2 sm:gap-3 text-sm sm:text-base transition-all duration-300"
-                  >
-                    <FaMapMarkerAlt className="text-xs sm:text-sm" />
-                    <span>Locate Branch</span>
-                  </Link>
-                </motion.div>
-              </div>
-
-              <motion.div 
-                className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8"
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.5 }}
-              >
-                {[
-                  { icon: FaPhoneAlt, title: 'Transfer Hotline', desc: '+251-XXX-TRANSFER' },
-                  { icon: FaEnvelope, title: 'Email', desc: 'transfer@gadaabank.com' },
-                  { icon: FaClock, title: 'Service Hours', desc: 'Mon-Fri: 8:30AM-4:30PM' }
-                ].map((contact, index) => (
-                  <motion.div
-                    key={index}
-                    className="flex items-center justify-center space-x-3 sm:space-x-4"
-                    whileHover={{ x: 3 }}
-                    transition={{ type: "spring" }}
-                  >
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white/10 rounded-lg sm:rounded-xl flex items-center justify-center">
-                      <contact.icon className="text-white text-base sm:text-lg" />
-                    </div>
-                    <div className="text-left">
-                      <div className="font-semibold text-sm sm:text-base">{contact.title}</div>
-                      <div className="text-white/70 text-xs sm:text-sm">{contact.desc}</div>
-                    </div>
-                  </motion.div>
-                ))}
-              </motion.div>
-            </div>
-          </motion.div>
         </motion.div>
       </div>
 
-      {/* Floating CTA Button */}
+      {/* Floating CTA Button (optional, kept) */}
       <motion.div 
-        className="fixed bottom-6 right-6 sm:bottom-8 sm:right-8 z-40"
+        className="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-40"
         initial={{ scale: 0, rotate: -180 }}
         animate={{ scale: 1, rotate: 0 }}
         transition={{ delay: 1, type: "spring", stiffness: 200 }}
@@ -619,13 +492,13 @@ const MoneyTransfer = () => {
       >
         <Link 
           to="/contact"
-          className="group w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-red-600 to-black rounded-full flex items-center justify-center shadow-lg hover:shadow-xl"
+          className="group w-10 h-10 md:w-14 md:h-14 bg-gradient-to-br from-red-600 to-black rounded-full flex items-center justify-center shadow-lg hover:shadow-xl"
         >
           <motion.div
             animate={{ rotate: 360 }}
             transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
           >
-            <FaBolt className="text-white text-lg sm:text-xl" />
+            <FaBolt className="text-white text-sm md:text-xl" />
           </motion.div>
         </Link>
       </motion.div>
