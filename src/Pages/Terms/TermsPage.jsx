@@ -13,10 +13,18 @@ import {
   FaSearch,
   FaFileInvoice,
   FaCalculator,
-  FaDownload,
   FaRegClock,
   FaExchangeAlt
 } from 'react-icons/fa';
+import {
+  digitalFees,
+  branchInfo,
+  depositRates,
+  creditFacilities,
+  collateralFees,
+  ifbProducts,
+  ibdFees
+} from '../../data/tariffs';
 
 const TermsPage = () => {
   const [activeSection, setActiveSection] = useState('digital');
@@ -28,114 +36,6 @@ const TermsPage = () => {
     { id: 'credit', name: 'Credit Facility Prices and Fees', icon: FaCreditCard },
     { id: 'ifb', name: 'IFB', icon: FaHandshake },
     { id: 'ibd', name: 'IBD', icon: FaGlobe }
-  ];
-
-  const digitalFees = [
-    { sn: '1', type: 'Fund transfer between own accounts', range: 'Any amount', fee: 'Free' },
-    { sn: '2', type: 'Fund transfer to other Gadaa Bank accounts', range: '100 – 1,000', fee: '2 ETB' },
-    { sn: '', type: '', range: '1,001 – 5,000', fee: '5 ETB' },
-    { sn: '', type: '', range: '5,001 – 15,000', fee: '7 ETB' },
-    { sn: '', type: '', range: 'above 15,001', fee: '10 ETB' },
-    { sn: '3', type: 'Fund transfer to Telebirr Wallet and Agents', range: '100 – 500', fee: '3 ETB' },
-    { sn: '', type: '', range: '501-1,500', fee: '5 ETB' },
-    { sn: '', type: '', range: '1,501-5,000', fee: '7 ETB' },
-    { sn: '', type: '', range: '5,001-10,000', fee: '10 ETB' },
-    { sn: '', type: '', range: '10,001-100,000', fee: '20 ETB' },
-    { sn: '', type: '', range: 'Above 100,000', fee: '50 ETB' },
-    { sn: '4', type: 'Subscription', range: '', fee: '5 ETB' },
-    { sn: '5', type: 'Full Statement', range: '', fee: '1 ETB' }
-  ];
-
-  const depositRates = [
-    { account: 'Ordinary Demand Deposit Account', rate: '–' },
-    { account: 'Special Current account (Interest Bearing current Account)', rate: 'Negotiable' },
-    { account: 'Ordinary Saving account', rate: 'Minimum saving interest rate' },
-    { account: 'Special Saving Deposit', rate: 'Negotiable for deposit greater than three million' },
-    { account: 'Staff- saving account', rate: 'Minimum saving interest rate' },
-    { account: 'Staff- Provident Fund', rate: 'Minimum saving interest rate' },
-    { account: 'Provident Solution account', rate: 'Negotiation based' },
-    { account: 'Farmers saving account', rate: 'Minimum saving interest rate plus 1.5 %' },
-    { account: 'Dabbale, Game Kusa, Sabata & Yuba saving Accounts', rate: 'Minimum saving interest rate plus .5%' },
-    { account: 'Dabbale Gammee, Siinqee and Gadamoji saving Accounts', rate: 'Minimum saving interest rate plus 1%' },
-    { account: 'Furtu Saving Account', rate: 'Minimum saving interest rate Plus .25%' },
-    { account: 'Fixed Time Deposit', rate: 'Negotiable' }
-  ];
-
-  const creditFacilities = [
-    { type: 'Export Term Loans (Non-Working Capital)', tenure: 'Short Term', rate: 'Up to 11%' },
-    { type: '', tenure: 'Medium Term', rate: 'Up to 14%' },
-    { type: '', tenure: 'Long Term', rate: 'Up to 15%' },
-    { type: 'Export Term Loans (Working Capital)', tenure: 'Short Term', rate: 'up to 13.95%' },
-    { type: 'Regular Export OD', tenure: '', rate: 'Up to 13.95%' },
-    { type: 'Domestic Trade and Services', tenure: 'Short Term', rate: 'Up to 18.5%' },
-    { type: '', tenure: 'Medium Term', rate: 'Up to 19.5%' },
-    { type: '', tenure: 'Long Term', rate: 'Up to 19.95%' },
-    { type: 'Import Term Loan', tenure: 'Short Term', rate: 'Up to 18.50%' },
-    { type: '', tenure: 'Medium Term', rate: 'Up to 19.75%' },
-    { type: '', tenure: 'Long Term', rate: 'Up to 19.75%' },
-    { type: 'Hotel and Tourism', tenure: 'Short Term', rate: 'Up to 18.00%' },
-    { type: '', tenure: 'Medium Term', rate: 'Up to 19.00%' },
-    { type: '', tenure: 'Long Term', rate: 'Up to 19.50%' },
-    { type: 'Transport Services', tenure: 'Short Term', rate: 'Up to 18.50%' },
-    { type: '', tenure: 'Medium Term', rate: 'Up to 19.75%' },
-    { type: '', tenure: 'Long Term', rate: 'Up to 19.95%' },
-    { type: 'Agricultural Loan including Floriculture and Horticulture', tenure: 'Short Term', rate: 'Up to 17.90%' },
-    { type: '', tenure: 'Medium Term', rate: 'Up to 19.00%' },
-    { type: '', tenure: 'Long Term', rate: 'Up to 19.25%' },
-    { type: 'Manufacturing/Industry', tenure: 'Short Term', rate: 'Up to 18.00%' },
-    { type: '', tenure: 'Medium Term', rate: 'Up to 19.00%' },
-    { type: '', tenure: 'Long Term', rate: 'Up to 19.50%' },
-    { type: 'Building Construction, Real Estate Development', tenure: 'Short Term', rate: 'Up to 18.50%' },
-    { type: '', tenure: 'Medium Term', rate: 'Up to 19.75%' },
-    { type: '', tenure: 'Long Term', rate: 'Up to 19.95%' }
-  ];
-
-  const collateralFees = [
-    { property: 'Single Villa', unit: 'Per LHC', fee: '2,500.00 ETB' },
-    { property: 'Communal Apartment/Condominium', unit: 'Per LHC', fee: '2,000.00 ETB' },
-    { property: 'Multi-Storey Buildings G+1-G+3', unit: '', fee: '3,000.00 ETB' },
-    { property: 'Multi-Storey Buildings G+4-G+6', unit: '', fee: '3,500.00 ETB' },
-    { property: 'Multi-Storey Buildings G+7-G+10', unit: '', fee: '4,000.00 ETB' },
-    { property: 'Multi-Storey Buildings More than G+10', unit: '', fee: '5,000.00 ETB' },
-    { property: 'Multipurpose Hall (Factory, Store or Warehouse Buildings)', unit: 'Per LHC', fee: '3,000.00 ETB' },
-    { property: 'Coffee processing site', unit: 'Per LHC', fee: '5,000.00 ETB' },
-    { property: 'Fuel Stations', unit: 'Per tanker + building cost', fee: '3,500.00 ETB' },
-    { property: 'Project Financing-Buildings (Real estate, mortgage, hotel, etc)', unit: '', fee: '5,000.00 ETB' },
-    { property: 'Motor vehicles/Automobile, Trucks, etc.', unit: 'per vehicle', fee: '1,500.00 ETB' },
-    { property: 'Industrial/Factory Machineries', unit: 'per plant', fee: '1,500.00 ETB' },
-    { property: 'Construction Machinery and Equipment', unit: 'per machinery', fee: '1,500.00 ETB' },
-    { property: 'Workshop Machinery', unit: 'per plant', fee: '1,500.00 ETB' },
-    { property: 'Projects on progress (checking/evaluation)', unit: '', fee: '1,500.00 ETB' },
-    { property: 'Staff housing loan', unit: '', fee: 'Free of Charge' },
-    { property: 'Re-estimation of properties', unit: '', fee: '50% of Corresponding Estimation Fee' },
-    { property: 'Revaluation to meet procedural requirement', unit: '', fee: '1,000.00 ETB' }
-  ];
-
-  const ifbProducts = [
-    { product: 'Murabaha Financing - Agricultural Machinery and Working Capital', duration: '1 Yr', quarter: '10.5', semiAnnual: '11.5', annual: '13.5' },
-    { product: '', duration: '2 Yrs', quarter: '18.5', semiAnnual: '20.5', annual: '24.5' },
-    { product: '', duration: '3 Yrs', quarter: '29.5', semiAnnual: '29.9', annual: '33.4' },
-    { product: '', duration: '4 Yrs', quarter: '38.5', semiAnnual: '40.5', annual: '44' },
-    { product: 'Murabaha Financing - Manufacturing/Industry', duration: '1 Yr', quarter: '11', semiAnnual: '13', annual: '17' },
-    { product: '', duration: '2 Yrs', quarter: '21', semiAnnual: '23', annual: '27' },
-    { product: '', duration: '3 Yrs', quarter: '31', semiAnnual: '33', annual: '38' },
-    { product: 'Murabaha Financing - Domestic Trade Service', duration: '1 Yr', quarter: '11', semiAnnual: '13', annual: '17' },
-    { product: '', duration: '2 Yrs', quarter: '21', semiAnnual: '23', annual: '27' },
-    { product: '', duration: '3 Yrs', quarter: '31', semiAnnual: '33', annual: '37' },
-    { product: 'Pre Shipment Export (Qard Al Hassan)', duration: '90 days', quarter: 'Free', semiAnnual: '', annual: '' }
-  ];
-
-  const ibdFees = [
-    { service: 'Import By LC Method - LC Opening Commission', import: '4%', servicePay: '', cash: '' },
-    { service: 'Import By LC Method - SWIFT Charge (MT 700/MT707/MT740/MT799)', import: 'USD 100', servicePay: '', cash: '' },
-    { service: 'Import By CAD Method - PO Approval Commission', import: '4%', servicePay: '', cash: '' },
-    { service: 'Import By CAD Method - Swift Charge (MT202)', import: 'USD 100', servicePay: '', cash: '' },
-    { service: 'Import By A/P (T.T) Method - Service Charge', import: '4%', servicePay: '', cash: '' },
-    { service: 'Import By A/P (T.T) Method - SWIFT Charge (MT103)', import: 'USD 100', servicePay: '', cash: '' },
-    { service: 'A/P (T.T) Method (Invisible Payment) - Service Charge', import: '', servicePay: '4%', cash: '' },
-    { service: 'A/P (T.T) Method (Invisible Payment) - SWIFT Charge (MT103)', import: '', servicePay: 'USD 100', cash: '' },
-    { service: 'Cash Sales FX Commission - Service Charge', import: '', servicePay: '', cash: '4%' },
-    { service: 'Freight Charge', import: '', servicePay: '4%', cash: '' }
   ];
 
   const renderTable = () => {
@@ -150,7 +50,7 @@ const TermsPage = () => {
                   <th className="py-4 px-6 text-left font-bold">Transaction Type</th>
                   <th className="py-4 px-6 text-left font-bold">Amount Range (ETB)</th>
                   <th className="py-4 px-6 text-left font-bold">Fee</th>
-                </tr>
+                 </tr>
               </thead>
               <tbody>
                 {digitalFees.map((row, index) => (
@@ -298,11 +198,8 @@ const TermsPage = () => {
         return (
           <div className="bg-gradient-to-r from-red-50 to-white rounded-2xl p-8 shadow-xl border border-red-100">
             <div className="text-center mb-8">
-              <h3 className="text-3xl font-bold text-gray-900 mb-4">REVISED BRANCH BANKING TERM AND TARIFF CATALOG</h3>
-              <p className="text-gray-700">
-                For detailed branch banking terms and tariffs, please visit your nearest Gadaa Bank branch 
-                or contact our customer service department for personalized assistance.
-              </p>
+              <h3 className="text-3xl font-bold text-gray-900 mb-4">{branchInfo.title}</h3>
+              <p className="text-gray-700">{branchInfo.description}</p>
             </div>
             
             <div className="grid md:grid-cols-2 gap-8">
@@ -312,22 +209,12 @@ const TermsPage = () => {
                   Branch Services
                 </h4>
                 <ul className="space-y-3">
-                  <li className="flex items-center">
-                    <FaChevronRight className="text-red-500 mr-3" />
-                    <span>Account opening and maintenance</span>
-                  </li>
-                  <li className="flex items-center">
-                    <FaChevronRight className="text-red-500 mr-3" />
-                    <span>Cash deposits and withdrawals</span>
-                  </li>
-                  <li className="flex items-center">
-                    <FaChevronRight className="text-red-500 mr-3" />
-                    <span>Check processing and clearing</span>
-                  </li>
-                  <li className="flex items-center">
-                    <FaChevronRight className="text-red-500 mr-3" />
-                    <span>Foreign currency exchange</span>
-                  </li>
+                  {branchInfo.services.map((service, idx) => (
+                    <li key={idx} className="flex items-center">
+                      <FaChevronRight className="text-red-500 mr-3" />
+                      <span>{service}</span>
+                    </li>
+                  ))}
                 </ul>
               </div>
               
@@ -337,22 +224,12 @@ const TermsPage = () => {
                   Fee Structure
                 </h4>
                 <ul className="space-y-3">
-                  <li className="flex items-center">
-                    <FaChevronRight className="text-red-500 mr-3" />
-                    <span>Account maintenance fees</span>
-                  </li>
-                  <li className="flex items-center">
-                    <FaChevronRight className="text-red-500 mr-3" />
-                    <span>Transaction processing fees</span>
-                  </li>
-                  <li className="flex items-center">
-                    <FaChevronRight className="text-red-500 mr-3" />
-                    <span>Document processing charges</span>
-                  </li>
-                  <li className="flex items-center">
-                    <FaChevronRight className="text-red-500 mr-3" />
-                    <span>Special service requests</span>
-                  </li>
+                  {branchInfo.fees.map((fee, idx) => (
+                    <li key={idx} className="flex items-center">
+                      <FaChevronRight className="text-red-500 mr-3" />
+                      <span>{fee}</span>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>
@@ -400,7 +277,7 @@ const TermsPage = () => {
           </p>
         </div>
 
-        {/* Search and Filter */}
+        {/* Search and Effective Date */}
         <div className="mb-8">
           <div className="flex flex-col md:flex-row gap-4">
             <div className="relative flex-1">
@@ -411,15 +288,9 @@ const TermsPage = () => {
                 className="w-full pl-12 pr-4 py-4 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
               />
             </div>
-            <div className="flex items-center space-x-4">
-              <div className="flex items-center text-gray-700">
-                <FaRegClock className="mr-2 text-red-500" />
-                <span className="font-medium">Effective: January 2025</span>
-              </div>
-              <button className="px-6 py-3 bg-red-600 text-white font-bold rounded-xl hover:bg-red-700 transition duration-300 flex items-center gap-2">
-                <FaDownload />
-                Download PDF
-              </button>
+            <div className="flex items-center text-gray-700">
+              <FaRegClock className="mr-2 text-red-500" />
+              <span className="font-medium">Effective: January 2025</span>
             </div>
           </div>
         </div>
@@ -486,23 +357,13 @@ const TermsPage = () => {
           <div className="lg:col-span-3">
             <div className="bg-white rounded-2xl shadow-xl border border-gray-200 p-8">
               {/* Active Section Header */}
-              <div className="flex items-center justify-between mb-8">
-                <div>
-                  <h2 className="text-3xl font-bold text-gray-900 mb-2">
-                    {sections.find(s => s.id === activeSection)?.name}
-                  </h2>
-                  <div className="flex items-center text-gray-600">
-                    <FaRegClock className="mr-2" />
-                    <span>Last updated: December 2024</span>
-                  </div>
-                </div>
-                <div className="flex items-center space-x-4">
-                  <button className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition duration-300">
-                    Print
-                  </button>
-                  <button className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition duration-300">
-                    Share
-                  </button>
+              <div className="mb-8">
+                <h2 className="text-3xl font-bold text-gray-900 mb-2">
+                  {sections.find(s => s.id === activeSection)?.name}
+                </h2>
+                <div className="flex items-center text-gray-600">
+                  <FaRegClock className="mr-2" />
+                  <span>Last updated: December 2024</span>
                 </div>
               </div>
 

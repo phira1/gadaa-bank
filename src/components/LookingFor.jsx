@@ -61,14 +61,14 @@ const LookingFor = () => {
       icon: FaMapMarkerAlt, 
       title: 'Branch Location', 
       description: 'Find our nearest branch locations across the country',
-      path: '/contact',
+      path: '/locators/branch',  // Updated to new locator page
       external: false
     },
     { 
       icon: FaCreditCard, 
       title: 'ATM Locations', 
       description: 'Locate ATMs for convenient cash access anytime',
-      path: '/digital/atm',
+      path: '/locators/atm',    // Updated to new locator page
       external: false
     },
     { 

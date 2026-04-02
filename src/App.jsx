@@ -1,69 +1,90 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
-import MainLayout from './Pages/Layout/MainLayout'  // CHANGED: capital P
-import HomePage from './Pages/Home/HomePage'  // CHANGED: capital P
+import MainLayout from './Pages/Layout/MainLayout'
+import HomePage from './Pages/Home/HomePage'
 
 // About Pages
-import AboutPage from './Pages/About/AboutPage'  // CHANGED: capital P
-import CompanyHistory from './Pages/About/CompanyHistory'  // CHANGED: capital P
-import OrganizationalStructure from './Pages/About/OrganizationalStructure'  // CHANGED: capital P
-import CompanyTeams from './Pages/About/CompanyTeams'  // CHANGED: capital P
-import OtherProfiles from './Pages/About/OtherProfiles'  // CHANGED: capital P
+import AboutPage from './Pages/About/AboutPage'
+import CompanyHistory from './Pages/About/CompanyHistory'
+import OrganizationalStructure from './Pages/About/OrganizationalStructure'
+import CompanyTeams from './Pages/About/CompanyTeams'
+import ManagementTeam from './Pages/About/ManagementTeam'
+import OtherProfiles from './Pages/About/OtherProfiles'
+import PartnersPage from './Pages/About/PartnersPage'
 
 // Services Pages
-import ServicesPage from './Pages/Services/ServicesPage'  // CHANGED: capital P
+import ServicesPage from './Pages/Services/ServicesPage'
 
-// Conventional Banking - Individual Service Pages
-import SavingAccounts from './Pages/Services/Conventional/SavingAccounts'  // CHANGED: capital P
-import CurrentAccounts from './Pages/Services/Conventional/CurrentAccounts'  // CHANGED: capital P
-import TimeDeposit from './Pages/Services/Conventional/TimeDeposit'  // CHANGED: capital P
-import PersonalLoans from './Pages/Services/Conventional/PersonalLoans'  // CHANGED: capital P
-import BusinessLoans from './Pages/Services/Conventional/BusinessLoans'  // CHANGED: capital P
-import GuaranteeFacilities from './Pages/Services/Conventional/GuaranteeFacilities'  // CHANGED: capital P
+// Conventional Banking
+import SavingAccounts from './Pages/Services/Conventional/SavingAccounts'
+import CurrentAccounts from './Pages/Services/Conventional/CurrentAccounts'
+import TimeDeposit from './Pages/Services/Conventional/TimeDeposit'
+import PersonalLoans from './Pages/Services/Conventional/PersonalLoans'
+import BusinessLoans from './Pages/Services/Conventional/BusinessLoans'
+import GuaranteeFacilities from './Pages/Services/Conventional/GuaranteeFacilities'
 
-// International Banking - Individual Service Pages
-import ForexService from './Pages/Services/International/ForexService'  // CHANGED: capital P
-import TradeFinance from './Pages/Services/International/TradeFinance'  // CHANGED: capital P
-import MoneyTransfer from './Pages/Services/International/MoneyTransfer'  // CHANGED: capital P
+// International Banking
+import ForexService from './Pages/Services/International/ForexService'
+import TradeFinance from './Pages/Services/International/TradeFinance'
+import MoneyTransfer from './Pages/Services/International/MoneyTransfer'
+import DiasporaFcyProducts from './Pages/Services/International/DiasporaFcyProducts'
+import CorrespondentAccounts from './Pages/Services/International/CorrespondentAccounts'
 
-// Interest Free Banking - Individual Service Pages
-import DepositProduct from './Pages/Services/InterestFree/DepositProduct'  // CHANGED: capital P
-import WadiahSaving from './Pages/Services/InterestFree/WadiahSaving'  // CHANGED: capital P
-import Amanah from './Pages/Services/InterestFree/Amanah'  // CHANGED: capital P
-import MudarabahSavingAccounts from './Pages/Services/InterestFree/MudarabahSavingAccounts'  // CHANGED: capital P
-import FinancingInvestment from './Pages/Services/InterestFree/FinancingInvestment'  // CHANGED: capital P
-import OtherServices from './Pages/Services/InterestFree/OtherServices'  // CHANGED: capital P
+// Interest Free Banking
+import DepositProduct from './Pages/Services/InterestFree/DepositProduct'
+import WadiahSaving from './Pages/Services/InterestFree/WadiahSaving'
+import Amanah from './Pages/Services/InterestFree/Amanah'
+import MudarabahSavingAccounts from './Pages/Services/InterestFree/MudarabahSavingAccounts'
+import FinancingInvestment from './Pages/Services/InterestFree/FinancingInvestment'
+import OtherServices from './Pages/Services/InterestFree/OtherServices'
 
-// Corporate Banking - Individual Service Pages
-import DiasporaAccount from './Pages/Services/Corporate/DiasporaAccount'  // CHANGED: capital P
-import DiasporaLoanFacilities from './Pages/Services/Corporate/DiasporaLoanFacilities'  // CHANGED: capital P
-import NgoCorporateLoanPackages from './Pages/Services/Corporate/NgoCorporateLoanPackages'  // CHANGED: capital P
+// Corporate Banking
+import DiasporaAccount from './Pages/Services/Corporate/DiasporaAccount'
+import DiasporaLoanFacilities from './Pages/Services/Corporate/DiasporaLoanFacilities'
+import NgoCorporateLoanPackages from './Pages/Services/Corporate/NgoCorporateLoanPackages'
 
 // Digital Pages
-import DigitalPage from './Pages/Digital/DigitalPage'  // CHANGED: capital P
-import MobileBanking from './Pages/Digital/MobileBanking'  // CHANGED: capital P
-import InternetBanking from './Pages/Digital/InternetBanking'  // CHANGED: capital P
-import CardBanking from './Pages/Digital/CardBanking'  // CHANGED: capital P
-import ATMPage from './Pages/Digital/ATMPage'  // CHANGED: capital P
-import MerchantPage from './Pages/Digital/MerchantPage'  // CHANGED: capital P
+import DigitalPage from './Pages/Digital/DigitalPage'
+import MobileBanking from './Pages/Digital/MobileBanking'
+import InternetBanking from './Pages/Digital/InternetBanking'
+import CardBanking from './Pages/Digital/CardBanking'
+import ATMPage from './Pages/Digital/ATMPage'
+import MerchantPage from './Pages/Digital/MerchantPage'
 
 // Resources Pages
-import ResourcesPage from './Pages/Resources/ResourcesPage'  // CHANGED: capital P
-import NewsPage from './Pages/Resources/NewsPage'  // CHANGED: capital P
-import VacancyPage from './Pages/Resources/VacancyPage'  // CHANGED: capital P
-import AnnualReportPage from './Pages/Resources/AnnualReportPage'  // CHANGED: capital P
+import ResourcesPage from './Pages/Resources/ResourcesPage'
+import NewsPage from './Pages/Resources/NewsPage'
+import NewsDetailPage from './Pages/Resources/NewsDetailPage'
+import VacancyPage from './Pages/Resources/VacancyPage'
+import AnnualReportPage from './Pages/Resources/AnnualReportPage'
+import SecurityAwarenessPage from './Pages/Resources/SecurityAwarenessPage'
+import NBERequirementsPage from './Pages/Resources/NBERequirementsPage'
+import SitemapPage from './Pages/Resources/SitemapPage'
 
 // Investors Pages
-import InvestorsPage from './Pages/Investors/InvestorsPage'  // CHANGED: capital P
-import ProspectusPage from './Pages/Investors/ProspectusPage'  // CHANGED: capital P
-import FinancialReportsPage from './Pages/Investors/FinancialReportsPage'  // CHANGED: capital P
-import ShareholderEventsPage from './Pages/Investors/ShareholderEventsPage'  // CHANGED: capital P
-import PressReleasesPage from './Pages/Investors/PressReleasesPage'  // CHANGED: capital P
-import InvestorContactPage from './Pages/Investors/InvestorContactPage'  // CHANGED: capital P
+import InvestorsPage from './Pages/Investors/InvestorsPage'
+import ProspectusPage from './Pages/Investors/ProspectusPage'
+import FinancialReportsPage from './Pages/Investors/FinancialReportsPage'
+import ShareholderEventsPage from './Pages/Investors/ShareholderEventsPage'
+import PressReleasesPage from './Pages/Investors/PressReleasesPage'
+import InvestorContactPage from './Pages/Investors/InvestorContactPage'
+import MOAPage from './Pages/Investors/MOAPage'
 
 // Other Pages
-import TermsPage from './Pages/Terms/TermsPage'  // CHANGED: capital P
-import ContactPage from './Pages/Contact/ContactPage'  // CHANGED: capital P
+import TermsPage from './Pages/Terms/TermsPage'
+import ContactPage from './Pages/Contact/ContactPage'
+import ComplaintFormPage from './Pages/Contact/ComplaintFormPage'
+import CommunityPage from './Pages/Community/CommunityPage'
+
+// Locator Pages
+import ATMLocator from './Pages/Locator/ATMLocator'
+import BranchLocator from './Pages/Locator/BranchLocator'
+import AgentLocator from './Pages/Locator/AgentLocator'
+
+// Tools Pages
+import ToolsPage from './Pages/Tools/ToolsPage'                     // NEW
+import LoanCalculatorPage from './Pages/Tools/LoanCalculatorPage'
+import ProductComparisonPage from './Pages/Tools/ProductComparisonPage'
 
 function App() {
   return (
@@ -77,12 +98,14 @@ function App() {
         <Route path="about/company-history" element={<CompanyHistory />} />
         <Route path="about/organizational-structure" element={<OrganizationalStructure />} />
         <Route path="about/company-teams" element={<CompanyTeams />} />
+        <Route path="about/management-team" element={<ManagementTeam />} />
         <Route path="about/other-profiles" element={<OtherProfiles />} />
+        <Route path="about/partners" element={<PartnersPage />} />
         
         {/* Services Routes */}
         <Route path="services" element={<ServicesPage />} />
         
-        {/* Conventional Banking - Individual Services */}
+        {/* Conventional Banking */}
         <Route path="services/saving-accounts" element={<SavingAccounts />} />
         <Route path="services/current-accounts" element={<CurrentAccounts />} />
         <Route path="services/time-deposit" element={<TimeDeposit />} />
@@ -90,12 +113,14 @@ function App() {
         <Route path="services/business-loans" element={<BusinessLoans />} />
         <Route path="services/guarantee-facilities" element={<GuaranteeFacilities />} />
         
-        {/* International Banking - Individual Services */}
+        {/* International Banking */}
         <Route path="services/forex-service" element={<ForexService />} />
         <Route path="services/trade-finance" element={<TradeFinance />} />
         <Route path="services/money-transfer" element={<MoneyTransfer />} />
+        <Route path="services/diaspora-fcy-products" element={<DiasporaFcyProducts />} />
+        <Route path="services/correspondent-accounts" element={<CorrespondentAccounts />} />
         
-        {/* Interest Free Banking - Individual Services */}
+        {/* Interest Free Banking */}
         <Route path="services/deposit-product" element={<DepositProduct />} />
         <Route path="services/wadiah-saving" element={<WadiahSaving />} />
         <Route path="services/amanah" element={<Amanah />} />
@@ -103,10 +128,12 @@ function App() {
         <Route path="services/financing-investment" element={<FinancingInvestment />} />
         <Route path="services/other-services" element={<OtherServices />} />
         
-        {/* Corporate Banking - Individual Services */}
+        {/* Corporate Banking */}
         <Route path="services/diaspora-account" element={<DiasporaAccount />} />
         <Route path="services/diaspora-loan-facilities" element={<DiasporaLoanFacilities />} />
         <Route path="services/ngo-corporate-loan-packages" element={<NgoCorporateLoanPackages />} />
+        
+        <Route path="community" element={<CommunityPage />} />
         
         {/* Digital Routes */}
         <Route path="digital" element={<DigitalPage />} />
@@ -119,8 +146,11 @@ function App() {
         {/* Resources Routes */}
         <Route path="resources" element={<ResourcesPage />} />
         <Route path="resources/news" element={<NewsPage />} />
+        <Route path="resources/news/:id" element={<NewsDetailPage />} />
         <Route path="resources/vacancy" element={<VacancyPage />} />
         <Route path="resources/annual-report" element={<AnnualReportPage />} />
+        <Route path="resources/security-awareness" element={<SecurityAwarenessPage />} />
+        <Route path="resources/nbe-requirements" element={<NBERequirementsPage />} />
         
         {/* Investors Routes */}
         <Route path="investors" element={<InvestorsPage />} />
@@ -129,12 +159,27 @@ function App() {
         <Route path="investors/shareholder-events" element={<ShareholderEventsPage />} />
         <Route path="investors/press-releases" element={<PressReleasesPage />} />
         <Route path="investors/contact" element={<InvestorContactPage />} />
+        <Route path="investors/moa" element={<MOAPage />} />
+        
+        {/* Locator Routes */}
+        <Route path="locators/atm" element={<ATMLocator />} />
+        <Route path="locators/branch" element={<BranchLocator />} />
+        <Route path="locators/agent" element={<AgentLocator />} />
+        
+        {/* Tools Routes */}
+        <Route path="tools" element={<ToolsPage />} />                         {/* NEW */}
+        <Route path="tools/loan-calculator" element={<LoanCalculatorPage />} />
+        <Route path="tools/compare-products" element={<ProductComparisonPage />} />
         
         {/* Other Routes */}
         <Route path="terms" element={<TermsPage />} />
         <Route path="contact" element={<ContactPage />} />
+        <Route path="contact/complaint" element={<ComplaintFormPage />} />
         
-        {/* Fallback/404 Route */}
+        {/* Sitemap Route */}
+        <Route path="sitemap" element={<SitemapPage />} />
+        
+        {/* Fallback/404 */}
         <Route path="*" element={<HomePage />} />
       </Route>
     </Routes>

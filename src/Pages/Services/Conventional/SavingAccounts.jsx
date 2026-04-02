@@ -1,346 +1,100 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { 
-  FaArrowLeft, 
-  FaCheckCircle, 
-  FaPiggyBank, 
-  FaChartLine,
-  FaUsers,
-  FaShieldAlt,
-  FaMobileAlt,
-  FaLaptop,
-  FaCreditCard,
-  FaBook,
-  FaPercentage,
-  FaCalendarAlt,
-  FaUserCheck,
-  FaBalanceScale,
-  FaRocket,
-  FaStar,
-  FaGem,
-  FaCrown,
-  FaArrowRight,
-  FaPhoneAlt,
-  FaMapMarkerAlt,
-  FaEnvelope,
-  FaHandHoldingUsd,
-  FaCoins,
-  FaWallet
+  FaArrowLeft, FaPiggyBank, FaGem, FaArrowRight, 
+  FaPhoneAlt, FaMapMarkerAlt, FaEnvelope, FaHandHoldingUsd, FaWallet,
+  FaCheckCircle
 } from 'react-icons/fa';
-import { motion, useAnimation } from 'framer-motion';
-import { useInView } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
+import { contactInfo } from '../../../data/contactData';
+import { stats, features, eligibility } from '../../../data/savingAccountsData';
 
 const SavingAccounts = () => {
-  const [animated, setAnimated] = useState(false);
   const [interestRate, setInterestRate] = useState(0);
-  
-  // Create refs for scroll animations
   const heroRef = useRef(null);
-  const introRef = useRef(null);
-  const statsRef = useRef(null);
-  const featuresRef = useRef(null);
-  const eligibilityRef = useRef(null);
-  const ctaRef = useRef(null);
-  
-  // Use InView hooks
   const isHeroInView = useInView(heroRef, { once: true, amount: 0.3 });
-  const isIntroInView = useInView(introRef, { once: true, amount: 0.2 });
-  const isStatsInView = useInView(statsRef, { once: true, amount: 0.3 });
-  const isFeaturesInView = useInView(featuresRef, { once: true, amount: 0.3 });
-  const isEligibilityInView = useInView(eligibilityRef, { once: true, amount: 0.3 });
-  const isCtaInView = useInView(ctaRef, { once: true, amount: 0.3 });
 
-  // Controls for animations
-  const heroControls = useAnimation();
-  const introControls = useAnimation();
-  const statsControls = useAnimation();
-  const featuresControls = useAnimation();
-  const eligibilityControls = useAnimation();
-  const ctaControls = useAnimation();
-
+  // Animate interest rate counter (stops exactly at 7%)
   useEffect(() => {
     if (isHeroInView) {
-      heroControls.start('visible');
-      // Animate interest rate counter to 7%
-      const targetRate = 7;
-      const duration = 2000;
-      const steps = 60;
-      const increment = targetRate / steps;
       let current = 0;
-      
       const timer = setInterval(() => {
-        current += increment;
-        if (current >= targetRate) {
-          current = targetRate;
+        if (current < 7) {
+          current = Math.min(current + 0.1, 7);
+          setInterestRate(parseFloat(current.toFixed(1)));
+        } else {
           clearInterval(timer);
         }
-        setInterestRate(parseFloat(current.toFixed(1)));
-      }, duration / steps);
-
+      }, 30);
       return () => clearInterval(timer);
     }
-  }, [isHeroInView, heroControls]);
+  }, [isHeroInView]);
 
-  useEffect(() => {
-    if (isIntroInView) introControls.start('visible');
-    if (isStatsInView) statsControls.start('visible');
-    if (isFeaturesInView) featuresControls.start('visible');
-    if (isEligibilityInView) eligibilityControls.start('visible');
-    if (isCtaInView) ctaControls.start('visible');
-  }, [isIntroInView, isStatsInView, isFeaturesInView, isEligibilityInView, isCtaInView, introControls, statsControls, featuresControls, eligibilityControls, ctaControls]);
+  // Update branch count stat to 110+
+  const updatedStats = stats.map(stat => 
+    stat.label === 'Branch Network' ? { ...stat, value: '110+' } : stat
+  );
 
-  const features = [
-    {
-      icon: FaPercentage,
-      title: 'Monthly Compounded Interest',
-      description: 'Interest bearing compounded monthly for maximum growth',
-    },
-    {
-      icon: FaUsers,
-      title: 'Individual or Joint Accounts',
-      description: 'Opened individually or jointly for flexible banking',
-    },
-    {
-      icon: FaMobileAlt,
-      title: 'Mobile Banking',
-      description: 'Full account access through our mobile app',
-    },
-    {
-      icon: FaLaptop,
-      title: 'Internet Banking',
-      description: '24/7 online banking from any device',
-    },
-  ];
-
-  const eligibility = [
-    {
-      title: 'All Natural Persons',
-      description: 'Individual adults and citizens',
-      icon: FaUserCheck
-    },
-    {
-      title: 'Legal Entities',
-      description: 'Businesses and organizations',
-      icon: FaBalanceScale
-    },
-    {
-      title: 'Minors with Guardians',
-      description: 'Children through parents or guardians',
-      icon: FaUsers
-    },
-    {
-      title: 'Special Needs',
-      description: 'Interdicted persons through legal guardians',
-      icon: FaShieldAlt
-    }
-  ];
-
-  const stats = [
-    { value: '50', label: 'Minimum Opening Balance', suffix: 'ETB', icon: FaCoins },
-    { value: '24/7', label: 'Account Access', suffix: '', icon: FaMobileAlt },
-    { value: '100+', label: 'Branch Network', suffix: '', icon: FaMapMarkerAlt },
-    { value: '99.9%', label: 'Uptime', suffix: '', icon: FaCheckCircle }
-  ];
+  const hotline = contactInfo.find(info => info.title === 'Hotline')?.details || '641';
+  const email = contactInfo.find(info => info.title === 'Email')?.details || 'info@gadaabank.com.et';
 
   // Animation variants
-  const fadeInUp = {
-    hidden: { opacity: 0, y: 40 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut"
-      }
-    }
+  const fadeUp = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
   };
-
-  const staggerContainer = {
+  const stagger = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2
-      }
+      transition: { staggerChildren: 0.1 }
     }
   };
-
-  const slideInLeft = {
-    hidden: { opacity: 0, x: -50 },
-    visible: { 
-      opacity: 1, 
-      x: 0,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut"
-      }
-    }
-  };
-
-  const slideInRight = {
-    hidden: { opacity: 0, x: 50 },
-    visible: { 
-      opacity: 1, 
-      x: 0,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut"
-      }
-    }
-  };
-
   const scaleIn = {
     hidden: { opacity: 0, scale: 0.8 },
-    visible: { 
-      opacity: 1, 
-      scale: 1,
-      transition: {
-        duration: 0.5,
-        ease: "easeOut"
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: (i) => ({
-      opacity: 1,
-      y: 0,
-      transition: {
-        delay: i * 0.1,
-        duration: 0.4,
-        ease: "easeOut"
-      }
-    })
-  };
-
-  const statItemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: (i) => ({
-      opacity: 1,
-      y: 0,
-      transition: {
-        delay: i * 0.15,
-        duration: 0.5,
-        ease: "easeOut"
-      }
-    })
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.5, ease: "easeOut" } }
   };
 
   return (
-    <div className="min-h-screen bg-white overflow-hidden">
-      {/* Animated Background Particles */}
-      <motion.div 
-        className="fixed inset-0 pointer-events-none z-0"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-      >
-        {[...Array(15)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-2 h-2 bg-red-500/10 rounded-full"
-            animate={{
-              y: [0, -30, 0],
-              x: [0, Math.random() * 20 - 10, 0],
-              scale: [1, 1.2, 1]
-            }}
-            transition={{
-              duration: 3 + Math.random() * 2,
-              repeat: Infinity,
-              delay: i * 0.2
-            }}
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`
-            }}
-          />
-        ))}
-      </motion.div>
-
-      {/* Breadcrumb Navigation */}
-      <motion.div 
-        ref={heroRef}
-        initial={{ opacity: 0, y: -20 }}
-        animate={heroControls}
-        variants={fadeInUp}
-        className="relative bg-gradient-to-r from-black via-gray-900 to-black py-6 overflow-hidden"
-      >
-        <div className="container mx-auto px-4 relative z-10">
+    <div className="min-h-screen bg-gradient-to-b from-white via-gray-50 to-white">
+      {/* Breadcrumb */}
+      <div className="bg-gradient-to-r from-black to-gray-900 py-4">
+        <div className="container mx-auto px-4">
           <nav className="flex items-center space-x-2 text-sm">
-            <Link to="/" className="text-white/80 hover:text-white font-medium transition-all duration-300 group">
-              <span className="group-hover:underline">Home</span>
-            </Link>
+            <Link to="/" className="text-white/80 hover:text-white">Home</Link>
             <span className="text-red-500">›</span>
-            <Link to="/services" className="text-white/80 hover:text-white font-medium transition-all duration-300 group">
-              <span className="group-hover:underline">Services</span>
-            </Link>
+            <Link to="/services" className="text-white/80 hover:text-white">Services</Link>
             <span className="text-red-500">›</span>
             <span className="text-white font-semibold">Saving Accounts</span>
           </nav>
         </div>
-        
-        {/* Animated underline */}
-        <motion.div 
-          className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-red-600 via-red-500 to-red-600"
-          initial={{ width: 0 }}
-          animate={{ width: '100%' }}
-          transition={{ duration: 1.5, delay: 0.5 }}
-        />
-      </motion.div>
-
-      {/* Back Button */}
-      <div className="container mx-auto px-4 pt-8">
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-        >
-          <Link 
-            to="/services"
-            className="inline-flex items-center text-red-600 hover:text-red-700 font-medium group transition-all duration-300"
-          >
-            <FaArrowLeft className="mr-3 transform group-hover:-translate-x-1 transition-transform duration-300" />
-            <span className="group-hover:underline">Back to All Services</span>
-          </Link>
-        </motion.div>
       </div>
 
-      {/* Full-width Image Background with Text at Bottom */}
-      <motion.div 
-        ref={heroRef}
-        className="relative w-full h-[50vh] md:h-[60vh] overflow-hidden"
-      >
-        {/* Background Image */}
-        <motion.img
-          initial={{ scale: 1.1, opacity: 0 }}
-          animate={isHeroInView ? { scale: 1, opacity: 1 } : { scale: 1.1, opacity: 0 }}
-          transition={{ duration: 1, ease: "easeOut" }}
-          src="/images/savingaccountbackground.jpg"
-          alt="Saving Accounts"
-          className="w-full h-full object-cover object-top md:object-top object-right md:object-center"
-          onError={(e) => {
-            e.target.onerror = null;
-            e.target.style.display = 'none';
-            e.target.parentElement.style.background = 'linear-gradient(to bottom right, #dc2626, #000000)';
-          }}
-        />
-        
-        {/* Dark Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+      <div className="container mx-auto px-4 pt-8">
+        {/* Back Button */}
+        <Link to="/services" className="inline-flex items-center text-red-600 hover:text-red-700 mb-8 group">
+          <FaArrowLeft className="mr-2 group-hover:-translate-x-1 transition-transform" />
+          Back to All Services
+        </Link>
 
-        {/* Text Content at Bottom */}
-        <div className="absolute bottom-0 left-0 right-0 p-6 md:p-12 text-white">
-          <div className="max-w-6xl mx-auto">
-            {/* Title with Piggy Bank Icon */}
-            <motion.div 
-              initial={{ opacity: 0, y: 30 }}
-              animate={isHeroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="flex items-center mb-4"
-            >
-              <motion.div 
+        {/* Hero Section with Image Zoom */}
+        <div ref={heroRef} className="relative w-full h-[40vh] md:h-[50vh] overflow-hidden rounded-2xl mb-12">
+          <motion.img
+            initial={{ scale: 1.1 }}
+            animate={isHeroInView ? { scale: 1 } : { scale: 1.1 }}
+            transition={{ duration: 1.2, ease: "easeOut" }}
+            src="/images/savingaccountbackground.jpg"
+            alt="Saving Accounts"
+            className="w-full h-full object-cover"
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.parentElement.style.background = 'linear-gradient(to bottom right, #dc2626, #000000)';
+            }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent"></div>
+          <div className="absolute bottom-0 left-0 p-6 md:p-12 text-white">
+            <div className="flex items-center mb-4">
+              <motion.div
                 initial={{ scale: 0, rotate: -180 }}
                 animate={isHeroInView ? { scale: 1, rotate: 0 } : { scale: 0, rotate: -180 }}
                 transition={{ duration: 0.6, delay: 0.2, type: "spring", stiffness: 100 }}
@@ -348,7 +102,7 @@ const SavingAccounts = () => {
               >
                 <FaPiggyBank className="text-white text-2xl" />
               </motion.div>
-              <motion.h1 
+              <motion.h1
                 initial={{ opacity: 0, y: 30 }}
                 animate={isHeroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
@@ -356,410 +110,174 @@ const SavingAccounts = () => {
               >
                 Saving Accounts
               </motion.h1>
-            </motion.div>
-            
-            {/* Subtitle */}
-            <motion.p 
+            </div>
+            <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={isHeroInView ? { opacity: 0.9, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.6, delay: 0.6 }}
-              className="text-lg md:text-xl text-white/90 max-w-3xl font-light"
+              className="text-lg md:text-xl text-white/90 max-w-3xl"
             >
               Your gateway to smart savings with premium features and security
             </motion.p>
           </div>
         </div>
-      </motion.div>
 
-      {/* Main Content */}
-      <div className="container mx-auto px-4 py-12 relative">
-        {/* Introductory Text */}
-        <motion.div 
-          ref={introRef}
-          initial={{ opacity: 0, y: 40 }}
-          animate={introControls}
-          variants={fadeInUp}
-          className="bg-gradient-to-br from-white to-gray-50 rounded-3xl p-6 md:p-10 shadow-2xl mb-12 md:mb-16 border border-gray-200"
-        >
-          <div className="flex flex-col lg:flex-row items-center gap-8 md:gap-10">
-            <div className="lg:w-2/3">
-              <motion.h2 
-                variants={fadeInUp}
-                initial="hidden"
-                animate={isIntroInView ? "visible" : "hidden"}
-                className="text-2xl md:text-3xl font-bold text-gray-900 mb-4 md:mb-6 flex items-center"
-              >
-                <motion.div
-                  whileHover={{ rotate: 360 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <FaGem className="text-red-600 mr-3 md:mr-4" />
-                </motion.div>
-                Smart Savings Solutions
-              </motion.h2>
-              <motion.div 
-                variants={staggerContainer}
-                initial="hidden"
-                animate={isIntroInView ? "visible" : "hidden"}
-              >
-                <motion.p variants={itemVariants} className="text-gray-700 text-base md:text-lg leading-relaxed mb-4 md:mb-6">
-                  We provide a wide range of Savings accounts with smart features. Open an account with us and enjoy premium banking!
-                </motion.p>
-                <motion.p variants={itemVariants} className="text-gray-700 text-base md:text-lg leading-relaxed">
-                  Savings Accounts: It is a regular saving account which allows customers to deposit money, keep it safe, and withdraw funds while earning interest.
-                </motion.p>
-              </motion.div>
-            </div>
-            <div className="lg:w-1/3 mt-6 lg:mt-0">
-              <motion.div 
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: "spring", stiffness: 300 }}
-                className="bg-gradient-to-br from-red-600 to-black rounded-2xl p-6 md:p-8 text-center shadow-xl"
-              >
-                <motion.div 
-                  initial={{ scale: 0 }}
-                  animate={isIntroInView ? { scale: 1 } : { scale: 0 }}
-                  transition={{ delay: 0.5, type: "spring", stiffness: 100 }}
-                  className="text-4xl md:text-5xl font-black text-white mb-3 md:mb-4"
-                >
-                  {interestRate}%
-                </motion.div>
-                <div className="text-white/90 text-base md:text-lg font-semibold">Interest Rate</div>
-                <div className="text-white/70 text-sm md:text-base mt-1 md:mt-2">Compounded Monthly</div>
-                <div className="mt-4 md:mt-6">
-                  <div className="w-full bg-white/20 h-2 rounded-full overflow-hidden">
-                    <motion.div 
-                      className="h-full bg-gradient-to-r from-white to-red-200"
-                      initial={{ width: 0 }}
-                      animate={{ width: '100%' }}
-                      transition={{ duration: 2, delay: 1 }}
-                    />
-                  </div>
-                </div>
-              </motion.div>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Stats Bar */}
-        <motion.div 
-          ref={statsRef}
-          variants={staggerContainer}
+        {/* Main content */}
+        <motion.div
           initial="hidden"
-          animate={statsControls}
-          className="mb-12 md:mb-20"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={stagger}
+          className="max-w-6xl mx-auto"
         >
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-            {stats.map((stat, index) => (
-              <motion.div
-                key={index}
-                variants={statItemVariants}
-                custom={index}
-                whileHover={{ y: -5, scale: 1.02 }}
-                transition={{ duration: 0.3 }}
-                className="bg-gradient-to-br from-white to-gray-50 rounded-xl md:rounded-2xl p-4 md:p-6 text-center shadow-lg border border-gray-200"
-              >
-                <motion.div 
-                  whileHover={{ rotate: 360 }}
-                  transition={{ duration: 0.5 }}
-                  className="inline-flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-red-100 to-white rounded-lg md:rounded-xl mb-3 md:mb-4"
-                >
-                  <stat.icon className="text-xl md:text-2xl text-red-600" />
-                </motion.div>
-                <div className="text-2xl md:text-3xl font-black text-gray-900 mb-1 md:mb-2">
-                  {stat.value}{stat.suffix}
-                </div>
-                <div className="text-gray-600 font-medium text-sm md:text-base">{stat.label}</div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Features & Benefits */}
-        <motion.div 
-          ref={featuresRef}
-          initial={{ opacity: 0, y: 40 }}
-          animate={featuresControls}
-          variants={fadeInUp}
-          className="mb-12 md:mb-16"
-        >
-          <div className="text-center mb-6 md:mb-8">
-            <motion.h2 
-              variants={fadeInUp}
-              initial="hidden"
-              animate={isFeaturesInView ? "visible" : "hidden"}
-              className="text-2xl md:text-3xl font-bold text-gray-900 mb-3 md:mb-4"
-            >
-              Features & Benefits
-            </motion.h2>
-            <motion.p 
-              variants={fadeInUp}
-              initial="hidden"
-              animate={isFeaturesInView ? "visible" : "hidden"}
-              transition={{ delay: 0.1 }}
-              className="text-gray-600 text-sm md:text-base max-w-2xl mx-auto"
-            >
-              Experience banking designed for your convenience and growth
-            </motion.p>
-          </div>
-
-          <div className="bg-white rounded-xl md:rounded-2xl p-4 md:p-6 lg:p-8 border border-gray-200">
-            <motion.div 
-              variants={staggerContainer}
-              initial="hidden"
-              animate={isFeaturesInView ? "visible" : "hidden"}
-              className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6"
-            >
-              {features.map((feature, index) => (
-                <motion.div
-                  key={index}
-                  variants={itemVariants}
-                  custom={index}
-                  whileHover={{ y: -5 }}
-                  className="flex flex-col p-3 md:p-4 hover:bg-red-50/50 rounded-lg transition-colors duration-300 h-full"
-                >
-                  <div className="mb-3 md:mb-4">
-                    <motion.div 
-                      whileHover={{ rotate: 360 }}
-                      transition={{ duration: 0.5 }}
-                      className="w-10 h-10 md:w-12 md:h-12 bg-red-100 rounded-lg md:rounded-xl flex items-center justify-center mb-3"
-                    >
-                      <feature.icon className="text-red-600 text-base md:text-lg" />
-                    </motion.div>
-                    <h3 className="font-semibold text-gray-900 text-sm md:text-base mb-1">
-                      {feature.title}
-                    </h3>
-                    <p className="text-gray-600 text-xs md:text-sm">
-                      {feature.description}
-                    </p>
-                  </div>
-                  <motion.div 
-                    whileHover={{ x: 5 }}
-                    className="flex items-center mt-auto text-xs md:text-sm text-green-600 font-medium"
-                  >
-                    <FaCheckCircle className="mr-2 text-xs md:text-sm" />
-                    <span>Available</span>
-                  </motion.div>
-                </motion.div>
-              ))}
-            </motion.div>
-          </div>
-        </motion.div>
-
-        {/* Eligible Entities */}
-        <motion.div 
-          ref={eligibilityRef}
-          initial={{ opacity: 0, y: 40 }}
-          animate={eligibilityControls}
-          variants={fadeInUp}
-          className="mb-12 md:mb-16"
-        >
-          <div className="text-center mb-6 md:mb-8">
-            <motion.h2 
-              variants={fadeInUp}
-              initial="hidden"
-              animate={isEligibilityInView ? "visible" : "hidden"}
-              className="text-2xl md:text-3xl font-bold text-gray-900 mb-3 md:mb-4"
-            >
-              Eligible Entities
-            </motion.h2>
-            <motion.p 
-              variants={fadeInUp}
-              initial="hidden"
-              animate={isEligibilityInView ? "visible" : "hidden"}
-              transition={{ delay: 0.1 }}
-              className="text-gray-600 text-sm md:text-base max-w-2xl mx-auto"
-            >
-              We pride ourselves on cultivating lasting client relationships built on trust and mutual respect
-            </motion.p>
-          </div>
-
-          <div className="bg-gradient-to-r from-red-50 to-white rounded-xl md:rounded-2xl p-4 md:p-6 lg:p-8 border border-red-100">
-            <motion.div 
-              variants={staggerContainer}
-              initial="hidden"
-              animate={isEligibilityInView ? "visible" : "hidden"}
-              className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6"
-            >
-              {eligibility.map((item, index) => (
-                <motion.div
-                  key={index}
-                  variants={itemVariants}
-                  custom={index}
-                  whileHover={{ y: -5 }}
-                  className="bg-white p-3 md:p-4 rounded-lg md:rounded-xl border border-gray-200 text-center hover:border-red-200 transition-all duration-300 h-full flex flex-col"
-                >
-                  <motion.div 
-                    whileHover={{ rotate: 360 }}
-                    transition={{ duration: 0.5 }}
-                    className="w-10 h-10 md:w-12 md:h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-3"
-                  >
-                    <item.icon className="text-red-600 text-base md:text-lg" />
-                  </motion.div>
-                  <h3 className="font-semibold text-gray-900 mb-2 text-sm md:text-base">
-                    {item.title}
-                  </h3>
-                  <p className="text-gray-600 text-xs md:text-sm flex-grow">
-                    {item.description}
+          {/* Intro + Interest Rate */}
+          <motion.div variants={fadeUp} className="mb-12">
+            <div className="bg-gradient-to-br from-white to-gray-50 rounded-2xl p-8 shadow-lg border border-gray-200">
+              <div className="flex flex-col lg:flex-row items-center gap-8">
+                <div className="lg:w-2/3">
+                  <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center">
+                    <FaGem className="text-red-600 mr-3" /> Smart Savings Solutions
+                  </h2>
+                  <p className="text-gray-700 mb-4">
+                    We provide a wide range of Savings accounts with smart features. Open an account with us and enjoy premium banking!
                   </p>
-                </motion.div>
-              ))}
-            </motion.div>
-          </div>
-        </motion.div>
-
-        {/* CTA Section */}
-        <motion.div 
-          ref={ctaRef}
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={ctaControls}
-          variants={scaleIn}
-          className="relative rounded-3xl md:rounded-4xl overflow-hidden mb-12 md:mb-16"
-        >
-          <div className="absolute inset-0 bg-gradient-to-br from-red-600 via-red-700 to-black"></div>
-          
-          {/* Floating elements */}
-          <motion.div 
-            className="absolute inset-0 overflow-hidden"
-            initial={{ opacity: 0 }}
-            animate={isCtaInView ? { opacity: 1 } : { opacity: 0 }}
-            transition={{ duration: 1 }}
-          >
-            {[...Array(10)].map((_, i) => (
-              <motion.div
-                key={i}
-                className="absolute w-4 h-4 bg-white/10 rounded-full"
-                animate={{
-                  y: [0, -100, 0],
-                  rotate: [0, 360]
-                }}
-                transition={{
-                  duration: 8 + Math.random() * 4,
-                  repeat: Infinity,
-                  delay: i * 0.5
-                }}
-                style={{
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`
-                }}
-              />
-            ))}
+                  <p className="text-gray-700">
+                    Savings Accounts: It is a regular saving account which allows customers to deposit money, keep it safe, and withdraw funds while earning interest.
+                  </p>
+                </div>
+                <div className="lg:w-1/3">
+                  <div className="bg-gradient-to-br from-red-600 to-black rounded-2xl p-6 text-center shadow-xl">
+                    <div className="text-5xl font-black text-white mb-2">{interestRate}%</div>
+                    <div className="text-white/90 font-semibold">Interest Rate</div>
+                    <div className="text-white/70 text-sm">Compounded Monthly</div>
+                    <div className="mt-4 w-full bg-white/20 h-2 rounded-full overflow-hidden">
+                      <div className="h-full bg-white rounded-full" style={{ width: `${(interestRate / 7) * 100}%` }} />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </motion.div>
 
-          <div className="relative z-10 p-6 md:p-12 lg:p-16 text-center">
-            <div className="max-w-3xl mx-auto">
-              <motion.div 
-                initial={{ scale: 0, rotate: -180 }}
-                animate={isCtaInView ? { scale: 1, rotate: 0 } : { scale: 0, rotate: -180 }}
-                transition={{ duration: 0.6, delay: 0.2, type: "spring", stiffness: 100 }}
-                className="inline-flex items-center justify-center w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 bg-white/10 rounded-full backdrop-blur-sm mb-6 md:mb-8 border border-white/20"
-              >
-                <FaHandHoldingUsd className="text-white text-2xl md:text-3xl lg:text-4xl" />
-              </motion.div>
-              
-              <motion.h2 
-                variants={fadeInUp}
-                initial="hidden"
-                animate={isCtaInView ? "visible" : "hidden"}
-                className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-black text-white mb-4 md:mb-6"
-              >
-                Ready to Start Saving?
-              </motion.h2>
-              
-              <motion.p 
-                variants={fadeInUp}
-                initial="hidden"
-                animate={isCtaInView ? "visible" : "hidden"}
-                transition={{ delay: 0.1 }}
-                className="text-base md:text-lg lg:text-xl text-white/90 mb-8 md:mb-12 max-w-2xl mx-auto"
-              >
-                Did you want to enjoy premium banking with smart savings features?
-              </motion.p>
-
-              <motion.div 
-                variants={staggerContainer}
-                initial="hidden"
-                animate={isCtaInView ? "visible" : "hidden"}
-                className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center items-center"
-              >
-                <motion.div variants={itemVariants}>
-                  <a 
-                    href="https://ibs.gadaabank.com.et/alpha-onboarding/get-started"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group px-6 md:px-8 lg:px-12 py-3 md:py-4 lg:py-5 bg-white text-red-600 font-bold rounded-xl md:rounded-2xl hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-xl flex items-center justify-center gap-2 md:gap-3 text-sm md:text-base"
-                  >
-                    <span>Open An Account Now</span>
-                    <FaArrowRight className="group-hover:translate-x-2 transition-transform duration-300" />
-                  </a>
-                </motion.div>
-                
-                <motion.div variants={itemVariants}>
-                  <a 
-                    href="tel:+251641"
-                    className="group px-6 md:px-8 lg:px-12 py-3 md:py-4 lg:py-5 border-2 border-white text-white font-bold rounded-xl md:rounded-2xl hover:bg-white/10 transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2 md:gap-3 text-sm md:text-base"
-                  >
-                    <FaPhoneAlt />
-                    <span>Speak with Advisor</span>
-                  </a>
-                </motion.div>
-              </motion.div>
-
-              <motion.div 
-                variants={staggerContainer}
-                initial="hidden"
-                animate={isCtaInView ? "visible" : "hidden"}
-                className="mt-8 md:mt-12 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 lg:gap-8"
-              >
-                {[
-                  { icon: FaMapMarkerAlt, title: 'Visit Branch', desc: '100+ locations' },
-                  { icon: FaEnvelope, title: 'Email Us', desc: 'savings@gadaabank.com' },
-                  { icon: FaPhoneAlt, title: 'Call Center', desc: '+251-641' }
-                ].map((item, index) => (
-                  <motion.div 
-                    key={index}
-                    variants={itemVariants}
-                    custom={index}
-                    className="flex items-center space-x-3 md:space-x-4"
-                  >
-                    <motion.div 
-                      whileHover={{ rotate: 360 }}
-                      transition={{ duration: 0.5 }}
-                      className="w-10 h-10 md:w-12 md:h-12 bg-white/10 rounded-lg md:rounded-xl flex items-center justify-center flex-shrink-0"
-                    >
-                      <item.icon className="text-white text-base md:text-xl" />
-                    </motion.div>
-                    <div className="text-left">
-                      <div className="text-white font-semibold text-sm md:text-base">{item.title}</div>
-                      <div className="text-white/70 text-xs md:text-sm">{item.desc}</div>
-                    </div>
-                  </motion.div>
-                ))}
-              </motion.div>
+          {/* Stats Bar */}
+          <motion.div variants={fadeUp} className="mb-12">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {updatedStats.map((stat, idx) => (
+                <div key={idx} className="bg-white rounded-xl p-4 text-center shadow-md border border-gray-200 hover:shadow-lg transition-shadow">
+                  <div className="w-12 h-12 bg-red-50 rounded-lg flex items-center justify-center mx-auto mb-3">
+                    <stat.icon className="text-red-600 text-xl" />
+                  </div>
+                  <div className="text-2xl font-bold text-gray-900">{stat.value}{stat.suffix}</div>
+                  <div className="text-gray-600 text-sm">{stat.label}</div>
+                </div>
+              ))}
             </div>
-          </div>
+          </motion.div>
+
+          {/* Features Grid */}
+          <motion.div variants={fadeUp} className="mb-12">
+            <h2 className="text-3xl font-bold text-center text-gray-900 mb-6">Features & Benefits</h2>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {features.map((feature, idx) => (
+                <div key={idx} className="bg-white rounded-lg p-4 text-center shadow-sm border border-gray-100 hover:shadow-md hover:-translate-y-1 transition-all">
+                  <div className="w-12 h-12 bg-red-50 rounded-lg flex items-center justify-center mx-auto mb-3">
+                    <feature.icon className="text-red-600 text-xl" />
+                  </div>
+                  <h3 className="font-semibold text-gray-900 mb-1 truncate">{feature.title}</h3>
+                  <p className="text-gray-600 text-sm">{feature.description}</p>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Eligible Entities */}
+          <motion.div variants={fadeUp} className="mb-12">
+            <div className="bg-gradient-to-r from-red-50 to-white rounded-xl p-8 shadow-lg border border-red-100">
+              <h2 className="text-3xl font-bold text-center text-gray-900 mb-6">Eligible Entities</h2>
+              <p className="text-gray-600 text-center mb-8">
+                We pride ourselves on cultivating lasting client relationships built on trust and mutual respect
+              </p>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {eligibility.map((item, idx) => (
+                  <div key={idx} className="bg-white rounded-lg p-4 text-center border border-gray-200 hover:border-red-200 hover:shadow-md transition-all">
+                    <div className="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-3">
+                      <item.icon className="text-red-600 text-xl" />
+                    </div>
+                    <h3 className="font-semibold text-gray-900 mb-1 text-sm">{item.title}</h3>
+                    <p className="text-gray-600 text-xs">{item.description}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+
+          {/* CTA Section */}
+          <motion.div variants={scaleIn} className="bg-gradient-to-br from-red-600 via-red-700 to-black rounded-2xl p-8 text-center text-white shadow-xl">
+            <div className="max-w-2xl mx-auto">
+              <div className="inline-flex items-center justify-center w-20 h-20 bg-white/10 rounded-full mb-6">
+                <FaHandHoldingUsd className="text-white text-3xl" />
+              </div>
+              <h2 className="text-3xl font-bold mb-4">Ready to Start Saving?</h2>
+              <p className="text-white/90 mb-8">Did you want to enjoy premium banking with smart savings features?</p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+                <a 
+                  href="https://ibs.gadaabank.com.et/alpha-onboarding/get-started"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center px-8 py-3 bg-white text-red-600 font-bold rounded-lg hover:bg-gray-100 transition-all"
+                >
+                  Open An Account Now <FaArrowRight className="ml-2" />
+                </a>
+                <a 
+                  href="tel:+251641"
+                  className="inline-flex items-center px-8 py-3 border border-white text-white font-bold rounded-lg hover:bg-white/10 transition-all"
+                >
+                  <FaPhoneAlt className="mr-2" /> Speak with Advisor
+                </a>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="flex items-center justify-center space-x-3">
+                  <div className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center">
+                    <FaMapMarkerAlt className="text-white" />
+                  </div>
+                  <div className="text-left">
+                    <div className="font-semibold">Visit Branch</div>
+                    <div className="text-white/70 text-sm">110+ locations</div>
+                  </div>
+                </div>
+                <div className="flex items-center justify-center space-x-3">
+                  <div className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center">
+                    <FaEnvelope className="text-white" />
+                  </div>
+                  <div className="text-left">
+                    <div className="font-semibold">Email Us</div>
+                    <div className="text-white/70 text-sm">{email}</div>
+                  </div>
+                </div>
+                <div className="flex items-center justify-center space-x-3">
+                  <div className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center">
+                    <FaPhoneAlt className="text-white" />
+                  </div>
+                  <div className="text-left">
+                    <div className="font-semibold">Call Center</div>
+                    <div className="text-white/70 text-sm">{hotline}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
         </motion.div>
       </div>
 
       {/* Floating Contact Button */}
-      <motion.div 
-        className="fixed bottom-6 md:bottom-8 right-6 md:right-8 z-40"
-        initial={{ scale: 0, rotate: -180 }}
-        animate={{ scale: 1, rotate: 0 }}
-        transition={{ delay: 1, type: 'spring' }}
-      >
+      <div className="fixed bottom-6 right-6 z-40">
         <Link 
           to="/contact"
-          className="group w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 bg-gradient-to-br from-red-600 to-black rounded-full flex items-center justify-center shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-110"
+          className="w-14 h-14 bg-gradient-to-br from-red-600 to-black rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all"
         >
-          <motion.div
-            animate={{ rotate: [0, 10, -10, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-          >
-            <FaWallet className="text-white text-lg md:text-xl lg:text-2xl group-hover:rotate-12 transition-transform duration-500" />
-          </motion.div>
+          <FaWallet className="text-white text-xl" />
         </Link>
-      </motion.div>
+      </div>
     </div>
   );
 };

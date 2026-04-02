@@ -2,6 +2,8 @@ import React, { useEffect } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
+import ExchangeRateButton from '../../components/ExchangeRateButton'
+import Chatbot from '../../components/Chatbot'   // Import chatbot
 
 const MainLayout = () => {
   const { pathname } = useLocation()
@@ -40,6 +42,8 @@ const MainLayout = () => {
         <Outlet /> {/* This will render the current page content */}
       </main>
       <Footer />
+      <ExchangeRateButton />
+      <Chatbot />   {/* Add chatbot here */}
     </div>
   )
 }

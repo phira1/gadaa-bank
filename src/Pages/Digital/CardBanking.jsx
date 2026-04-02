@@ -50,6 +50,8 @@ const CardBanking = () => {
           <nav className="flex items-center space-x-2 text-sm">
             <Link to="/" className="text-white/80 hover:text-white">Home</Link>
             <span className="text-red-500">›</span>
+            <Link to="/digital" className="text-white/80 hover:text-white">Digital Banking</Link>
+            <span className="text-red-500">›</span>
             <span className="text-white font-semibold">Card Banking</span>
           </nav>
         </div>
@@ -260,37 +262,6 @@ const CardBanking = () => {
           </div>
         </div>
 
-        {/* Exchange Rate Section */}
-        <div className="mb-10">
-          <div className="bg-gradient-to-r from-red-600 to-black rounded-2xl p-10 text-white shadow-xl hover:shadow-2xl transition-all duration-500">
-            <div className="max-w-3xl mx-auto text-center">
-              <div className="inline-flex items-center justify-center w-20 h-20 bg-white/10 rounded-full mb-6 animate-pulse">
-                <FaExchangeAlt className="text-white text-3xl" />
-              </div>
-              <h2 className="text-3xl font-bold mb-6">Exchange Rate Services</h2>
-              <p className="text-xl text-white/90 mb-8">
-                Get competitive exchange rates when using your Gadaa debit card for 
-                international transactions and foreign currency needs.
-              </p>
-              <div className="grid md:grid-cols-3 gap-6">
-                {[
-                  { value: 'Competitive', desc: 'Best market rates' },
-                  { value: 'Transparent', desc: 'No hidden fees' },
-                  { value: 'Real-time', desc: 'Live rate updates' }
-                ].map((item, index) => (
-                  <div 
-                    key={index} 
-                    className="bg-white/10 p-6 rounded-xl hover:bg-white/20 transition-all duration-300 hover:scale-105"
-                  >
-                    <div className="text-2xl font-bold mb-2 animate-pulse">{item.value}</div>
-                    <p className="text-white/80">{item.desc}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-
         {/* CTA */}
         <div className="bg-gradient-to-r from-red-600 to-black rounded-2xl p-10 text-center text-white shadow-xl hover:shadow-2xl transition-all duration-500">
           <h2 className="text-3xl font-bold mb-4">Get Your Gadaa Debit Card</h2>
@@ -306,7 +277,7 @@ const CardBanking = () => {
               Apply for Card
             </Link>
             <Link 
-              to="/contact"
+              to="/locators/atm"
               className="px-8 py-3 border-2 border-white text-white font-bold rounded-lg hover:bg-white/10 hover:scale-105 transition-all duration-300"
             >
               Find Nearest ATM

@@ -118,8 +118,8 @@ const MerchantPage = () => {
               <div className="lg:w-1/2">
                 <div className="relative">
                   <img 
-                    src="/images/qrmerchant.png" 
-                    alt="QR Merchant Payment - Mobile Phone with QR Code" 
+                    src="/images/gadaaqrcode.jpg" 
+                    alt="Gadaa QR Merchant Payment - Mobile Phone with QR Code" 
                     className="w-full h-auto rounded-2xl shadow-lg transform hover:scale-105 transition-transform duration-500"
                     onError={(e) => {
                       e.target.onerror = null;
@@ -219,7 +219,7 @@ const MerchantPage = () => {
           </div>
         </div>
 
-        {/* CTA */}
+        {/* CTA - Simplified to one button */}
         <div className="bg-gradient-to-r from-red-600 to-black rounded-2xl p-10 text-center text-white shadow-xl hover:shadow-2xl transition-all duration-500">
           <div className="max-w-2xl mx-auto">
             <h2 className="text-3xl font-bold mb-4">Start Accepting QR Payments</h2>
@@ -227,19 +227,16 @@ const MerchantPage = () => {
               Join thousands of merchants using Gadaa QR payments
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-              <button className="px-8 py-3 bg-white text-red-600 font-bold rounded-lg hover:bg-gray-100 hover:scale-105 shadow-lg transition-all duration-300">
-                Register as Merchant
-              </button>
+            <div className="flex justify-center">
               <Link 
                 to="/contact"
-                className="px-8 py-3 border-2 border-white text-white font-bold rounded-lg hover:bg-white/10 hover:scale-105 transition-all duration-300"
+                className="px-8 py-3 bg-white text-red-600 font-bold rounded-lg hover:bg-gray-100 hover:scale-105 shadow-lg transition-all duration-300"
               >
-                Learn More
+                Contact Us to Register
               </Link>
             </div>
             
-            <div className="text-white/70 text-sm">
+            <div className="text-white/70 text-sm mt-6">
               <FaHistory className="inline mr-2" />
               Track all transactions in your banking history
             </div>

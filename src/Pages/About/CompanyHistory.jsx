@@ -19,6 +19,7 @@ import {
   FaRocket,
   FaLightbulb
 } from 'react-icons/fa';
+import { socialLinks } from '../../data/socialLinks'; // adjust path if needed
 
 const CompanyHistory = () => {
   const [animated, setAnimated] = useState(false);
@@ -83,6 +84,11 @@ const CompanyHistory = () => {
     }
   ];
 
+  // Find the specific social media icons we need (Facebook, Twitter, YouTube)
+  const facebookLink = socialLinks.find(s => s.label === 'Facebook')?.href || '#';
+  const twitterLink = socialLinks.find(s => s.label === 'X')?.href || '#';
+  const youtubeLink = socialLinks.find(s => s.label === 'YouTube')?.href || '#';
+
   return (
     <div className="min-h-screen" ref={sectionRef}>
       {/* Breadcrumb */}
@@ -122,7 +128,6 @@ const CompanyHistory = () => {
           {/* Image Column */}
           <div className="lg:w-2/5">
             <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-              {/* Gadaa Bank Building Image */}
               <img 
                 src="/images/gadaa-building.jpg" 
                 alt="Gadaa Bank Headquarters Building" 
@@ -249,72 +254,44 @@ const CompanyHistory = () => {
           </div>
         </div>
 
-        {/* Contact & Locator Section */}
-        <div className={`bg-gradient-to-r from-gray-50 to-white rounded-2xl p-8 shadow-xl mb-16 ${
-          animated ? 'animate-fadeInUp' : 'opacity-0'
-        }`} style={animated ? { animationDelay: '800ms' } : {}}>
-          <h3 className="text-3xl font-bold text-gray-900 mb-8 text-center">
-            How can we help you?
-          </h3>
-          <p className="text-gray-700 text-center mb-10 max-w-2xl mx-auto">
-            Contact us at Gadaa Bank Branch nearest to you or submit a business inquiry online.
-          </p>
-
-          <div className="flex flex-col md:flex-row gap-6 justify-center mb-10">
-            <button className="bg-red-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-red-700 transition duration-300 flex items-center justify-center gap-3 shadow-lg hover:shadow-xl">
-              <FaPhone />
-              Contact Us
-            </button>
-            <button className="border-2 border-red-600 text-red-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-red-50 transition duration-300 flex items-center justify-center gap-3">
-              <FaHandHoldingHeart />
-              Submit Inquiry
-            </button>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6 max-w-3xl mx-auto">
-            {[
-              { icon: FaMapMarkerAlt, title: 'ATM Locator', desc: 'Find nearest ATM', color: 'bg-red-100' },
-              { icon: FaMapMarkerAlt, title: 'Branch Locator', desc: 'Locate our branches', color: 'bg-gray-100' },
-              { icon: FaUsers, title: 'Agent Locator', desc: 'Find banking agents', color: 'bg-red-100' }
-            ].map((item, index) => (
-              <div 
-                key={index}
-                className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 border border-gray-200"
-              >
-                <div className="flex items-center mb-4">
-                  <div className={`${item.color} p-3 rounded-lg mr-4`}>
-                    <item.icon className="text-red-600 text-xl" />
-                  </div>
-                  <h4 className="text-lg font-bold text-gray-900">{item.title}</h4>
-                </div>
-                <p className="text-gray-600">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
         {/* Social Media & Core Values */}
         <div className={`grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto mb-16 ${
           animated ? 'animate-fadeInUp' : 'opacity-0'
-        }`} style={animated ? { animationDelay: '1000ms' } : {}}>
+        }`} style={animated ? { animationDelay: '800ms' } : {}}>
           {/* Social Media */}
           <div>
             <h3 className="text-2xl font-bold text-gray-900 mb-6">Connect With Us</h3>
             <div className="flex space-x-4 mb-8">
-              {[
-                { icon: FaFacebook, color: 'bg-gray-800 hover:bg-black', label: 'Facebook' },
-                { icon: FaTwitter, color: 'bg-gray-800 hover:bg-black', label: 'Twitter' },
-                { icon: FaYoutube, color: 'bg-red-600 hover:bg-red-700', label: 'YouTube' }
-              ].map((social, index) => (
-                <a
-                  key={index}
-                  href="#"
-                  className={`${social.color} text-white p-4 rounded-xl transition duration-300 transform hover:-translate-y-1`}
-                  aria-label={social.label}
-                >
-                  <social.icon className="text-2xl" />
-                </a>
-              ))}
+              {/* Facebook */}
+              <a
+                href={facebookLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-gray-800 hover:bg-black text-white p-4 rounded-xl transition duration-300 transform hover:-translate-y-1"
+                aria-label="Facebook"
+              >
+                <FaFacebook className="text-2xl" />
+              </a>
+              {/* Twitter (X) */}
+              <a
+                href={twitterLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-gray-800 hover:bg-black text-white p-4 rounded-xl transition duration-300 transform hover:-translate-y-1"
+                aria-label="Twitter"
+              >
+                <FaTwitter className="text-2xl" />
+              </a>
+              {/* YouTube */}
+              <a
+                href={youtubeLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-red-600 hover:bg-red-700 text-white p-4 rounded-xl transition duration-300 transform hover:-translate-y-1"
+                aria-label="YouTube"
+              >
+                <FaYoutube className="text-2xl" />
+              </a>
             </div>
             <p className="text-gray-600">
               Follow us for latest updates, financial tips, and community initiatives.
@@ -365,16 +342,21 @@ const CompanyHistory = () => {
         {/* Final CTA */}
         <div className={`text-center ${
           animated ? 'animate-fadeInUp' : 'opacity-0'
-        }`} style={animated ? { animationDelay: '1200ms' } : {}}>
+        }`} style={animated ? { animationDelay: '1000ms' } : {}}>
           <div className="bg-gradient-to-r from-red-600 to-black rounded-2xl p-10 text-white max-w-4xl mx-auto">
             <h3 className="text-3xl font-bold mb-4">Looking for a First-Class Banking Service?</h3>
             <p className="text-xl mb-8 opacity-90">
               Join thousands of satisfied customers who trust Gadaa Bank with their financial journey
             </p>
-            <button className="bg-white text-red-600 px-10 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition duration-300 flex items-center gap-3 mx-auto shadow-2xl hover:shadow-3xl">
+            <a
+              href="https://ibs.gadaabank.com.et/alpha-onboarding/get-started"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center bg-white text-red-600 px-10 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition duration-300 gap-3 shadow-2xl hover:shadow-3xl"
+            >
               Join Us Today
               <FaArrowRight />
-            </button>
+            </a>
           </div>
         </div>
       </div>

@@ -14,6 +14,7 @@ import {
   FaInfoCircle
 } from 'react-icons/fa';
 import { motion, useAnimation } from 'framer-motion';
+import LoanCalculator from '../../../components/LoanCalculator'; // NEW import
 
 const PersonalLoans = () => {
   const [animated, setAnimated] = useState(false);
@@ -213,6 +214,14 @@ const PersonalLoans = () => {
                 </p>
               </motion.div>
             </div>
+          </motion.div>
+
+          {/* Loan Calculator Section */}
+          <motion.div variants={itemVariants} className="mt-16 mb-12">
+            <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">
+              Estimate Your <span className="text-red-600">Loan Payments</span>
+            </h2>
+            <LoanCalculator />
           </motion.div>
 
           <motion.div 

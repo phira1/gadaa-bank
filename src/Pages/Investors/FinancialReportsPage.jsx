@@ -1,33 +1,80 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { FaArrowLeft, FaFilePdf, FaDownload, FaEye } from 'react-icons/fa';
+import { financialReportsList } from '../../data/investorData';
 
-const PageName = () => {
+const FinancialReportsPage = () => {
   return (
-    <div className="min-h-screen py-12">
-      <div className="container mx-auto px-4">
-        <nav className="mb-8">
-          <ol className="flex items-center space-x-2 text-sm">
-            <li><Link to="/" className="text-red-600 hover:text-red-700">Home</Link></li>
-            <li className="text-gray-400">›</li>
-            <li className="text-gray-600">Page Title</li>
-          </ol>
-        </nav>
+    <div className="min-h-screen bg-white">
+      <div className="bg-gradient-to-r from-black to-gray-900 py-4">
+        <div className="container mx-auto px-4">
+          <nav className="flex items-center space-x-2 text-sm">
+            <Link to="/" className="text-white/80 hover:text-white">Home</Link>
+            <span className="text-red-500">›</span>
+            <Link to="/investors" className="text-white/80 hover:text-white">Investors</Link>
+            <span className="text-red-500">›</span>
+            <span className="text-white font-semibold">Financial Reports</span>
+          </nav>
+        </div>
+      </div>
 
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Page Title</h1>
-          <p className="text-gray-600">
-            This page is under development. Content will be added soon.
-          </p>
+      <div className="container mx-auto px-4 py-8">
+        <Link to="/investors" className="inline-flex items-center text-red-600 hover:text-red-700 mb-8 group">
+          <FaArrowLeft className="mr-2 group-hover:-translate-x-1 transition-transform duration-300" />
+          Back to Investors
+        </Link>
+
+        <div className="text-center mb-8">
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Financial Reports & Statements</h1>
+          <p className="text-gray-600">Access audited financial statements and reports.</p>
         </div>
 
-        <div className="max-w-4xl mx-auto bg-white p-8 rounded-xl shadow-lg">
-          <p className="text-gray-700 text-center">
-            Check back later for updated content.
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+          {financialReportsList.map((report) => (
+            <div key={report.id} className="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden group hover:shadow-2xl transition-all duration-300">
+              <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
+                <h2 className="font-semibold text-gray-800 line-clamp-2">{report.title}</h2>
+              </div>
+              <div className="p-6 text-center">
+                {report.isAvailable !== false ? (
+                  <a
+                    href={report.pdfLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block hover:opacity-95 transition-opacity"
+                  >
+                    <img
+                      src={report.image}
+                      alt={report.title}
+                      className="mx-auto rounded-lg shadow-md max-w-full h-auto"
+                    />
+                    <div className="mt-4 flex items-center justify-center gap-2 text-red-600 font-medium group-hover:underline">
+                      <FaEye />
+                      <span>View Report</span>
+                      <FaDownload className="text-sm" />
+                    </div>
+                  </a>
+                ) : (
+                  <div className="bg-gray-100 rounded-lg p-8 text-center">
+                    <p className="text-gray-500">This report will be available soon. Please check back later.</p>
+                  </div>
+                )}
+                {report.fileSize && (
+                  <p className="mt-2 text-xs text-gray-400">File size: {report.fileSize}</p>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="bg-red-50 rounded-lg p-6 text-center mt-8">
+          <p className="text-gray-700">
+            For inquiries about financial statements, please <Link to="/investors/contact" className="text-red-600 font-medium underline">contact our investor relations team</Link>.
           </p>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default PageName
+export default FinancialReportsPage;
