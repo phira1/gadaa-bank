@@ -25,9 +25,6 @@ const ForexService = () => {
   const [animated, setAnimated] = useState(false);
   const controls = useAnimation();
   const sectionRef = useRef(null);
-  const statsRef = useRef(null);
-  const featuresRef = useRef(null);
-  const ratesRef = useRef(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -47,7 +44,6 @@ const ForexService = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Forex request submitted:', formData);
     setSubmitted(true);
     setTimeout(() => {
       setSubmitted(false);

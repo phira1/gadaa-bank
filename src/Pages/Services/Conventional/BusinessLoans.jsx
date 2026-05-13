@@ -20,6 +20,18 @@ const BusinessLoans = () => {
   const [animated, setAnimated] = useState(false);
   const controls = useAnimation();
   const sectionRef = useRef(null);
+  const backgroundParticles = Array.from({ length: 12 }, (_, index) => ({
+    x: ((index * 13) % 20) - 10,
+    duration: 4 + ((index * 7) % 20) / 10,
+    left: `${(index * 17) % 100}%`,
+    top: `${(index * 29) % 100}%`,
+  }));
+  const ctaParticles = Array.from({ length: 6 }, (_, index) => ({
+    x: ((index * 19) % 40) - 20,
+    duration: 6 + ((index * 11) % 40) / 10,
+    left: `${(index * 23) % 100}%`,
+    top: `${(index * 31) % 100}%`,
+  }));
 
   useEffect(() => {
     const mainObserver = new IntersectionObserver(
@@ -74,7 +86,7 @@ const BusinessLoans = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white via-gray-50 to-white" ref={sectionRef}>
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        {[...Array(12)].map((_, i) => (
+        {backgroundParticles.map((particle, i) => (
           <motion.div
             key={i}
             className={`absolute ${i % 3 === 0 ? 'w-3 h-3' : i % 3 === 1 ? 'w-2 h-2' : 'w-1 h-1'} ${
@@ -82,17 +94,17 @@ const BusinessLoans = () => {
             } rounded-full`}
             animate={{
               y: [0, -30, 0],
-              x: [0, Math.random() * 20 - 10, 0],
+              x: [0, particle.x, 0],
             }}
             transition={{
-              duration: 4 + Math.random() * 2,
+              duration: particle.duration,
               repeat: Infinity,
               delay: i * 0.3,
               ease: "easeInOut"
             }}
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`
+              left: particle.left,
+              top: particle.top
             }}
           />
         ))}
@@ -229,23 +241,23 @@ const BusinessLoans = () => {
             variants={itemVariants}
             className="bg-gradient-to-br from-red-600 via-red-700 to-black rounded-2xl sm:rounded-3xl p-8 sm:p-10 text-center text-white shadow-xl relative overflow-hidden"
           >
-            {[...Array(6)].map((_, i) => (
+            {ctaParticles.map((particle, i) => (
               <motion.div
                 key={i}
                 className="absolute w-2 h-2 bg-white/10 rounded-full"
                 animate={{
                   y: [0, -80, 0],
-                  x: [0, Math.random() * 40 - 20, 0],
+                  x: [0, particle.x, 0],
                 }}
                 transition={{
-                  duration: 6 + Math.random() * 4,
+                  duration: particle.duration,
                   repeat: Infinity,
                   delay: i * 0.5,
                   ease: "easeInOut"
                 }}
                 style={{
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`
+                  left: particle.left,
+                  top: particle.top
                 }}
               />
             ))}

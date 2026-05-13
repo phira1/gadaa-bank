@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaArrowLeft, FaRegComment } from 'react-icons/fa';
+import { complaintService } from '../../services';
 
 const ComplaintFormPage = () => {
   const [formData, setFormData] = useState({
@@ -9,19 +10,38 @@ const ComplaintFormPage = () => {
     phone: '',
     accountNumber: '',
     subject: '',
-    description: ''
+    description: '',
   });
   const [submitted, setSubmitted] = useState(false);
+  const [referenceNumber, setReferenceNumber] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
-    console.log('Complaint submitted:', formData);
-    // Later, send to backend API
+    setLoading(true);
+    setError(null);
+    try {
+      const payload = {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        account_number: formData.accountNumber,
+        subject: formData.subject,
+        description: formData.description,
+      };
+      const res = await complaintService.submit(payload);
+      setReferenceNumber(res.reference_number || '');
+      setSubmitted(true);
+    } catch (err) {
+      setError(err.message || 'Failed to submit complaint. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -60,6 +80,11 @@ const ComplaintFormPage = () => {
 
           {!submitted ? (
             <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-xl border border-gray-200 p-8">
+              {error && (
+                <div className="mb-6 p-4 bg-red-50 border border-red-200 text-red-700 rounded-lg">
+                  {error}
+                </div>
+              )}
               <div className="space-y-6">
                 <div>
                   <label className="block text-gray-700 font-medium mb-2">Full Name *</label>
@@ -126,22 +151,29 @@ const ComplaintFormPage = () => {
                     value={formData.description}
                     onChange={handleChange}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-600"
-                  ></textarea>
+                  />
                 </div>
                 <button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-red-600 to-black text-white py-3 rounded-xl font-bold hover:shadow-lg transition-all"
+                  disabled={loading}
+                  className="w-full bg-gradient-to-r from-red-600 to-black text-white py-3 rounded-xl font-bold hover:shadow-lg transition-all disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  Submit Complaint
+                  {loading ? 'Submitting…' : 'Submit Complaint'}
                 </button>
               </div>
             </form>
           ) : (
             <div className="bg-green-50 border border-green-200 rounded-2xl p-8 text-center">
               <h2 className="text-2xl font-bold text-green-700 mb-2">Thank You!</h2>
-              <p className="text-gray-700">Your complaint has been registered. We will contact you soon.</p>
+              <p className="text-gray-700">Your complaint has been registered successfully.</p>
+              {referenceNumber && (
+                <p className="mt-3 text-gray-600">
+                  Your reference number: <span className="font-bold text-red-600">{referenceNumber}</span>
+                </p>
+              )}
+              <p className="text-gray-600 mt-2">We will contact you within 48 hours.</p>
               <button
-                onClick={() => setSubmitted(false)}
+                onClick={() => { setSubmitted(false); setFormData({ name: '', email: '', phone: '', accountNumber: '', subject: '', description: '' }); }}
                 className="mt-6 px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition"
               >
                 Submit Another

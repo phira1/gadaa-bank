@@ -2,13 +2,21 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaChevronRight } from 'react-icons/fa';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { serviceCategories } from '../../data/servicesData';
 import ServicesHero from './components/ServicesHero';
 import ServicesCTA from './components/ServicesCTA';
 import ServiceCard from './components/ServiceCard';
 import BenefitsGrid from './components/BenefitsGrid';
+import { serviceCategories as fallbackServiceCategories } from '../../data/servicesData';
+import useSiteContent from '../../components/hooks/useSiteContent';
+import usePageMeta from '../../components/hooks/usePageMeta';
 
 const ServicesPage = () => {
+  usePageMeta({
+    title: 'Services',
+    description: 'Explore Gadaa Bank banking products and services for personal, business, digital, corporate, and international banking.',
+    canonicalPath: '/services',
+  })
+
   const [scrollProgress, setScrollProgress] = useState(0);
   const progressRef = useRef(null);
   const sectionRef = useRef(null);
@@ -18,6 +26,12 @@ const ServicesPage = () => {
   // For the services section animation
   const [servicesRef, setServicesRef] = useState(null);
   const [servicesInView, setServicesInView] = useState(false);
+  const { content } = useSiteContent();
+  const serviceCategories = content?.service_categories || fallbackServiceCategories;
+  const floatingParticles = Array.from({ length: 20 }, (_, index) => ({
+    left: `${(index * 17) % 100}%`,
+    top: `${(index * 29) % 100}%`,
+  }));
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -68,7 +82,7 @@ const ServicesPage = () => {
         className="fixed inset-0 pointer-events-none z-0"
         style={{ y: backgroundY }}
       >
-        {[...Array(20)].map((_, i) => (
+        {floatingParticles.map((particle, i) => (
           <motion.div
             key={i}
             initial={{ opacity: 0, scale: 0 }}
@@ -76,8 +90,8 @@ const ServicesPage = () => {
             transition={{ delay: i * 0.1, duration: 1 }}
             className="absolute w-1 h-1 bg-red-500/10 rounded-full"
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
+              left: particle.left,
+              top: particle.top,
             }}
           ></motion.div>
         ))}

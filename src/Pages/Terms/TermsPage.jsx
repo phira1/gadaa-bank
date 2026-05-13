@@ -16,18 +16,12 @@ import {
   FaRegClock,
   FaExchangeAlt
 } from 'react-icons/fa';
-import {
-  digitalFees,
-  branchInfo,
-  depositRates,
-  creditFacilities,
-  collateralFees,
-  ifbProducts,
-  ibdFees
-} from '../../data/tariffs';
+import useSiteContent from '../../components/hooks/useSiteContent';
 
 const TermsPage = () => {
   const [activeSection, setActiveSection] = useState('digital');
+  const { content } = useSiteContent();
+  const tariffsData = content?.tariffs_data || {};
 
   const sections = [
     { id: 'digital', name: 'Digital Banking Services Fee', icon: FaMoneyBillWave },
@@ -53,7 +47,7 @@ const TermsPage = () => {
                  </tr>
               </thead>
               <tbody>
-                {digitalFees.map((row, index) => (
+                {(tariffsData.digitalFees || []).map((row, index) => (
                   <tr key={index} className="border-b border-gray-100 hover:bg-red-50 transition-colors duration-300">
                     <td className="py-4 px-6 font-medium">{row.sn}</td>
                     <td className="py-4 px-6">{row.type}</td>
@@ -77,7 +71,7 @@ const TermsPage = () => {
                 </tr>
               </thead>
               <tbody>
-                {depositRates.map((row, index) => (
+                {(tariffsData.depositRates || []).map((row, index) => (
                   <tr key={index} className="border-b border-gray-100 hover:bg-red-50 transition-colors duration-300">
                     <td className="py-4 px-6 font-medium">{row.account}</td>
                     <td className="py-4 px-6 font-semibold text-red-600">{row.rate}</td>
@@ -102,7 +96,7 @@ const TermsPage = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {creditFacilities.map((row, index) => (
+                  {(tariffsData.creditFacilities || []).map((row, index) => (
                     <tr key={index} className="border-b border-gray-100 hover:bg-red-50 transition-colors duration-300">
                       <td className="py-4 px-6 font-medium">{row.type}</td>
                       <td className="py-4 px-6">{row.tenure}</td>
@@ -126,7 +120,7 @@ const TermsPage = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {collateralFees.map((row, index) => (
+                    {(tariffsData.collateralFees || []).map((row, index) => (
                       <tr key={index} className="border-b border-gray-100 hover:bg-red-50 transition-colors duration-300">
                         <td className="py-4 px-6 font-medium">{row.property}</td>
                         <td className="py-4 px-6">{row.unit}</td>
@@ -154,7 +148,7 @@ const TermsPage = () => {
                 </tr>
               </thead>
               <tbody>
-                {ifbProducts.map((row, index) => (
+                {(tariffsData.ifbProducts || []).map((row, index) => (
                   <tr key={index} className="border-b border-gray-100 hover:bg-red-50 transition-colors duration-300">
                     <td className="py-4 px-6 font-medium">{row.product}</td>
                     <td className="py-4 px-6">{row.duration}</td>
@@ -181,7 +175,7 @@ const TermsPage = () => {
                 </tr>
               </thead>
               <tbody>
-                {ibdFees.map((row, index) => (
+                {(tariffsData.ibdFees || []).map((row, index) => (
                   <tr key={index} className="border-b border-gray-100 hover:bg-red-50 transition-colors duration-300">
                     <td className="py-4 px-6 font-medium">{row.service}</td>
                     <td className="py-4 px-6 font-semibold text-red-600">{row.import}</td>
@@ -198,8 +192,8 @@ const TermsPage = () => {
         return (
           <div className="bg-gradient-to-r from-red-50 to-white rounded-2xl p-8 shadow-xl border border-red-100">
             <div className="text-center mb-8">
-              <h3 className="text-3xl font-bold text-gray-900 mb-4">{branchInfo.title}</h3>
-              <p className="text-gray-700">{branchInfo.description}</p>
+              <h3 className="text-3xl font-bold text-gray-900 mb-4">{tariffsData.branchInfo?.title || ''}</h3>
+              <p className="text-gray-700">{tariffsData.branchInfo?.description || ''}</p>
             </div>
             
             <div className="grid md:grid-cols-2 gap-8">
@@ -209,7 +203,7 @@ const TermsPage = () => {
                   Branch Services
                 </h4>
                 <ul className="space-y-3">
-                  {branchInfo.services.map((service, idx) => (
+                  {(tariffsData.branchInfo?.services || []).map((service, idx) => (
                     <li key={idx} className="flex items-center">
                       <FaChevronRight className="text-red-500 mr-3" />
                       <span>{service}</span>
@@ -224,7 +218,7 @@ const TermsPage = () => {
                   Fee Structure
                 </h4>
                 <ul className="space-y-3">
-                  {branchInfo.fees.map((fee, idx) => (
+                  {(tariffsData.branchInfo?.fees || []).map((fee, idx) => (
                     <li key={idx} className="flex items-center">
                       <FaChevronRight className="text-red-500 mr-3" />
                       <span>{fee}</span>
@@ -288,9 +282,10 @@ const TermsPage = () => {
                 className="w-full pl-12 pr-4 py-4 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
               />
             </div>
-            <div className="flex items-center text-gray-700">
+            <div className="flex flex-col justify-center rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-gray-700 min-w-[220px]">
               <FaRegClock className="mr-2 text-red-500" />
-              <span className="font-medium">Effective: January 2025</span>
+              <span className="font-medium">Effective date</span>
+              <span className="text-sm text-gray-500">{tariffsData.effectiveDate || 'January 2026'}</span>
             </div>
           </div>
         </div>
@@ -334,14 +329,6 @@ const TermsPage = () => {
             <div className="mt-6 bg-gradient-to-r from-red-50 to-white rounded-2xl p-6 shadow-xl border border-red-100">
               <h3 className="text-lg font-bold text-gray-900 mb-4">Quick Links</h3>
               <div className="space-y-3">
-                <button className="w-full text-left p-3 rounded-lg hover:bg-white hover:shadow-md transition duration-300 flex items-center">
-                  <FaExchangeAlt className="text-red-500 mr-3" />
-                  <span>Exchange Rates</span>
-                </button>
-                <button className="w-full text-left p-3 rounded-lg hover:bg-white hover:shadow-md transition duration-300 flex items-center">
-                  <FaCalculator className="text-red-500 mr-3" />
-                  <span>Fee Calculator</span>
-                </button>
                 <Link 
                   to="/contact"
                   className="block w-full text-left p-3 rounded-lg hover:bg-white hover:shadow-md transition duration-300 flex items-center"
@@ -363,7 +350,7 @@ const TermsPage = () => {
                 </h2>
                 <div className="flex items-center text-gray-600">
                   <FaRegClock className="mr-2" />
-                  <span>Last updated: December 2024</span>
+                  <span>Effective date: {tariffsData.effectiveDate || 'January 2026'}</span>
                 </div>
               </div>
 

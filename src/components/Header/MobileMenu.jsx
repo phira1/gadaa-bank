@@ -1,23 +1,35 @@
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { FaChevronDown, FaXmark } from 'react-icons/fa6';
-import { socialLinks } from '../../data/socialLinks';
 
 const MobileMenu = ({
   isMenuOpen,
   closeAll,
   activeDropdown,
   toggleDropdown,
-  navItems
+  navItems,
+  socialLinks = []
 }) => {
-  const getMobileBgColor = (label) => {
-    switch (label) {
+  const getMobileBgColor = (social) => {
+    switch (social.iconKey || social.label) {
       case 'Facebook': return 'bg-blue-600 hover:bg-blue-700';
       case 'X': return 'bg-black hover:bg-gray-800';
       case 'LinkedIn': return 'bg-blue-700 hover:bg-blue-800';
       case 'Instagram': return 'bg-pink-600 hover:bg-pink-700';
       case 'YouTube': return 'bg-red-600 hover:bg-red-700';
       case 'Telegram': return 'bg-blue-500 hover:bg-blue-600';
+      case 'WhatsApp': return 'bg-green-600 hover:bg-green-700';
+      case 'TikTok': return 'bg-black hover:bg-neutral-800';
+      case 'GitHub': return 'bg-slate-800 hover:bg-slate-900';
+      case 'Discord': return 'bg-indigo-600 hover:bg-indigo-700';
+      case 'Reddit': return 'bg-orange-600 hover:bg-orange-700';
+      case 'Pinterest': return 'bg-red-600 hover:bg-red-700';
+      case 'Snapchat': return 'bg-yellow-400 hover:bg-yellow-500 text-black';
+      case 'Medium': return 'bg-black hover:bg-neutral-800';
+      case 'Blogger': return 'bg-orange-500 hover:bg-orange-600';
+      case 'Spotify': return 'bg-green-500 hover:bg-green-600';
+      case 'Dribbble': return 'bg-pink-500 hover:bg-pink-600';
+      case 'Vimeo': return 'bg-cyan-500 hover:bg-cyan-600';
       default: return 'bg-gray-500';
     }
   };
@@ -98,7 +110,7 @@ const MobileMenu = ({
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`${getMobileBgColor(social.label)} p-3 rounded-full transition duration-300`}
+                  className={`${getMobileBgColor(social)} p-3 rounded-full transition duration-300`}
                 >
                   <social.icon className="text-white text-sm" size={18} />
                 </a>

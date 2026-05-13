@@ -1,14 +1,41 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FaArrowLeft, FaShieldAlt, FaLock, FaUserSecret } from 'react-icons/fa';
+import { FaArrowLeft, FaShieldAlt, FaLock, FaUserSecret, FaPlay } from 'react-icons/fa';
+import YoutubeEmbed from '../../components/YoutubeEmbed';
+import { siteContentService } from '../../services';
 
 const SecurityAwarenessPage = () => {
-  const tips = [
-    { icon: FaShieldAlt, title: "Use Strong Passwords", desc: "Create complex passwords with a mix of letters, numbers, and symbols. Never share them." },
-    { icon: FaLock, title: "Enable Two‑Factor Authentication", desc: "Add an extra layer of security to your online banking account." },
-    { icon: FaUserSecret, title: "Beware of Phishing", desc: "Never click on suspicious links or provide personal information via email or SMS." },
-    { icon: FaShieldAlt, title: "Verify Website URL", desc: "Always check that you are on the official Gadaa Bank website before logging in." }
-  ];
+  const [videoUrl, setVideoUrl] = useState('');
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadVideoUrl = async () => {
+      try {
+        const response = await siteContentService.getAll();
+        const content = response?.data ?? response ?? {};
+        if (content.security_awareness_video?.video_url) {
+          setVideoUrl(content.security_awareness_video.video_url);
+        }
+      } catch (error) {
+        console.error('Failed to load video URL:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadVideoUrl();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="flex items-center gap-3 text-slate-600">
+          <div className="h-5 w-5 rounded-full border-2 border-red-600 border-t-transparent animate-spin" />
+          Loading...
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-white">
@@ -42,23 +69,32 @@ const SecurityAwarenessPage = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-          {tips.map((tip, idx) => {
-            const Icon = tip.icon;
-            return (
-              <div key={idx} className="bg-white rounded-xl shadow-md border border-gray-200 hover:shadow-lg transition-all p-6">
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
-                    <Icon className="text-red-600 text-xl" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-gray-900 text-lg mb-2">{tip.title}</h3>
-                    <p className="text-gray-600">{tip.desc}</p>
-                  </div>
-                </div>
+        {/* Educational Video Section */}
+        <div className="mt-16 max-w-3xl mx-auto">
+          <div className="flex items-center gap-3 mb-8">
+            <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
+              <FaPlay className="text-red-600 text-lg" />
+            </div>
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900">Security Awareness Video</h2>
+          </div>
+
+          {videoUrl ? (
+            <div className="bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden hover:shadow-lg transition-all">
+              <YoutubeEmbed
+                url={videoUrl}
+                title="Online Banking Security Tips"
+              />
+              <div className="p-6">
+                <h3 className="font-bold text-gray-900 text-lg mb-2">Online Banking Security Tips</h3>
+                <p className="text-gray-600">Learn essential tips to keep your online banking account secure and protect your financial information.</p>
               </div>
-            );
-          })}
+            </div>
+          ) : (
+            <div className="bg-white rounded-xl shadow-md border border-gray-200 p-8 text-center">
+              <p className="text-gray-700 font-medium">No security awareness video is available yet.</p>
+              <p className="text-gray-500 mt-2">An admin can add a YouTube link from the content settings page.</p>
+            </div>
+          )}
         </div>
 
         <div className="bg-gradient-to-r from-red-50 to-white rounded-2xl p-8 mt-12 border border-red-100">
