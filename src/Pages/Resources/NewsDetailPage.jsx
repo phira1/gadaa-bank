@@ -1,31 +1,112 @@
 // src/Pages/Resources/NewsDetailPage.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FaCalendarAlt, FaEye, FaArrowLeft, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-import { newsItems } from '../../data/newsData';
+import { newsService } from '../../services/newsService';
+import { getAssetUrl } from '../../utils/assetUrl';
+import { sanitizeHtml } from '../../utils/sanitizeHtml';
+import usePageMeta from '../../components/hooks/usePageMeta';
+
+const VIEW_INCREMENT_TTL_MS = 30 * 1000;
+
+const getViewCacheKey = (newsId) => `news_view_incremented_${newsId}`;
+
+const shouldIncrementView = (newsId) => {
+  if (typeof sessionStorage === 'undefined') {
+    return true;
+  }
+
+  const key = getViewCacheKey(newsId);
+  const lastSeenRaw = sessionStorage.getItem(key);
+  const lastSeen = Number(lastSeenRaw || 0);
+  const now = Date.now();
+
+  if (lastSeen && now - lastSeen < VIEW_INCREMENT_TTL_MS) {
+    return false;
+  }
+
+  sessionStorage.setItem(key, String(now));
+  return true;
+};
 
 const NewsDetailPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [news, setNews] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
-  const news = newsItems.find(item => item.id === parseInt(id));
+  usePageMeta({
+    title: news?.title || 'News Details',
+    description: news?.excerpt || 'Read the latest Gadaa Bank news update.',
+    canonicalPath: `/resources/news/${id}`,
+  })
 
-  if (!news) {
+  useEffect(() => {
+    const fetchNewsDetail = async () => {
+      try {
+        const res = await newsService.getById(id);
+        const newsPayload = res?.data || res;
+        setNews(newsPayload);
+
+        // Explicitly call increment endpoint so views are counted reliably
+        if (shouldIncrementView(id)) {
+          try {
+            const inc = await newsService.incrementViews(id);
+            if (inc?.data?.views !== undefined) {
+              setNews((current) => ({ ...current, views: inc.data.views }));
+            } else if (inc?.views !== undefined) {
+              setNews((current) => ({ ...current, views: inc.views }));
+            }
+          } catch (incErr) {
+            // non-fatal; counting failed
+            // console.debug('Failed to increment views', incErr);
+          }
+        }
+      } catch (err) {
+        console.error(err);
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchNewsDetail();
+  }, [id]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600"></div>
+      </div>
+    );
+  }
+
+  if (error || !news) {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">News Not Found</h1>
           <p className="text-gray-600 mb-8">The article you're looking for doesn't exist.</p>
-          <Link to="/news" className="text-red-600 hover:underline">← Back to News</Link>
+          <Link to="/resources/news" className="text-red-600 hover:underline">← Back to News</Link>
         </div>
       </div>
     );
   }
 
-  const { title, date, image, fullContent, longDescription, views, galleryImages, author } = news;
-  const images = galleryImages && galleryImages.length > 0 ? galleryImages : [image];
+  const title = news.title;
+  const date = news.published_at ? new Date(news.published_at).toLocaleDateString() : (news.date || '');
+  const image = news.image_path ? (news.image_path.startsWith('http') ? news.image_path : getAssetUrl(news.image_path)) : (news.image ? `/images/news/${news.image}` : null);
+  const fullContent = news.content || news.fullContent || news.excerpt;
+  const longDescription = news.longDescription || '';
+  const views = news.views || 0;
+  // If the backend has a JSON array or similar for gallery, handle it here.
+  const galleryImages = news.galleryImages || null;
+  const author = news.author;
+
+  const abstractFallbackImage = `https://ui-avatars.com/api/?name=News&background=dc2626&color=fff&bold=true&size=800`;
+  const images = galleryImages && galleryImages.length > 0 ? galleryImages : [image || abstractFallbackImage];
   const hasGallery = images.length > 1;
 
   const nextImage = () => setCurrentImageIndex((prev) => (prev + 1) % images.length);
@@ -39,7 +120,7 @@ const NewsDetailPage = () => {
           <nav className="flex items-center space-x-2 text-sm">
             <Link to="/" className="text-white/80 hover:text-white">Home</Link>
             <span className="text-red-500">›</span>
-            <Link to="/news" className="text-white/80 hover:text-white">News</Link>
+            <Link to="/resources/news" className="text-white/80 hover:text-white">News</Link>
             <span className="text-red-500">›</span>
             <span className="text-white font-semibold truncate">{title}</span>
           </nav>
@@ -117,7 +198,7 @@ const NewsDetailPage = () => {
           </div>
 
           <div className="prose prose-lg max-w-none text-gray-700">
-            <p className="text-lg font-medium text-gray-900 mb-4">{fullContent}</p>
+            <div className="text-lg font-medium text-gray-900 mb-4" dangerouslySetInnerHTML={{ __html: sanitizeHtml(fullContent) }}></div>
             {longDescription && (
               <div className="mt-6">
                 <h2 className="text-2xl font-semibold text-gray-900 mb-3">Details</h2>

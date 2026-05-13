@@ -1,4 +1,4 @@
-import { FaFacebookF, FaLinkedinIn, FaInstagram, FaYoutube, FaTelegram } from 'react-icons/fa';
+import { FaFacebookF, FaLinkedinIn, FaInstagram, FaYoutube, FaTelegramPlane } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 
 export const socialLinks = [
@@ -7,5 +7,5 @@ export const socialLinks = [
   { icon: FaLinkedinIn, label: 'LinkedIn', href: 'https://www.linkedin.com/company/gadaa-bank-sc' },
   { icon: FaInstagram, label: 'Instagram', href: 'https://www.instagram.com/gadaabanksc/' },
   { icon: FaYoutube, label: 'YouTube', href: 'https://www.youtube.com/@Gadaa-Bank' },
-  { icon: FaTelegram, label: 'Telegram', href: 'https://t.me/GadaaBankOfficial' }
+  { icon: FaTelegramPlane, label: 'Telegram', href: 'https://t.me/GadaaBankOfficial' }
 ];

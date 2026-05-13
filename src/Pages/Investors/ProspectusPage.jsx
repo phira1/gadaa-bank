@@ -1,9 +1,39 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaArrowLeft, FaFilePdf, FaDownload } from 'react-icons/fa';
-import { prospectusList } from '../../data/investorData';
+import { reportService } from '../../services';
+import { getAssetUrl } from '../../utils/assetUrl';
 
 const ProspectusPage = () => {
+  const [reports, setReports] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    let isMounted = true;
+
+    reportService.getAll({ type: 'prospectus' })
+      .then((response) => {
+        if (!isMounted) return;
+        const payload = response?.data ?? response ?? [];
+        const items = Array.isArray(payload.data) ? payload.data : Array.isArray(payload) ? payload : [];
+        setReports(items);
+      })
+      .catch((loadError) => {
+        if (!isMounted) return;
+        setError(loadError.message || 'Failed to load prospectus documents.');
+      })
+      .finally(() => {
+        if (isMounted) setLoading(false);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const getDocumentLink = (report) => report.file_url || (report.file_path ? getAssetUrl(report.file_path) : '#');
+
   return (
     <div className="min-h-screen bg-white">
       {/* Breadcrumb */}
@@ -30,39 +60,44 @@ const ProspectusPage = () => {
           <p className="text-gray-600">Gadaa Bank Prospectus – Official Document</p>
         </div>
 
-        <div className="max-w-4xl mx-auto">
-          {prospectusList.map((doc) => (
-            <div key={doc.id} className="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden mb-8">
-              <div className="bg-gray-50 px-6 py-4 border-b border-gray-200 flex justify-between items-center flex-wrap gap-2">
-                <h2 className="font-semibold text-gray-700">{doc.title}</h2>
-                <span className="text-sm text-gray-500">{doc.fileSize}</span>
+        {loading ? (
+          <div className="flex justify-center items-center py-16">
+            <div className="w-12 h-12 border-4 border-red-600 border-t-transparent rounded-full animate-spin" />
+          </div>
+        ) : error ? (
+          <div className="text-center py-16 text-red-600">{error}</div>
+        ) : (
+          <div className="max-w-4xl mx-auto space-y-8">
+            {reports.map((doc) => (
+              <div key={doc.id} className="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
+                <div className="bg-gray-50 px-6 py-4 border-b border-gray-200 flex justify-between items-center flex-wrap gap-2">
+                  <h2 className="font-semibold text-gray-700">{doc.title}</h2>
+                  <span className="text-sm text-gray-500">{doc.year || 'Prospectus'}</span>
+                </div>
+                <div className="p-6">
+                  <p className="text-gray-600 mb-4">{doc.description || 'Official prospectus document.'}</p>
+                  <div className="flex items-center gap-4 flex-wrap">
+                    <a
+                      href={getDocumentLink(doc)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-red-600 font-medium hover:underline"
+                    >
+                      <FaFilePdf />
+                      Open PDF
+                    </a>
+                  </div>
+                </div>
               </div>
-              <div className="p-4">
-                <iframe
-                  src={doc.embedLink}
-                  className="w-full h-[70vh] rounded-lg"
-                  title={doc.title}
-                  frameBorder="0"
-                  allow="autoplay; encrypted-media"
-                  allowFullScreen
-                ></iframe>
+            ))}
+
+            {reports.length === 0 && (
+              <div className="text-center text-gray-500 py-8">
+                No prospectus documents available.
               </div>
-              <div className="bg-red-50 px-6 py-4 text-center">
-                <p className="text-gray-700">
-                  If you cannot view the document,{" "}
-                  <a
-                    href={doc.pdfLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-red-600 font-medium underline"
-                  >
-                    click here to open in new tab
-                  </a>.
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

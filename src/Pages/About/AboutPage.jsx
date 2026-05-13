@@ -2,30 +2,59 @@ import React, { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { FaChevronLeft, FaChevronRight, FaHistory, FaUsers, FaSitemap, FaUserTie, FaBullseye } from 'react-icons/fa'
 import { motion, useInView, useScroll, useTransform } from 'framer-motion'
-import { statsItems } from '../../data/statsData'  // already used for stats
+import { statService } from '../../services'
 
 const AboutPage = () => {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isMobile, setIsMobile] = useState(false)
+  const [statsItems, setStatsItems] = useState([])
 
   // Strategic objectives data
   const strategicObjectives = [
     {
-      title: "Increase Financial Inclusion",
-      description: "Extend banking services to underserved areas and segments through innovative channels."
+      perspective: 'Financial',
+      items: [
+        'Increase Resource Mobilization',
+        'Increase Resource Allocation',
+        'Ensure Sustainable Profitability',
+        'Ensure Financial Soundness'
+      ]
     },
     {
-      title: "Digital Transformation",
-      description: "Lead the industry in digital banking adoption and customer experience."
+      perspective: 'Customer',
+      items: [
+        'Expand Customer Base',
+        'Increase Customer Satisfaction',
+        'Enhance digital customer experience'
+      ]
     },
     {
-      title: "Sustainable Growth",
-      description: "Achieve consistent, profitable growth while maintaining high asset quality."
+      perspective: 'Internal Business Process',
+      items: [
+        'Increase Accessibility of Services',
+        'Enhance process efficiency and effectiveness',
+        'Ensure prudent Risk Management and compliance',
+        'Enhance sales and marketing',
+        'Institute Product Diversification and Price differentiation'
+      ]
     },
     {
-      title: "Empower Youth",
-      description: "Create financial solutions that enable young Ethiopians to build their futures."
+      perspective: 'Learning & Growth',
+      items: [
+        'Improve Employee Satisfaction and Engagement',
+        'Enhance Information Capital',
+        'Enhance Employee and Leadership Competencies',
+        "Improve employees' productivity"
+      ]
     }
+  ]
+
+  const strategicPillars = [
+    { name: 'Strategic Alliance', detail: 'Partnerships that extend reach' },
+    { name: 'Talented Human Capital', detail: 'People that power performance' },
+    { name: 'Customer Centricity', detail: 'Experience designed around trust' },
+    { name: 'Sustainable Growth', detail: 'Balanced growth with resilience' },
+    { name: 'Digitalization', detail: 'Smarter service through technology' }
   ]
 
   // Create refs for scroll animations
@@ -55,6 +84,11 @@ const AboutPage = () => {
     };
     checkMobile();
     window.addEventListener('resize', checkMobile);
+
+    statService.getAll()
+      .then(res => setStatsItems(res.data?.data || res.data || (Array.isArray(res) ? res : [])))
+      .catch(err => console.error('Failed to load stats:', err));
+
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
@@ -374,18 +408,95 @@ const AboutPage = () => {
                   transition={{ duration: 0.6 }}
                   className="lg:col-span-3"
                 >
-                  <div className="bg-gradient-to-br from-white to-gray-50 p-4 md:p-6 lg:p-8 rounded-xl lg:rounded-2xl shadow-md border border-gray-100">
-                    <div className="flex items-center mb-6">
-                      <div className="bg-gradient-to-r from-red-600 to-black rounded-lg p-3 mr-4">
-                        <FaBullseye className="text-white text-xl" />
+                  <div className="relative overflow-hidden rounded-2xl border border-gray-100 bg-gradient-to-br from-white via-gray-50 to-red-50/40 p-4 shadow-lg md:p-6 lg:p-8">
+                    <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-red-100/70 blur-3xl" />
+                    <div className="absolute -bottom-12 -left-10 h-32 w-32 rounded-full bg-black/5 blur-3xl" />
+
+                    <div className="relative mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+                      <div className="flex items-center">
+                        <div className="mr-4 rounded-2xl bg-gradient-to-br from-red-600 to-black p-3 shadow-md">
+                          <FaBullseye className="text-xl text-white" />
+                        </div>
+                        <div>
+                          <h2 className="text-2xl font-bold text-gray-900 md:text-3xl">Strategic Objectives</h2>
+                          <p className="mt-1 max-w-2xl text-sm text-gray-600 md:text-base">
+                            Key objectives organized by perspective to show how the strategy translates into action.
+                          </p>
+                        </div>
                       </div>
-                      <h2 className="text-2xl font-bold text-gray-900">Strategic Objectives</h2>
                     </div>
-                    <div className="grid md:grid-cols-2 gap-6">
-                      {strategicObjectives.map((obj, idx) => (
-                        <div key={idx} className="bg-white p-5 rounded-lg border border-gray-200 hover:border-red-200 transition-all">
-                          <h3 className="font-bold text-gray-900 text-lg mb-2">{obj.title}</h3>
-                          <p className="text-gray-600 text-sm">{obj.description}</p>
+
+                    <div className="relative grid gap-4 md:grid-cols-2">
+                      {strategicObjectives.map((group, idx) => (
+                        <div
+                          key={idx}
+                          className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-red-200 hover:shadow-lg"
+                        >
+                          <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-red-600 via-red-400 to-black" />
+                          <div className="mb-4 flex items-start justify-between gap-3">
+                            <div>
+                              <h3 className="text-lg font-bold text-gray-900 md:text-xl">{group.perspective}</h3>
+                            </div>
+                            <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-red-50 text-sm font-bold text-red-700 ring-1 ring-red-100 transition-colors group-hover:bg-red-600 group-hover:text-white">
+                              0{idx + 1}
+                            </div>
+                          </div>
+
+                          <ul className="space-y-3">
+                            {group.items.map((item, itemIdx) => (
+                              <li key={itemIdx} className="flex items-start text-sm text-gray-700">
+                                <span className="mr-3 mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-gray-100 text-[11px] font-semibold text-gray-700 transition-colors group-hover:bg-red-50 group-hover:text-red-700">
+                                  {itemIdx + 1}
+                                </span>
+                                <span className="leading-relaxed">{item}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+
+                {/* Strategic Pillars */}
+                <motion.div
+                  initial={{ opacity: 0, y: 40 }}
+                  animate={isObjectivesInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+                  transition={{ duration: 0.6, delay: 0.1 }}
+                  className="lg:col-span-3"
+                >
+                  <div className="relative overflow-hidden rounded-2xl border border-gray-100 bg-gradient-to-br from-gray-900 via-black to-red-900 p-4 shadow-xl md:p-6 lg:p-8">
+                    <div className="absolute -left-12 top-0 h-40 w-40 rounded-full bg-red-500/20 blur-3xl" />
+                    <div className="absolute -bottom-16 right-0 h-44 w-44 rounded-full bg-white/10 blur-3xl" />
+
+                    <div className="relative mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+                      <div className="flex items-center">
+                        <div className="mr-4 rounded-2xl bg-white/10 p-3 shadow-inner ring-1 ring-white/10 backdrop-blur">
+                          <FaBullseye className="text-xl text-white" />
+                        </div>
+                        <div>
+                          <h2 className="text-2xl font-bold text-white md:text-3xl">Strategic Pillars</h2>
+                          <p className="mt-1 max-w-2xl text-sm text-white/75 md:text-base">
+                            The core priorities that frame the bank’s long-term direction and execution focus.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="relative grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
+                      {strategicPillars.map((pillar, index) => (
+                        <div
+                          key={pillar.name}
+                          className="group rounded-2xl border border-white/10 bg-white/8 p-4 text-left shadow-lg backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:border-white/25 hover:bg-white/12"
+                        >
+                          <div className="mb-4 flex items-center justify-between">
+                            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white text-sm font-bold text-black shadow-sm transition-transform group-hover:scale-105">
+                              0{index + 1}
+                            </div>
+                            <div className="h-2 w-2 rounded-full bg-red-300 opacity-80" />
+                          </div>
+                          <div className="text-lg font-bold leading-snug text-white">{pillar.name}</div>
+                          <div className="mt-2 text-sm leading-relaxed text-white/70">{pillar.detail}</div>
                         </div>
                       ))}
                     </div>
@@ -393,35 +504,40 @@ const AboutPage = () => {
                 </motion.div>
 
                 {/* Stats Section – data‑driven */}
-                <motion.div 
-                  ref={statsRef}
-                  variants={staggerContainer}
-                  initial="hidden"
-                  animate={isStatsInView ? "visible" : "hidden"}
-                  className="grid grid-cols-2 gap-3 md:gap-4"
-                >
-                  {statsItems.map((stat, index) => (
-                    <motion.div
-                      key={index}
-                      variants={itemVariants}
-                      custom={index}
-                      whileHover={{ scale: 1.05, y: -3 }}
-                      className={`${stat.bg} ${stat.text} p-4 md:p-6 rounded-lg md:rounded-xl text-center hover:shadow-md transition-all duration-300`}
-                    >
-                      <motion.div 
-                        initial={{ scale: 0 }}
-                        animate={isStatsInView ? { scale: 1 } : { scale: 0 }}
-                        transition={{ delay: index * 0.1 + 0.2, type: "spring", stiffness: 100 }}
-                        className={`font-bold mb-1 md:mb-2 ${isMobile ? 'text-xl md:text-2xl' : 'text-3xl'}`}
-                      >
-                        {stat.value}
-                      </motion.div>
-                      <div className="font-medium text-xs md:text-sm opacity-90">
-                        {stat.label}
-                      </div>
-                    </motion.div>
-                  ))}
-                </motion.div>
+                {statsItems.length > 0 && (
+                  <motion.div 
+                    ref={statsRef}
+                    variants={staggerContainer}
+                    initial="hidden"
+                    animate={isStatsInView ? "visible" : "hidden"}
+                    className="grid grid-cols-2 gap-3 md:gap-4"
+                  >
+                    {statsItems.map((stat, index) => {
+                      const bgClass = index % 2 === 0 ? 'bg-red-50 text-red-600' : 'bg-gray-900 text-white';
+                      return (
+                        <motion.div
+                          key={stat.id || index}
+                          variants={itemVariants}
+                          custom={index}
+                          whileHover={{ scale: 1.05, y: -3 }}
+                          className={`${bgClass} p-4 md:p-6 rounded-lg md:rounded-xl text-center hover:shadow-md transition-all duration-300`}
+                        >
+                          <motion.div 
+                            initial={{ scale: 0 }}
+                            animate={isStatsInView ? { scale: 1 } : { scale: 0 }}
+                            transition={{ delay: index * 0.1 + 0.2, type: "spring", stiffness: 100 }}
+                            className={`font-bold mb-1 md:mb-2 ${isMobile ? 'text-xl md:text-2xl' : 'text-3xl'}`}
+                          >
+                            {stat.value}{stat.suffix}
+                          </motion.div>
+                          <div className="font-medium text-xs md:text-sm opacity-90">
+                            {stat.label}
+                          </div>
+                        </motion.div>
+                      );
+                    })}
+                  </motion.div>
+                )}
               </motion.div>
 
               {/* Quick Links Column */}

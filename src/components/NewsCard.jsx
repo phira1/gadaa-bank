@@ -2,9 +2,27 @@
 import React from 'react';
 import { FaArrowRight, FaCalendarAlt, FaEye } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { getAssetUrl } from '../utils/assetUrl';
 
 const NewsCard = ({ news, animated = false, delay = 0 }) => {
-  const { id, date, title, description, image, link, views } = news;
+  // Map backend API model properties to frontend props
+  const id = news.id;
+  const title = news.title;
+  const description = news.excerpt || news.description;
+  const date = news.published_at ? new Date(news.published_at).toLocaleDateString() : (news.date || '');
+  const link = `/resources/news/${news.id}`;
+  const views = news.views || 0;
+  
+  const getImagePath = () => {
+    if (news.image_path) {
+      if (news.image_path.startsWith('http')) return news.image_path;
+      return getAssetUrl(news.image_path);
+    }
+    if (news.image) {
+      return `/images/news/${news.image}`;
+    }
+    return `https://ui-avatars.com/api/?name=News&background=dc2626&color=fff&bold=true&size=400`;
+  };
 
   return (
     <div
@@ -16,13 +34,13 @@ const NewsCard = ({ news, animated = false, delay = 0 }) => {
       {/* Image */}
       <div className="relative overflow-hidden h-56">
         <img
-          src={`/images/news/${image}`}
+          src={getImagePath()}
           alt={title}
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         <div className="absolute top-4 left-4">
-          <span className="bg-red-600 text-white text-xs font-semibold px-3 py-1 rounded-full">News</span>
+          <span className="bg-red-600 text-white text-xs font-semibold px-3 py-1 rounded-full">{news.category || 'News'}</span>
         </div>
       </div>
 

@@ -24,10 +24,17 @@ import { motion, useAnimation } from 'framer-motion';
 
 const MoneyTransfer = () => {
   const [animated, setAnimated] = useState(false);
+  const [brokenPartnerLogos, setBrokenPartnerLogos] = useState({});
   const controls = useAnimation();
   const sectionRef = useRef(null);
   const servicesRef = useRef(null);
   const partnersRef = useRef(null);
+  const backgroundParticles = Array.from({ length: 12 }, (_, index) => ({
+    x: ((index * 13) % 20) - 10,
+    duration: 4 + ((index * 7) % 20) / 10,
+    left: `${(index * 17) % 100}%`,
+    top: `${(index * 29) % 100}%`,
+  }));
 
   useEffect(() => {
     const observers = [];
@@ -195,7 +202,7 @@ const MoneyTransfer = () => {
     <div className="min-h-screen bg-gradient-to-b from-white via-gray-50 to-white" ref={sectionRef}>
       {/* Animated Background Elements */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        {[...Array(12)].map((_, i) => (
+        {backgroundParticles.map((particle, i) => (
           <motion.div
             key={i}
             className={`absolute ${i % 3 === 0 ? 'w-3 h-3' : i % 3 === 1 ? 'w-2 h-2' : 'w-1 h-1'} ${
@@ -203,17 +210,17 @@ const MoneyTransfer = () => {
             } rounded-full`}
             animate={{
               y: [0, -30, 0],
-              x: [0, Math.random() * 20 - 10, 0],
+              x: [0, particle.x, 0],
             }}
             transition={{
-              duration: 4 + Math.random() * 2,
+              duration: particle.duration,
               repeat: Infinity,
               delay: i * 0.3,
               ease: "easeInOut"
             }}
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`
+              left: particle.left,
+              top: particle.top
             }}
           />
         ))}
@@ -413,28 +420,27 @@ const MoneyTransfer = () => {
                   >
                     <div className="flex flex-col items-center">
                       <div className="w-full h-24 md:h-32 mb-4 md:mb-6 flex items-center justify-center">
-                        <img
-                          src={partner.logo}
-                          alt={`${partner.name} Logo`}
-                          className="max-w-full max-h-full object-contain"
-                          onError={(e) => {
-                            e.target.onerror = null;
-                            e.target.style.display = 'none';
-                            const fallbackDiv = document.createElement('div');
-                            fallbackDiv.className = 'w-full h-32 flex items-center justify-center bg-gradient-to-br from-red-100 to-white rounded-lg';
-                            fallbackDiv.innerHTML = `
-                              <div class="text-center">
-                                <div class="w-16 h-16 bg-gradient-to-br from-red-200 to-white rounded-xl flex items-center justify-center mb-2 mx-auto">
-                                  <svg class="w-8 h-8 text-red-600" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                                  </svg>
-                                </div>
-                                <span class="font-bold text-gray-900">${partner.name}</span>
+                        {brokenPartnerLogos[index] ? (
+                          <div className="w-full h-32 flex items-center justify-center bg-gradient-to-br from-red-100 to-white rounded-lg">
+                            <div className="text-center px-3">
+                              <div className="w-16 h-16 bg-gradient-to-br from-red-200 to-white rounded-xl flex items-center justify-center mb-2 mx-auto">
+                                <svg className="w-8 h-8 text-red-600" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                </svg>
                               </div>
-                            `;
-                            e.target.parentNode.appendChild(fallbackDiv);
-                          }}
-                        />
+                              <span className="font-bold text-gray-900">{partner.name}</span>
+                            </div>
+                          </div>
+                        ) : (
+                          <img
+                            src={partner.logo}
+                            alt={`${partner.name} Logo`}
+                            className="max-w-full max-h-full object-contain"
+                            onError={() => {
+                              setBrokenPartnerLogos((current) => ({ ...current, [index]: true }));
+                            }}
+                          />
+                        )}
                       </div>
                       <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-2 md:mb-3 text-center">{partner.name}</h3>
                       <p className="text-gray-600 text-center text-sm md:text-base mb-3 md:mb-4">{partner.description}</p>

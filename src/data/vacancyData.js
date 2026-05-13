@@ -1,9 +1,6 @@
 // src/data/vacancyData.js
 
 export const announcementInfo = {
-  number: "External Vacancy Announcement No. 0010/2026",
-  applicationPeriod: "February 25 – March 02, 2026",
-  employmentType: "Permanent",
   salaryScale: "As per the bank's scale",
   applyUrl: "https://docs.google.com/forms/u/0/d/e/1FAIpQLScte4rDY4-zkVYWvTlWpycn4psVXSN8t45ekKNVq33WQrWjkA/closedform",
   telegramInfo: "Detailed information is available on the Gadaa Bank S.C telegram which has 31,190+ subscribers.",

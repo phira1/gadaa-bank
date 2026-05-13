@@ -1,22 +1,15 @@
 import React from 'react';
-import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaFacebookF, FaLinkedinIn, FaInstagram, FaYoutube, FaTelegram } from 'react-icons/fa';
+import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaFacebookF, FaLinkedinIn, FaInstagram, FaYoutube, FaTelegramPlane } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 
 const Contact = () => {
-  const exchangeRates = [
-    { currency: 'USD', buy: '57.50', sell: '58.20' },
-    { currency: 'EUR', buy: '61.80', sell: '62.50' },
-    { currency: 'GBP', buy: '72.30', sell: '73.10' },
-    { currency: 'AED', buy: '15.65', sell: '15.85' }
-  ];
-
   const socialLinks = [
     { icon: FaFacebookF, label: 'Facebook', href: 'https://www.facebook.com/gadaabanksc', color: 'bg-[#3b5998] hover:bg-[#2d4373]' },
     { icon: FaXTwitter, label: 'X', href: 'https://x.com/gadaabanksc', color: 'bg-black hover:bg-gray-800' },
     { icon: FaLinkedinIn, label: 'LinkedIn', href: 'https://www.linkedin.com/company/gadaa-bank-sc', color: 'bg-[#0077b5] hover:bg-[#005582]' },
     { icon: FaInstagram, label: 'Instagram', href: 'https://www.instagram.com/gadaabanksc/', color: 'bg-gradient-to-r from-[#405de6] via-[#833ab4] to-[#fd1d1d] hover:opacity-90' },
     { icon: FaYoutube, label: 'YouTube', href: 'https://www.youtube.com/@Gadaa-Bank', color: 'bg-[#ff0000] hover:bg-[#cc0000]' },
-    { icon: FaTelegram, label: 'Telegram', href: 'https://t.me/GadaaBankOfficial', color: 'bg-[#0088cc] hover:bg-[#006699]' }
+    { icon: FaTelegramPlane, label: 'Telegram', href: 'https://t.me/GadaaBankOfficial', color: 'bg-[#0088cc] hover:bg-[#006699]' }
   ];
 
   const contactInfo = [
@@ -62,28 +55,6 @@ const Contact = () => {
 
           <div className="space-y-8">
             <div className="animate-fadeInUp animate-delay-300">
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Exchange Rates</h3>
-              <div className="bg-gray-50 rounded-lg overflow-hidden border border-gray-200">
-                <div className="grid grid-cols-3 bg-red-600 text-white font-semibold py-3 px-4">
-                  <div>Currency</div>
-                  <div>Buy</div>
-                  <div>Sell</div>
-                </div>
-                {exchangeRates.map((rate, index) => (
-                  <div 
-                    key={index}
-                    className={`grid grid-cols-3 py-3 px-4 ${index < exchangeRates.length - 1 ? 'border-b border-gray-200' : ''}`}
-                  >
-                    <div className="font-medium text-gray-900">{rate.currency}</div>
-                    <div className="text-green-600 font-medium">{rate.buy}</div>
-                    <div className="text-red-600 font-medium">{rate.sell}</div>
-                  </div>
-                ))}
-              </div>
-              <p className="text-sm text-gray-500 mt-3 text-center">Last Updated: Today, 10:30 AM</p>
-            </div>
-
-            <div className="animate-fadeInUp animate-delay-400">
               <h3 className="text-2xl font-bold text-gray-900 mb-4">Follow Us</h3>
               <div className="flex flex-wrap gap-3">
                 {socialLinks.map((social, index) => (

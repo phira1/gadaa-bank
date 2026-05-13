@@ -1,20 +1,56 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaArrowLeft, FaCalendarAlt, FaMapMarkerAlt, FaExternalLinkAlt } from 'react-icons/fa';
-import { shareholderEvents } from '../../data/investorData';
+import { reportService } from '../../services';
 
 const ShareholderEventsPage = () => {
-  const sortedEvents = [...shareholderEvents].sort((a, b) => new Date(b.date) - new Date(a.date));
+  const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
-  const getStatusBadge = (status) => {
-    switch (status) {
-      case 'upcoming':
-        return <span className="px-2 py-1 bg-green-100 text-green-600 text-xs font-semibold rounded-full">Upcoming</span>;
-      case 'past':
-        return <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs font-semibold rounded-full">Past</span>;
-      default:
-        return null;
+  useEffect(() => {
+    let isMounted = true;
+
+    reportService.getAll({ type: 'shareholder_event' })
+      .then((response) => {
+        if (!isMounted) return;
+        const payload = response?.data ?? response ?? [];
+        const items = Array.isArray(payload.data) ? payload.data : Array.isArray(payload) ? payload : [];
+        setEvents(items);
+      })
+      .catch((loadError) => {
+        if (!isMounted) return;
+        setError(loadError.message || 'Failed to load shareholder events.');
+      })
+      .finally(() => {
+        if (isMounted) setLoading(false);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const sortedEvents = [...events].sort((a, b) => {
+    const aDate = a.event_date || a.year || a.created_at || '';
+    const bDate = b.event_date || b.year || b.created_at || '';
+    return new Date(bDate) - new Date(aDate);
+  });
+
+  const getStatusBadge = (event) => {
+    const sourceDate = event.event_date || event.year;
+    if (!sourceDate) {
+      return null;
     }
+
+    const eventDate = new Date(sourceDate);
+    if (Number.isNaN(eventDate.getTime())) {
+      return null;
+    }
+
+    return eventDate >= new Date()
+      ? <span className="px-2 py-1 bg-green-100 text-green-600 text-xs font-semibold rounded-full">Upcoming</span>
+      : <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs font-semibold rounded-full">Past</span>;
   };
 
   return (
@@ -42,30 +78,39 @@ const ShareholderEventsPage = () => {
           <p className="text-gray-600">Stay informed about upcoming and past shareholder meetings and events.</p>
         </div>
 
-        <div className="max-w-4xl mx-auto space-y-6">
-          {sortedEvents.map((event) => (
-            <div key={event.id} className="bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-300">
+        {loading ? (
+          <div className="flex justify-center items-center py-16">
+            <div className="w-12 h-12 border-4 border-red-600 border-t-transparent rounded-full animate-spin" />
+          </div>
+        ) : error ? (
+          <div className="text-center py-16 text-red-600">{error}</div>
+        ) : (
+          <div className="max-w-4xl mx-auto space-y-6">
+            {sortedEvents.map((event) => (
+              <div key={event.id} className="bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-300">
               <div className="p-6">
                 <div className="flex items-center justify-between flex-wrap gap-2 mb-3">
                   <div className="flex items-center text-gray-500 text-sm">
                     <FaCalendarAlt className="mr-2 text-red-500" />
-                    {new Date(event.date).toLocaleDateString('en-ET', {
+                    {new Date(event.event_date || event.year || event.created_at).toLocaleDateString('en-ET', {
                       year: 'numeric',
                       month: 'long',
                       day: 'numeric'
                     })}
                   </div>
-                  {getStatusBadge(event.status)}
+                  {getStatusBadge(event)}
                 </div>
                 <h2 className="text-xl font-bold text-gray-900 mb-2">{event.title}</h2>
                 <p className="text-gray-600 mb-4">{event.description}</p>
-                <div className="flex items-center text-gray-500 text-sm mb-4">
-                  <FaMapMarkerAlt className="mr-2 text-red-500" />
-                  {event.location}
-                </div>
-                {event.videoLink && (
+                {event.location && (
+                  <div className="flex items-center text-gray-500 text-sm mb-4">
+                    <FaMapMarkerAlt className="mr-2 text-red-500" />
+                    {event.location}
+                  </div>
+                )}
+                {event.video_url && (
                   <a
-                    href={event.videoLink}
+                    href={event.video_url}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center text-red-600 font-medium hover:underline"
@@ -74,19 +119,28 @@ const ShareholderEventsPage = () => {
                     Watch Recording
                   </a>
                 )}
-                {!event.videoLink && event.link && (
-                  <Link
-                    to={event.link}
+                {!event.video_url && event.file_url && (
+                  <a
+                    href={event.file_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="inline-flex items-center text-red-600 font-medium hover:underline"
                   >
                     View Details
                     <FaArrowLeft className="ml-2 rotate-180" />
-                  </Link>
+                  </a>
                 )}
               </div>
-            </div>
-          ))}
-        </div>
+              </div>
+            ))}
+
+            {sortedEvents.length === 0 && (
+              <div className="text-center py-16 text-gray-500">
+                No shareholder events available at the moment.
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

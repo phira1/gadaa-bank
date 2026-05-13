@@ -1,26 +1,42 @@
 import React from 'react';
 import { Link } from 'react-scroll';
-import { socialLinks } from '../data/socialLinks';
+import { socialLinks as fallbackSocialLinks } from '../data/socialLinks';
+import { navItems as fallbackNavItems } from '../data/navigation';
+import useSiteContent from './hooks/useSiteContent';
+import { normalizeSocialLinks } from '../utils/socialLinks';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const { content } = useSiteContent();
 
-  const quickLinks = [
-    { label: 'Home', href: 'home' },
-    { label: 'About Us', href: 'about' },
-    { label: 'Products & Services', href: 'services' },
-    { label: 'Digital', href: 'digital' },
-    { label: 'Resources', href: 'resources' }
-  ];
+  const socialLinks = normalizeSocialLinks(content?.social_links || fallbackSocialLinks);
+  const quickLinks = (content?.nav_items || fallbackNavItems)
+    .filter((item) => ['home', 'about', 'services', 'digital', 'resources'].includes(item.id))
+    .map((item) => ({
+      label: item.label,
+      href: item.path === '/' ? 'home' : item.path.replace(/^\//, ''),
+    }));
 
-  const getBgColor = (label) => {
-    switch (label) {
+  const getBgColor = (social) => {
+    switch (social.iconKey || social.label) {
       case 'Facebook': return 'bg-[#3b5998] hover:bg-[#2d4373]';
       case 'X': return 'bg-black hover:bg-gray-800';
       case 'LinkedIn': return 'bg-[#0077b5] hover:bg-[#005582]';
       case 'Instagram': return 'bg-gradient-to-r from-[#405de6] via-[#833ab4] to-[#fd1d1d] hover:opacity-90';
       case 'YouTube': return 'bg-[#ff0000] hover:bg-[#cc0000]';
       case 'Telegram': return 'bg-[#0088cc] hover:bg-[#006699]';
+      case 'WhatsApp': return 'bg-[#25d366] hover:bg-[#1ea952]';
+      case 'TikTok': return 'bg-black hover:bg-neutral-800';
+      case 'GitHub': return 'bg-[#24292f] hover:bg-[#1b1f23]';
+      case 'Discord': return 'bg-[#5865f2] hover:bg-[#4752c4]';
+      case 'Reddit': return 'bg-[#ff4500] hover:bg-[#e03d00]';
+      case 'Pinterest': return 'bg-[#e60023] hover:bg-[#bf001b]';
+      case 'Snapchat': return 'bg-[#fffc00] hover:bg-[#f5f200] text-black';
+      case 'Medium': return 'bg-[#000000] hover:bg-[#1a1a1a]';
+      case 'Blogger': return 'bg-[#f57d00] hover:bg-[#d86d00]';
+      case 'Spotify': return 'bg-[#1db954] hover:bg-[#179c46]';
+      case 'Dribbble': return 'bg-[#ea4c89] hover:bg-[#d83d78]';
+      case 'Vimeo': return 'bg-[#1ab7ea] hover:bg-[#1698c6]';
       default: return 'bg-gray-500';
     }
   };
@@ -80,7 +96,7 @@ const Footer = () => {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`${getBgColor(social.label)} w-9 h-9 rounded-full flex items-center justify-center text-white transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg`}
+                    className={`${getBgColor(social)} w-9 h-9 rounded-full flex items-center justify-center text-white transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg`}
                     aria-label={social.label}
                     style={{ animationDelay: `${index * 100}ms` }}
                   >

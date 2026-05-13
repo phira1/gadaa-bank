@@ -1,9 +1,10 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useAnimation, useInView } from 'framer-motion';
 import { FaArrowLeft, FaGlobe, FaMoneyBillWave, FaExchangeAlt, FaChartLine, FaHandHoldingUsd, FaUsers, FaFileInvoice, FaUniversity, FaGraduationCap, FaPlane, FaShieldAlt } from 'react-icons/fa';
 
 const DiasporaFcyProducts = () => {
+  const [brokenPartnerLogos, setBrokenPartnerLogos] = useState({});
   const refs = {
     hero: useRef(null),
     content: useRef(null),
@@ -165,12 +166,18 @@ const DiasporaFcyProducts = () => {
             <div className="flex flex-wrap justify-center gap-8 items-center">
               {partners.map((partner, idx) => (
                 <div key={idx} className="bg-white p-4 rounded-xl shadow-md w-40 h-24 flex items-center justify-center">
-                  <img
-                    src={partner.logo}
-                    alt={partner.name}
-                    className="max-w-full max-h-full object-contain"
-                    onError={(e) => { e.target.style.display = 'none'; e.target.parentElement.innerHTML = partner.name; }}
-                  />
+                  {brokenPartnerLogos[idx] ? (
+                    <span className="text-center font-bold text-gray-900 px-2">{partner.name}</span>
+                  ) : (
+                    <img
+                      src={partner.logo}
+                      alt={partner.name}
+                      className="max-w-full max-h-full object-contain"
+                      onError={() => {
+                        setBrokenPartnerLogos((current) => ({ ...current, [idx]: true }));
+                      }}
+                    />
+                  )}
                 </div>
               ))}
             </div>
