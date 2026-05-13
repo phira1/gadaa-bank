@@ -3,12 +3,14 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FaArrowLeft, FaUsers } from 'react-icons/fa';
 
-import { managementTeam } from '../../data/managementData';
+import { managementService } from '../../services/managementService';
 import HeroSection from './components/HeroSection';
 import MemberCard from './components/MemberCard';
 import StatsSection from './components/StatsSection';
 
 const ManagementTeam = () => {
+  const [managementTeam, setManagementTeam] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [animated, setAnimated] = useState(false);
   const sectionRef = useRef(null);
 
@@ -16,6 +18,21 @@ const ManagementTeam = () => {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } }
   };
+
+  useEffect(() => {
+    const fetchTeam = async () => {
+      try {
+        const res = await managementService.getAll();
+        // Assuming API returns array directly or within data wrapper
+        setManagementTeam(res.data?.data || res.data || (Array.isArray(res) ? res : []));
+      } catch (err) {
+        console.error('Error fetching management team:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchTeam();
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -33,16 +50,19 @@ const ManagementTeam = () => {
     };
   }, [animated]);
 
+  // Handle stats based on fetched data or defaults if data model missing experience string
+  const totalMembers = managementTeam.length;
+  // If the new API doesn't have a parseable string, fallback to 0 or derive from something.
   const extractYears = (expString) => {
-    const match = expString.match(/\d+/);
+    if (!expString) return 0;
+    const match = String(expString).match(/\d+/);
     return match ? parseInt(match[0], 10) : 0;
   };
   const totalYears = managementTeam.reduce((sum, m) => sum + extractYears(m.experience), 0);
-  const totalMembers = managementTeam.length;
-
+  
   const statsItems = [
     { value: totalMembers, label: 'Management Members' },
-    { value: `${totalYears}+`, label: 'Combined Years of Experience' },
+    { value: `${totalYears > 0 ? totalYears + '+' : 'Agile'}`, label: 'Combined Years of Experience' },
     { value: totalMembers, label: 'Total Leaders' }
   ];
 
@@ -73,16 +93,22 @@ const ManagementTeam = () => {
           fadeInUp={fadeInUp}
         />
 
-        <motion.div
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16"
-          variants={fadeInUp}
-          initial="hidden"
-          animate="visible"
-        >
-          {managementTeam.map(member => (
-            <MemberCard key={member.id} member={member} type="management" />
-          ))}
-        </motion.div>
+        {loading ? (
+           <div className="flex justify-center items-center h-48">
+             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600"></div>
+           </div>
+        ) : (
+          <motion.div
+            className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16"
+            variants={fadeInUp}
+            initial="hidden"
+            animate="visible"
+          >
+            {managementTeam.map(member => (
+              <MemberCard key={member.id} member={member} type="management" />
+            ))}
+          </motion.div>
+        )}
 
         <StatsSection items={statsItems} />
       </div>

@@ -23,7 +23,7 @@ import {
   FaChartLine
 } from 'react-icons/fa';
 import { motion, useInView } from 'framer-motion';
-import { contactInfo, departments } from '../../../data/contactData';
+import { contactInfo } from '../../../data/contactData';
 
 const CurrentAccounts = () => {
   const [balanceCount, setBalanceCount] = useState({ corporate: 0, individual: 0 });
@@ -35,7 +35,6 @@ const CurrentAccounts = () => {
   // Get contact data
   const hotline = contactInfo.find(info => info.title === 'Hotline')?.details || '641';
   const email = contactInfo.find(info => info.title === 'Email')?.details || 'info@gadaabank.com.et';
-  const headOffice = contactInfo.find(info => info.title === 'Head Office')?.details || 'Gotera, Kirkos SubCity W-03, HNo-#745';
 
   // Animate counters when stats become visible
   useEffect(() => {

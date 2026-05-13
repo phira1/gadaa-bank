@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   FaArrowLeft, 
@@ -8,34 +8,58 @@ import {
   FaCashRegister,
   FaUserGraduate,
   FaMapMarkerAlt,
-  FaCalendarAlt,
   FaTelegram,
   FaExternalLinkAlt,
   FaRegClock,
-  FaCertificate,
-  FaGavel
+  FaGavel,
+  FaPaperPlane
 } from 'react-icons/fa';
-import { announcementInfo, vacancyItems } from '../../data/vacancyData';
+import { vacancyService } from '../../services';
+
+const announcementInfo = {
+  salaryScale: "As per the bank's scale",
+  applyUrl: "https://docs.google.com/forms/u/0/d/e/1FAIpQLScte4rDY4-zkVYWvTlWpycn4psVXSN8t45ekKNVq33WQrWjkA/closedform",
+  telegramInfo: "Detailed information is available on the Gadaa Bank S.C telegram which has 31,190+ subscribers.",
+  importantNotes: [
+    "Interested applicants who only fulfill the set requirements are invited to apply via our website https://www.gadaabank.com.et/ within the set deadline.",
+    "Scanned application, CV, along with complete set of credential documents with all minimum requirement mentioned under each positions shall be attached via our website.",
+    "Failure to send mandatory document/s will make applicant ineligible.",
+    "The Bank has full right to cancel or take any other alternative in this regard.",
+    "Only short listed applicants will be communicated for exam and/or interview.",
+    "All documents should be scanned in pdf or docx formats only and size of the documents should be less than 2.5 MB.",
+    "Single applicant should send only one time.",
+    "Ensure that all register process has been completed successfully."
+  ]
+};
 
 const VacancyPage = () => {
   const [filter, setFilter] = useState('all');
+  const [vacancies, setVacancies] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const activeVacancies = vacancyItems.filter(v => v.status === 'active');
+  useEffect(() => {
+    vacancyService.getAll()
+      .then(data => setVacancies(data?.data?.data || data?.data || (Array.isArray(data) ? data : [])))
+      .catch(err => setError('Failed to load vacancies.'))
+      .finally(() => setLoading(false));
+  }, []);
 
   const getFilterTypes = () => {
     const typesMap = new Map();
-    typesMap.set('all', { label: 'All Positions', count: activeVacancies.length });
-    activeVacancies.forEach(vacancy => {
-      if (typesMap.has(vacancy.type)) {
-        typesMap.get(vacancy.type).count++;
+    typesMap.set('all', { label: 'All Positions', count: vacancies.length });
+    vacancies.forEach(vacancy => {
+      const type = vacancy.type || 'other';
+      if (typesMap.has(type)) {
+        typesMap.get(type).count++;
       } else {
-        let label = vacancy.type.charAt(0).toUpperCase() + vacancy.type.slice(1);
-        if (vacancy.type === 'management') label = 'Management';
-        else if (vacancy.type === 'accounting') label = 'Accounting';
-        else if (vacancy.type === 'operations') label = 'Operations';
-        else if (vacancy.type === 'entry') label = 'Entry Level';
-        else if (vacancy.type === 'legal') label = 'Legal';
-        typesMap.set(vacancy.type, { label, count: 1 });
+        let label = type.charAt(0).toUpperCase() + type.slice(1);
+        if (type === 'management') label = 'Management';
+        else if (type === 'accounting') label = 'Accounting';
+        else if (type === 'operations') label = 'Operations';
+        else if (type === 'entry') label = 'Entry Level';
+        else if (type === 'legal') label = 'Legal';
+        typesMap.set(type, { label, count: 1 });
       }
     });
     return Array.from(typesMap.entries()).map(([id, { label, count }]) => ({ id, label, count }));
@@ -43,8 +67,8 @@ const VacancyPage = () => {
 
   const filterTypes = getFilterTypes();
   const filteredVacancies = filter === 'all' 
-    ? activeVacancies 
-    : activeVacancies.filter(vacancy => vacancy.type === filter);
+    ? vacancies 
+    : vacancies.filter(vacancy => (vacancy.type || 'other') === filter);
 
   const getPositionIcon = (type) => {
     switch(type) {
@@ -55,6 +79,15 @@ const VacancyPage = () => {
       case 'legal': return FaGavel;
       default: return FaUserTie;
     }
+  };
+
+  const formatDeadline = (value) => {
+    if (!value) {
+      return 'Open until filled';
+    }
+
+    const date = new Date(value);
+    return Number.isNaN(date.getTime()) ? value : date.toLocaleDateString();
   };
 
   return (
@@ -90,11 +123,6 @@ const VacancyPage = () => {
           <h1 className="text-2xl md:text-4xl lg:text-5xl font-black text-gray-900 mb-3 md:mb-4">
             <span className="text-red-600">Career</span> Opportunities
           </h1>
-          <div className="bg-gradient-to-r from-red-50 to-white rounded-xl md:rounded-2xl p-3 md:p-4 inline-block mb-3 md:mb-4">
-            <p className="text-sm md:text-lg font-bold text-gray-900">
-              {announcementInfo.number}
-            </p>
-          </div>
           <p className="text-base md:text-xl text-gray-700 max-w-3xl mx-auto px-2">
             Gadaa Bank S.C would like to invite qualified and competent applicants for the following positions.
           </p>
@@ -106,124 +134,154 @@ const VacancyPage = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="text-center">
                 <div className="w-12 h-12 md:w-16 md:h-16 bg-red-100 rounded-xl md:rounded-2xl flex items-center justify-center mx-auto mb-3 md:mb-4">
-                  <FaCalendarAlt className="text-red-600 text-xl md:text-2xl" />
-                </div>
-                <h3 className="font-bold text-gray-900 mb-1 md:mb-2 text-sm md:text-base">Application Period</h3>
-                <p className="text-gray-700 text-xs md:text-sm">{announcementInfo.applicationPeriod}</p>
-              </div>
-              
-              <div className="text-center">
-                <div className="w-12 h-12 md:w-16 md:h-16 bg-red-100 rounded-xl md:rounded-2xl flex items-center justify-center mx-auto mb-3 md:mb-4">
-                  <FaCertificate className="text-red-600 text-xl md:text-2xl" />
-                </div>
-                <h3 className="font-bold text-gray-900 mb-1 md:mb-2 text-sm md:text-base">Employment Type</h3>
-                <p className="text-gray-700 text-xs md:text-sm">{announcementInfo.employmentType}</p>
-              </div>
-              
-              <div className="text-center">
-                <div className="w-12 h-12 md:w-16 md:h-16 bg-red-100 rounded-xl md:rounded-2xl flex items-center justify-center mx-auto mb-3 md:mb-4">
                   <FaRegClock className="text-red-600 text-xl md:text-2xl" />
                 </div>
                 <h3 className="font-bold text-gray-900 mb-1 md:mb-2 text-sm md:text-base">Salary & Benefits</h3>
                 <p className="text-gray-700 text-xs md:text-sm">{announcementInfo.salaryScale}</p>
               </div>
+              
+              <div className="text-center">
+                <div className="w-12 h-12 md:w-16 md:h-16 bg-red-100 rounded-xl md:rounded-2xl flex items-center justify-center mx-auto mb-3 md:mb-4">
+                  <FaPaperPlane className="text-red-600 text-xl md:text-2xl" />
+                </div>
+                <h3 className="font-bold text-gray-900 mb-1 md:mb-2 text-sm md:text-base">Apply Online</h3>
+                <p className="text-gray-700 text-xs md:text-sm">Use the button beside each vacancy to open its application link.</p>
+              </div>
+
             </div>
           </div>
         </div>
 
-        {/* Filter Buttons */}
-        <div className="mb-6 md:mb-8">
-          <div className="flex flex-wrap gap-2 md:gap-3 justify-center">
-            {filterTypes.map((type) => (
-              <button
-                key={type.id}
-                onClick={() => setFilter(type.id)}
-                className={`px-3 py-2 md:px-6 md:py-3 rounded-lg md:rounded-xl font-bold text-xs md:text-base transition-all duration-300 ${
-                  filter === type.id 
-                    ? 'bg-gradient-to-r from-red-600 to-black text-white shadow-lg' 
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
-              >
-                {type.label} 
-                <span className={`ml-1 md:ml-2 px-1 py-0.5 md:px-2 md:py-1 rounded-full text-xs ${
-                  filter === type.id ? 'bg-white/20' : 'bg-red-100 text-red-600'
-                }`}>
-                  {type.count}
-                </span>
-              </button>
-            ))}
-          </div>
-        </div>
+        {loading ? (
+           <div className="flex justify-center items-center py-16">
+             <div className="w-12 h-12 border-4 border-red-600 border-t-transparent rounded-full animate-spin" />
+           </div>
+        ) : error ? (
+           <div className="text-center py-16 text-red-600">{error}</div>
+        ) : (
+          <>
+            {/* Filter Buttons */}
+            <div className="mb-6 md:mb-8">
+              <div className="flex flex-wrap gap-2 md:gap-3 justify-center">
+                {filterTypes.map((type) => (
+                  <button
+                    key={type.id}
+                    onClick={() => setFilter(type.id)}
+                    className={`px-3 py-2 md:px-6 md:py-3 rounded-lg md:rounded-xl font-bold text-xs md:text-base transition-all duration-300 ${
+                      filter === type.id 
+                        ? 'bg-gradient-to-r from-red-600 to-black text-white shadow-lg' 
+                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    }`}
+                  >
+                    {type.label} 
+                    <span className={`ml-1 md:ml-2 px-1 py-0.5 md:px-2 md:py-1 rounded-full text-xs ${
+                      filter === type.id ? 'bg-white/20' : 'bg-red-100 text-red-600'
+                    }`}>
+                      {type.count}
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </div>
 
-        {/* Vacancies Table - Horizontal scroll on small screens */}
-        <div className="mb-8 md:mb-12 overflow-x-auto shadow-lg rounded-xl md:rounded-3xl border border-gray-200">
-          <table className="min-w-[800px] md:min-w-full bg-white">
-            <thead>
-              <tr className="bg-gradient-to-r from-red-600 to-black text-white">
-                <th className="py-3 md:py-6 px-3 md:px-8 text-left text-sm md:text-lg font-bold">S/No.</th>
-                <th className="py-3 md:py-6 px-3 md:px-8 text-left text-sm md:text-lg font-bold">Job Position</th>
-                <th className="py-3 md:py-6 px-3 md:px-8 text-left text-sm md:text-lg font-bold">Min. Qualification & Experience</th>
-                <th className="py-3 md:py-6 px-3 md:px-8 text-left text-sm md:text-lg font-bold">Work Place</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredVacancies.map((vacancy, index) => {
-                const Icon = getPositionIcon(vacancy.type);
-                return (
-                  <tr key={vacancy.id} className="border-b border-gray-100 hover:bg-red-50 transition-all duration-300 group">
-                    <td className="py-4 md:py-8 px-3 md:px-8">
-                      <div className="w-8 h-8 md:w-12 md:h-12 bg-gradient-to-br from-red-100 to-white rounded-lg md:rounded-xl flex items-center justify-center text-sm md:text-xl font-bold text-gray-900">
-                        {index + 1}
-                      </div>
-                    </td>
-                    
-                    <td className="py-4 md:py-8 px-3 md:px-8">
-                      <div className="flex items-start">
-                        <div className="w-10 h-10 md:w-14 md:h-14 bg-red-100 rounded-lg md:rounded-xl flex items-center justify-center mr-3 md:mr-4 group-hover:scale-110 transition-transform duration-300">
-                          <Icon className="text-red-600 text-sm md:text-xl" />
-                        </div>
-                        <div>
-                          <h3 className="text-sm md:text-xl font-bold text-gray-900 mb-1 md:mb-2 group-hover:text-red-600 transition-colors">
-                            {vacancy.position}
-                          </h3>
-                          <div className="flex flex-wrap gap-1 md:gap-2">
-                            <span className="px-2 py-0.5 md:px-3 md:py-1 bg-red-100 text-red-600 rounded-full text-xs font-semibold">
-                              {vacancy.type.charAt(0).toUpperCase() + vacancy.type.slice(1)}
+            {/* Vacancies Table */}
+            <div className="mb-8 md:mb-12 overflow-x-auto shadow-lg rounded-xl md:rounded-3xl border border-gray-200">
+              <table className="min-w-[800px] md:min-w-full bg-white">
+                <thead>
+                  <tr className="bg-gradient-to-r from-red-600 to-black text-white">
+                    <th className="py-3 md:py-6 px-3 md:px-8 text-left text-sm md:text-lg font-bold">S/No.</th>
+                    <th className="py-3 md:py-6 px-3 md:px-8 text-left text-sm md:text-lg font-bold">Job Position</th>
+                    <th className="py-3 md:py-6 px-3 md:px-8 text-left text-sm md:text-lg font-bold">Min. Qualification & Experience</th>
+                    <th className="py-3 md:py-6 px-3 md:px-8 text-left text-sm md:text-lg font-bold">Work Place</th>
+                    <th className="py-3 md:py-6 px-3 md:px-8 text-left text-sm md:text-lg font-bold">Deadline</th>
+                    <th className="py-3 md:py-6 px-3 md:px-8 text-left text-sm md:text-lg font-bold">Apply</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredVacancies.map((vacancy, index) => {
+                    const Icon = getPositionIcon(vacancy.type);
+                    // Handle JSON location array from API, default empty array
+                    const locations = Array.isArray(vacancy.locations) ? vacancy.locations : (typeof vacancy.locations === 'string' ? JSON.parse(vacancy.locations || '[]') : []);
+                    const applyUrl = vacancy.apply_url || announcementInfo.applyUrl;
+                    return (
+                      <tr key={vacancy.id} className="border-b border-gray-100 hover:bg-red-50 transition-all duration-300 group">
+                        <td className="py-4 md:py-8 px-3 md:px-8">
+                          <div className="w-8 h-8 md:w-12 md:h-12 bg-gradient-to-br from-red-100 to-white rounded-lg md:rounded-xl flex items-center justify-center text-sm md:text-xl font-bold text-gray-900">
+                            {index + 1}
+                          </div>
+                        </td>
+                        
+                        <td className="py-4 md:py-8 px-3 md:px-8">
+                          <div className="flex items-start">
+                            <div className="w-10 h-10 md:w-14 md:h-14 bg-red-100 rounded-lg md:rounded-xl flex items-center justify-center mr-3 md:mr-4 group-hover:scale-110 transition-transform duration-300">
+                              <Icon className="text-red-600 text-sm md:text-xl" />
+                            </div>
+                            <div>
+                              <h3 className="text-sm md:text-xl font-bold text-gray-900 mb-1 md:mb-2 group-hover:text-red-600 transition-colors">
+                                {vacancy.position}
+                              </h3>
+                              <div className="flex flex-wrap gap-1 md:gap-2">
+                                <span className="px-2 py-0.5 md:px-3 md:py-1 bg-red-100 text-red-600 rounded-full text-xs font-semibold">
+                                  {vacancy.type ? (vacancy.type.charAt(0).toUpperCase() + vacancy.type.slice(1)) : 'Other'}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                        
+                        <td className="py-4 md:py-8 px-3 md:px-8">
+                          <div className="space-y-2 md:space-y-3">
+                            <div className="flex items-start">
+                              <FaCheckCircle className="text-red-500 mr-2 md:mr-3 mt-0.5 flex-shrink-0 text-xs md:text-base" />
+                              <span className="text-gray-700 text-xs md:text-sm">{vacancy.qualification}</span>
+                            </div>
+                            <div className="flex items-start">
+                              <FaCheckCircle className="text-red-500 mr-2 md:mr-3 mt-0.5 flex-shrink-0 text-xs md:text-base" />
+                              <span className="text-gray-700 text-xs md:text-sm">{vacancy.experience}</span>
+                            </div>
+                          </div>
+                        </td>
+                        
+                        <td className="py-4 md:py-8 px-3 md:px-8">
+                          <div className="space-y-2 md:space-y-3">
+                            {locations.map((location, idx) => (
+                              <div key={idx} className="flex items-center">
+                                <FaMapMarkerAlt className="text-red-500 mr-2 md:mr-3 flex-shrink-0 text-xs md:text-base" />
+                                <span className="text-gray-700 text-xs md:text-sm">{location}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </td>
+
+                        <td className="py-4 md:py-8 px-3 md:px-8 align-top">
+                          <div className="flex items-start">
+                            <span className="inline-flex rounded-full bg-gray-100 px-3 py-1 text-xs md:text-sm font-semibold text-gray-700">
+                              {formatDeadline(vacancy.deadline)}
                             </span>
                           </div>
-                        </div>
-                      </div>
-                    </td>
-                    
-                    <td className="py-4 md:py-8 px-3 md:px-8">
-                      <div className="space-y-2 md:space-y-3">
-                        <div className="flex items-start">
-                          <FaCheckCircle className="text-red-500 mr-2 md:mr-3 mt-0.5 flex-shrink-0 text-xs md:text-base" />
-                          <span className="text-gray-700 text-xs md:text-sm">{vacancy.qualification}</span>
-                        </div>
-                        <div className="flex items-start">
-                          <FaCheckCircle className="text-red-500 mr-2 md:mr-3 mt-0.5 flex-shrink-0 text-xs md:text-base" />
-                          <span className="text-gray-700 text-xs md:text-sm">{vacancy.experience}</span>
-                        </div>
-                      </div>
-                    </td>
-                    
-                    <td className="py-4 md:py-8 px-3 md:px-8">
-                      <div className="space-y-2 md:space-y-3">
-                        {vacancy.locations.map((location, idx) => (
-                          <div key={idx} className="flex items-center">
-                            <FaMapMarkerAlt className="text-red-500 mr-2 md:mr-3 flex-shrink-0 text-xs md:text-base" />
-                            <span className="text-gray-700 text-xs md:text-sm">{location}</span>
+                        </td>
+
+                        <td className="py-4 md:py-8 px-3 md:px-8 align-top">
+                          <div className="flex items-start">
+                            <a
+                              href={applyUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-red-600 to-black px-4 py-2 text-xs md:text-sm font-semibold text-white shadow-sm transition-transform duration-300 hover:-translate-y-0.5 hover:shadow-lg"
+                            >
+                              <FaPaperPlane />
+                              Apply now
+                            </a>
                           </div>
-                        ))}
-                      </div>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </>
+        )}
 
         {/* Important Notes */}
         <div className="mb-8 md:mb-12">
@@ -264,16 +322,6 @@ const VacancyPage = () => {
                     <p className="text-white/80 text-xs md:text-sm">{announcementInfo.telegramInfo}</p>
                   </div>
                 </div>
-                
-                <a 
-                  href={announcementInfo.applyUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-6 py-2 md:px-8 md:py-3 bg-white text-red-600 font-bold rounded-lg md:rounded-xl hover:bg-gray-100 shadow-lg transition-all duration-300 flex items-center justify-center gap-2 md:gap-3 text-sm md:text-base"
-                >
-                  <FaExternalLinkAlt />
-                  Apply Here
-                </a>
               </div>
             </div>
           </div>

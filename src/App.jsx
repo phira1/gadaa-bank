@@ -1,7 +1,21 @@
 import React from 'react'
-import { Routes, Route } from 'react-router-dom'
+import { Navigate, Routes, Route, useParams } from 'react-router-dom'
 import MainLayout from './Pages/Layout/MainLayout'
 import HomePage from './Pages/Home/HomePage'
+import NotFoundPage from './Pages/NotFoundPage'
+import AdminLayout from './Pages/Admin/AdminLayout'
+import AdminLoginPage from './Pages/Admin/AdminLoginPage'
+import AdminDashboardPage from './Pages/Admin/AdminDashboardPage'
+import AdminContentPage from './Pages/Admin/AdminContentPage'
+import AdminLocationsPage from './Pages/Admin/AdminLocationsPage'
+import AdminBoardPage from './Pages/Admin/AdminBoardPage'
+import AdminShariaCommitteePage from './Pages/Admin/AdminShariaCommitteePage'
+import AdminManagementPage from './Pages/Admin/AdminManagementPage'
+import AdminPartnersPage from './Pages/Admin/AdminPartnersPage'
+import AdminReportsPage from './Pages/Admin/AdminReportsPage'
+import AdminStatsPage from './Pages/Admin/AdminStatsPage'
+import AdminProductComparisonPage from './Pages/Admin/AdminProductComparisonPage'
+import ErrorBoundary from './components/ErrorBoundary'
 
 // About Pages
 import AboutPage from './Pages/About/AboutPage'
@@ -86,12 +100,34 @@ import ToolsPage from './Pages/Tools/ToolsPage'                     // NEW
 import LoanCalculatorPage from './Pages/Tools/LoanCalculatorPage'
 import ProductComparisonPage from './Pages/Tools/ProductComparisonPage'
 
+function NewsDetailRedirect() {
+  const { id } = useParams();
+
+  return <Navigate to={`/resources/news/${id}`} replace />;
+}
+
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<MainLayout />}>
-        {/* Home Route */}
-        <Route index element={<HomePage />} />
+    <ErrorBoundary>
+      <Routes>
+        <Route path="admin/login" element={<AdminLoginPage />} />
+        <Route path="admin" element={<AdminLayout />}>
+          <Route index element={<AdminDashboardPage />} />
+          <Route path="content" element={<AdminContentPage />} />
+          <Route path="locations" element={<AdminLocationsPage />} />
+          <Route path="board" element={<AdminBoardPage />} />
+          <Route path="sharia-committee" element={<AdminShariaCommitteePage />} />
+          <Route path="management" element={<AdminManagementPage />} />
+          <Route path="partners" element={<AdminPartnersPage />} />
+          <Route path="reports" element={<AdminReportsPage />} />
+          <Route path="stats" element={<AdminStatsPage />} />
+          <Route path="product-comparison" element={<AdminProductComparisonPage />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Route>
+
+        <Route path="/" element={<MainLayout />}>
+          {/* Home Route */}
+          <Route index element={<HomePage />} />
         
         {/* About Us Routes */}
         <Route path="about" element={<AboutPage />} />
@@ -147,6 +183,8 @@ function App() {
         <Route path="resources" element={<ResourcesPage />} />
         <Route path="resources/news" element={<NewsPage />} />
         <Route path="resources/news/:id" element={<NewsDetailPage />} />
+        <Route path="news" element={<Navigate to="/resources/news" replace />} />
+        <Route path="news/:id" element={<NewsDetailRedirect />} />
         <Route path="resources/vacancy" element={<VacancyPage />} />
         <Route path="resources/annual-report" element={<AnnualReportPage />} />
         <Route path="resources/security-awareness" element={<SecurityAwarenessPage />} />
@@ -178,11 +216,12 @@ function App() {
         
         {/* Sitemap Route */}
         <Route path="sitemap" element={<SitemapPage />} />
-        
-        {/* Fallback/404 */}
-        <Route path="*" element={<HomePage />} />
-      </Route>
-    </Routes>
+
+          {/* Fallback/404 */}
+          <Route path="*" element={<NotFoundPage />} />
+        </Route>
+      </Routes>
+    </ErrorBoundary>
   )
 }
 

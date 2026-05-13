@@ -2,11 +2,15 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { FaSearch, FaBars } from 'react-icons/fa';
 import { FaXmark } from 'react-icons/fa6';
-import { navItems } from '../data/navigation';
 import SearchBar from './Header/SearchBar';
 import DesktopActions from './Header/DesktopActions';
 import DesktopNav from './Header/DesktopNav';
 import MobileMenu from './Header/MobileMenu';
+import { navItems as fallbackNavItems } from '../data/navigation';
+import { socialLinks as fallbackSocialLinks } from '../data/socialLinks';
+import { searchableContent as fallbackSearchableContent } from '../data/searchContent';
+import useSiteContent from './hooks/useSiteContent';
+import { normalizeSocialLinks } from '../utils/socialLinks';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -18,6 +22,11 @@ const Header = () => {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [selectedResultIndex, setSelectedResultIndex] = useState(-1);
   const navigate = useNavigate();
+  const { content } = useSiteContent();
+
+  const navItems = content?.nav_items || fallbackNavItems;
+  const socialLinks = normalizeSocialLinks(content?.social_links || fallbackSocialLinks);
+  const searchableContent = content?.searchable_content || fallbackSearchableContent;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -110,7 +119,9 @@ const Header = () => {
     toggleMobileSearch,
     searchQuery,
     setSearchQuery,
+    setSearchResults,
     searchResults,
+    searchableContent,
     showSuggestions,
     setShowSuggestions,
     selectedResultIndex,
@@ -140,7 +151,7 @@ const Header = () => {
           </RouterLink>
 
           {/* Desktop Actions (includes search bar, login, socials) */}
-          <DesktopActions searchBarComponent={<SearchBar {...searchBarProps} isMobile={false} />} />
+          <DesktopActions socialLinks={socialLinks} searchBarComponent={<SearchBar {...searchBarProps} isMobile={false} />} />
 
           {/* Mobile Actions */}
           <div className="flex lg:hidden items-center space-x-3">
@@ -171,6 +182,7 @@ const Header = () => {
           activeDropdown={activeDropdown}
           toggleDropdown={toggleDropdown}
           navItems={navItems}
+          socialLinks={socialLinks}
         />
       </div>
 

@@ -1,16 +1,27 @@
 import React from 'react';
 import { FaShareAlt } from 'react-icons/fa';
-import { socialLinks } from '../../data/socialLinks';
 
-const DesktopActions = ({ searchBarComponent }) => {
-  const getIconColor = (label) => {
-    switch (label) {
+const DesktopActions = ({ searchBarComponent, socialLinks = [] }) => {
+  const getIconColor = (social) => {
+    switch (social.iconKey || social.label) {
       case 'Facebook': return 'text-blue-600';
       case 'X': return 'text-black';
       case 'LinkedIn': return 'text-blue-700';
       case 'Instagram': return 'text-pink-600';
       case 'YouTube': return 'text-red-600';
       case 'Telegram': return 'text-blue-500';
+      case 'WhatsApp': return 'text-green-600';
+      case 'TikTok': return 'text-neutral-900';
+      case 'GitHub': return 'text-slate-800';
+      case 'Discord': return 'text-indigo-600';
+      case 'Reddit': return 'text-orange-600';
+      case 'Pinterest': return 'text-red-600';
+      case 'Snapchat': return 'text-yellow-500';
+      case 'Medium': return 'text-black';
+      case 'Blogger': return 'text-orange-500';
+      case 'Spotify': return 'text-green-500';
+      case 'Dribbble': return 'text-pink-500';
+      case 'Vimeo': return 'text-cyan-500';
       default: return 'text-gray-600';
     }
   };
@@ -43,7 +54,7 @@ const DesktopActions = ({ searchBarComponent }) => {
               rel="noopener noreferrer"
               className="flex items-center space-x-3 px-4 py-2 hover:bg-gray-50 transition duration-200"
             >
-              <social.icon className={getIconColor(social.label)} size={16} />
+              <social.icon className={getIconColor(social)} size={16} />
               <span className="text-gray-700 text-sm">{social.label}</span>
             </a>
           ))}

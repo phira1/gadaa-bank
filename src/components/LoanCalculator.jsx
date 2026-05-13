@@ -1,7 +1,13 @@
-import React, { useState, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaCalculator, FaChartLine, FaMoneyBillWave, FaPercent, FaCalendarAlt, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { loanDefaults, loanRanges } from '../data/loanData';
+import useSiteContent from './hooks/useSiteContent';
+
+const fallbackConfig = {
+  defaults: loanDefaults,
+  ranges: loanRanges,
+};
 
 const formatCurrency = (value) => {
   return new Intl.NumberFormat('en-ET', { style: 'currency', currency: 'ETB', minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(value);
@@ -12,11 +18,22 @@ const formatNumber = (value) => {
 };
 
 const LoanCalculator = () => {
-  const [loanAmount, setLoanAmount] = useState(loanDefaults.amount);
-  const [interestRate, setInterestRate] = useState(loanDefaults.rate);
-  const [loanTermMonths, setLoanTermMonths] = useState(loanDefaults.termMonths);
+  const { content } = useSiteContent();
+  const calculatorConfig = content?.loan_calculator_config || fallbackConfig;
+  const defaults = calculatorConfig.defaults || fallbackConfig.defaults;
+  const ranges = fallbackConfig.ranges;
+
+  const [loanAmount, setLoanAmount] = useState(defaults.amount);
+  const [interestRate, setInterestRate] = useState(defaults.rate);
+  const [loanTermMonths, setLoanTermMonths] = useState(defaults.termMonths);
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 12;
+
+  useEffect(() => {
+    setLoanAmount(defaults.amount);
+    setInterestRate(defaults.rate);
+    setLoanTermMonths(defaults.termMonths);
+  }, [defaults.amount, defaults.rate, defaults.termMonths]);
 
   // Calculate loan details
   const { monthlyPayment, totalPayment, totalInterest, amortizationRows } = useMemo(() => {
@@ -140,10 +157,10 @@ const LoanCalculator = () => {
           </div>
           <input
             type="range"
-            min={loanRanges.amount.min}
-            max={loanRanges.amount.max}
-            step={loanRanges.amount.step}
-            value={Math.min(Math.max(loanAmount, loanRanges.amount.min), loanRanges.amount.max)}
+            min={ranges.amount.min}
+            max={ranges.amount.max}
+            step={ranges.amount.step}
+            value={Math.min(Math.max(loanAmount, ranges.amount.min), ranges.amount.max)}
             onChange={handleAmountSlider}
             className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-red-600"
           />
@@ -165,10 +182,10 @@ const LoanCalculator = () => {
           </div>
           <input
             type="range"
-            min={loanRanges.rate.min}
-            max={loanRanges.rate.max}
-            step={loanRanges.rate.step}
-            value={Math.min(Math.max(interestRate, loanRanges.rate.min), loanRanges.rate.max)}
+            min={ranges.rate.min}
+            max={ranges.rate.max}
+            step={ranges.rate.step}
+            value={Math.min(Math.max(interestRate, ranges.rate.min), ranges.rate.max)}
             onChange={handleRateSlider}
             className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-red-600"
           />
@@ -193,10 +210,10 @@ const LoanCalculator = () => {
           </div>
           <input
             type="range"
-            min={loanRanges.termMonths.min}
-            max={loanRanges.termMonths.max}
-            step={loanRanges.termMonths.step}
-            value={Math.min(Math.max(loanTermMonths, loanRanges.termMonths.min), loanRanges.termMonths.max)}
+            min={ranges.termMonths.min}
+            max={ranges.termMonths.max}
+            step={ranges.termMonths.step}
+            value={Math.min(Math.max(loanTermMonths, ranges.termMonths.min), ranges.termMonths.max)}
             onChange={handleTermSlider}
             className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-red-600"
           />

@@ -1,14 +1,15 @@
 import React, { useRef } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import { FaXmark } from 'react-icons/fa6';
-import { searchableContent } from '../../data/searchContent';
 
 const SearchBar = ({
   isMobileSearchOpen,
   toggleMobileSearch,
   searchQuery,
   setSearchQuery,
+  setSearchResults,
   searchResults,
+  searchableContent = [],
   showSuggestions,
   setShowSuggestions,
   selectedResultIndex,

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FaStar, FaChevronDown, FaExternalLinkAlt } from 'react-icons/fa';
+import * as Icons from 'react-icons/fa';
 
 const ServiceCard = ({ service, index, inView }) => {
   const [expanded, setExpanded] = useState(false);
@@ -55,7 +56,12 @@ const ServiceCard = ({ service, index, inView }) => {
                 transition={{ duration: 0.5 }}
                 className={`w-10 h-10 md:w-12 md:h-12 flex-shrink-0 ${service.color === 'text-red-600' ? 'bg-red-50' : 'bg-gray-50'} rounded-lg flex items-center justify-center mr-3 md:mr-4`}
               >
-                <service.icon className={`text-base md:text-xl ${service.color}`} />
+                {(() => {
+                  const Icon = service && (typeof service.icon === 'string'
+                    ? Icons[service.icon]
+                    : service.icon) || Icons.FaBuilding;
+                  return Icon ? <Icon className={`text-base md:text-xl ${service.color}`} /> : null;
+                })()}
               </motion.div>
               <div className="flex-1 min-w-0">
                 <div className={`text-xs md:text-sm font-semibold ${service.color} mb-1`}>

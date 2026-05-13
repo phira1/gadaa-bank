@@ -1,9 +1,39 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaArrowLeft, FaFilePdf, FaDownload } from 'react-icons/fa';
-import { nbeDocuments } from '../../data/regulatoryData';
+import { reportService } from '../../services';
+import { getAssetUrl } from '../../utils/assetUrl';
 
 const NBERequirementsPage = () => {
+  const [documents, setDocuments] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    let isMounted = true;
+
+    reportService.getNBE()
+      .then((response) => {
+        if (!isMounted) return;
+        const payload = response?.data ?? response ?? [];
+        const items = Array.isArray(payload.data) ? payload.data : Array.isArray(payload) ? payload : [];
+        setDocuments(items);
+      })
+      .catch((loadError) => {
+        if (!isMounted) return;
+        setError(loadError.message || 'Failed to load NBE documents.');
+      })
+      .finally(() => {
+        if (isMounted) setLoading(false);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const getDocumentLink = (doc) => doc.file_url || (doc.file_path ? getAssetUrl(doc.file_path) : '#');
+
   return (
     <div className="min-h-screen bg-white">
       <div className="bg-gradient-to-r from-black to-gray-900 py-4">
@@ -36,27 +66,41 @@ const NBERequirementsPage = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-          {nbeDocuments.map((doc, idx) => (
-            <div key={idx} className="bg-white rounded-xl shadow-md border border-gray-200 hover:shadow-lg transition-all p-6">
-              <div className="flex items-start justify-between">
-                <div>
-                  <h3 className="font-bold text-gray-900 text-lg mb-1">{doc.title}</h3>
-                  <p className="text-gray-500 text-sm mb-2">{doc.date}</p>
-                  <p className="text-gray-400 text-xs">{doc.fileSize}</p>
+        {loading ? (
+          <div className="flex justify-center items-center py-16">
+            <div className="w-12 h-12 border-4 border-red-600 border-t-transparent rounded-full animate-spin" />
+          </div>
+        ) : error ? (
+          <div className="text-center py-16 text-red-600">{error}</div>
+        ) : (
+          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            {documents.map((doc) => (
+              <div key={doc.id} className="bg-white rounded-xl shadow-md border border-gray-200 hover:shadow-lg transition-all p-6">
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <h3 className="font-bold text-gray-900 text-lg mb-1">{doc.title}</h3>
+                    <p className="text-gray-500 text-sm mb-2">{doc.year || 'NBE Document'}</p>
+                    <p className="text-gray-400 text-xs">{doc.description || 'Official NBE document.'}</p>
+                  </div>
+                  <a
+                    href={getDocumentLink(doc)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition"
+                  >
+                    <FaDownload size={12} /> PDF
+                  </a>
                 </div>
-                <a
-                  href={doc.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition"
-                >
-                  <FaDownload size={12} /> PDF
-                </a>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+
+            {documents.length === 0 && (
+              <div className="col-span-full text-center text-gray-500 py-8">
+                No NBE documents available.
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

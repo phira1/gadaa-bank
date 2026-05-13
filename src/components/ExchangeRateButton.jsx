@@ -1,32 +1,39 @@
 import React, { useState, useEffect } from 'react';
 import { FaExchangeAlt } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
+import { exchangeRateService } from '../services';
+import { normalizeExchangeRateResponse } from '../services/exchangeRateParser';
+import ExchangeRateTables from './ExchangeRateTables';
 
 const ExchangeRateButton = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [rates, setRates] = useState({
-    USD: { buy: '58.50', sell: '59.20' },
-    EUR: { buy: '63.80', sell: '64.50' },
-    GBP: { buy: '74.20', sell: '75.00' }
-  });
+  const [exchangeRateData, setExchangeRateData] = useState({ title: '', rows: [], cashRows: [], weightedAverageRows: [] });
   const [loading, setLoading] = useState(false);
-  const [lastUpdated, setLastUpdated] = useState('');
 
-  // Optional: fetch real rates from an API
   useEffect(() => {
-    // For now, using static data; you can replace with actual API call
-    setLastUpdated(new Date().toLocaleDateString());
+    const fetchRates = async () => {
+      try {
+        setLoading(true);
+
+        const response = await exchangeRateService.getLiveRates();
+
+        setExchangeRateData(normalizeExchangeRateResponse(response));
+      } catch (error) {
+        console.error('Failed to fetch exchange rates:', error);
+
+        setExchangeRateData({ title: '', rows: [], cashRows: [], weightedAverageRows: [] });
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchRates();
   }, []);
 
   const toggleModal = () => setIsModalOpen(!isModalOpen);
 
-  // Prevent body scroll when modal is open
   useEffect(() => {
-    if (isModalOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'auto';
-    }
+    document.body.style.overflow = isModalOpen ? 'hidden' : 'auto';
     return () => {
       document.body.style.overflow = 'auto';
     };
@@ -40,17 +47,18 @@ const ExchangeRateButton = () => {
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 1, type: 'spring', stiffness: 200 }}
         onClick={toggleModal}
-        className="fixed bottom-4 right-4 z-50 bg-gradient-to-r from-red-600 to-black text-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 group"
+        className="fixed bottom-4 left-4 right-4 z-50 mx-auto flex w-[calc(100%-2rem)] max-w-xs items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-red-600 to-black px-4 py-3 text-white shadow-lg transition-all duration-300 hover:shadow-xl sm:left-auto sm:right-4 sm:w-auto sm:max-w-none sm:rounded-full sm:px-3"
       >
-        <FaExchangeAlt className="text-lg group-hover:rotate-12 transition-transform duration-300" />
-        <span className="hidden md:inline text-sm font-medium">Exchange Rates</span>
+        <FaExchangeAlt className="text-lg transition-transform duration-300 group-hover:rotate-12" />
+        <span className="hidden md:inline text-sm font-medium">
+          Exchange Rates
+        </span>
       </motion.button>
 
       {/* Modal */}
       <AnimatePresence>
         {isModalOpen && (
           <>
-            {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -59,61 +67,51 @@ const ExchangeRateButton = () => {
               className="fixed inset-0 bg-black/50 z-50"
             />
 
-            {/* Modal content */}
             <motion.div
               initial={{ scale: 0.9, opacity: 0, y: 20 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.9, opacity: 0, y: 20 }}
               transition={{ type: 'spring', damping: 20 }}
-              className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 w-[90%] max-w-md bg-white rounded-2xl shadow-2xl overflow-hidden"
+              className="fixed bottom-24 right-4 z-50 flex h-[34rem] w-[calc(100vw-2rem)] max-w-[24rem] flex-col overflow-hidden rounded-[1.75rem] bg-white shadow-[0_24px_80px_rgba(15,23,42,0.28)] backdrop-blur-xl sm:w-[24rem] sm:max-w-[24rem]"
             >
               {/* Header */}
-              <div className="bg-gradient-to-r from-red-600 to-black p-4 text-white">
-                <div className="flex justify-between items-center">
-                  <h3 className="text-xl font-bold">Exchange Rates</h3>
-                  <button onClick={toggleModal} className="text-white hover:text-gray-200">
+              <div className="relative overflow-hidden bg-gradient-to-r from-slate-950 via-slate-900 to-red-700 p-4 text-white">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.18),transparent_40%),radial-gradient(circle_at_bottom_left,rgba(255,255,255,0.08),transparent_35%)]" />
+                <div className="relative flex items-start gap-3">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white/10 ring-1 ring-white/15">
+                    <FaExchangeAlt className="text-lg" />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <h3 className="text-base font-semibold leading-tight sm:text-lg">Exchange Rates</h3>
+                    <p className="mt-1 text-sm text-white/70">Live market rates from the API</p>
+                  </div>
+                  <button
+                    onClick={toggleModal}
+                    className="rounded-full p-2 text-white/75 transition-colors hover:bg-white/10 hover:text-white"
+                  >
                     ✕
                   </button>
                 </div>
-                <p className="text-sm text-white/80 mt-1">Commercial Bank Rates (ETB)</p>
               </div>
 
               {/* Content */}
-              <div className="p-6">
+              <div className="flex-1 overflow-y-auto bg-[linear-gradient(180deg,#f8fafc_0%,#ffffff_40%,#fff_100%)] px-3 py-4 sm:px-4 sm:py-4">
                 {loading ? (
-                  <div className="text-center py-8">Loading...</div>
-                ) : (
-                  <div className="space-y-4">
-                    {Object.entries(rates).map(([currency, { buy, sell }]) => (
-                      <div key={currency} className="flex justify-between items-center border-b border-gray-100 pb-3">
-                        <div className="font-bold text-gray-900 w-16">{currency}</div>
-                        <div className="flex-1 text-center">
-                          <span className="text-gray-600">Buy: </span>
-                          <span className="font-semibold text-gray-900">{buy}</span>
-                        </div>
-                        <div className="flex-1 text-center">
-                          <span className="text-gray-600">Sell: </span>
-                          <span className="font-semibold text-gray-900">{sell}</span>
-                        </div>
-                      </div>
-                    ))}
-                    <div className="text-xs text-gray-500 text-center pt-2">
-                      Last updated: {lastUpdated}
-                    </div>
-                    <p className="text-xs text-gray-400 text-center mt-2">
-                      *Rates are indicative. Actual rates may vary.
-                    </p>
+                  <div className="flex justify-center py-8">
+                    <div className="w-8 h-8 border-4 border-red-600 border-t-transparent rounded-full animate-spin" />
                   </div>
+                ) : (
+                  <ExchangeRateTables data={exchangeRateData} compact />
                 )}
               </div>
 
               {/* Footer */}
-              <div className="bg-gray-50 p-3 text-center">
+              <div className="border-t border-slate-200 bg-white p-3 text-center">
                 <a
                   href="https://nbe.gov.et/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-red-600 text-sm hover:underline"
+                  className="text-sm text-red-600 hover:underline"
                 >
                   View official rates from NBE
                 </a>

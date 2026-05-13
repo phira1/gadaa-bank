@@ -1,0 +1,75 @@
+[
+  { "title": "Home", "route": "/", "keywords": ["home", "homepage"] },
+
+  { "title": "About", "route": "/about", "keywords": ["about", "about us", "company"] },
+  { "title": "Company History", "route": "/about/company-history", "keywords": ["history", "company history"] },
+  { "title": "Organizational Structure", "route": "/about/organizational-structure", "keywords": ["organizational", "structure"] },
+  { "title": "Company Teams", "route": "/about/company-teams", "keywords": ["teams", "company teams"] },
+  { "title": "Management Team", "route": "/about/management-team", "keywords": ["management", "management team", "leadership", "our team"] },
+  { "title": "Other Profiles", "route": "/about/other-profiles", "keywords": ["profiles", "other profiles"] },
+  { "title": "Partners", "route": "/about/partners", "keywords": ["partners", "our partners"] },
+
+  { "title": "Services", "route": "/services", "keywords": ["services", "banking services"] },
+  { "title": "Saving Accounts", "route": "/services/saving-accounts", "keywords": ["saving account", "savings", "saving accounts"] },
+  { "title": "Current Accounts", "route": "/services/current-accounts", "keywords": ["current account", "checking", "current accounts"] },
+  { "title": "Time Deposit", "route": "/services/time-deposit", "keywords": ["time deposit", "fixed deposit"] },
+  { "title": "Personal Loans", "route": "/services/personal-loans", "keywords": ["personal loan", "personal loans"] },
+  { "title": "Business Loans", "route": "/services/business-loans", "keywords": ["business loan", "business loans"] },
+  { "title": "Guarantee Facilities", "route": "/services/guarantee-facilities", "keywords": ["guarantee", "guarantee facilities"] },
+
+  { "title": "Forex Service", "route": "/services/forex-service", "keywords": ["forex", "currency exchange", "forex service"] },
+  { "title": "Trade Finance", "route": "/services/trade-finance", "keywords": ["trade finance", "letters of credit"] },
+  { "title": "Money Transfer", "route": "/services/money-transfer", "keywords": ["money transfer", "remittance"] },
+  { "title": "Diaspora FCY Products", "route": "/services/diaspora-fcy-products", "keywords": ["diaspora", "fc y products", "diaspora products"] },
+  { "title": "Correspondent Accounts", "route": "/services/correspondent-accounts", "keywords": ["correspondent", "correspondent accounts"] },
+
+  { "title": "Deposit Product", "route": "/services/deposit-product", "keywords": ["deposit product", "interest free"] },
+  { "title": "Wadiah Saving", "route": "/services/wadiah-saving", "keywords": ["wadiah", "wadiah saving"] },
+  { "title": "Amanah", "route": "/services/amanah", "keywords": ["amanah"] },
+  { "title": "Mudarabah Saving Accounts", "route": "/services/mudarabah-saving-accounts", "keywords": ["mudarabah", "mudarabah saving"] },
+  { "title": "Financing Investment", "route": "/services/financing-investment", "keywords": ["financing", "investment"] },
+  { "title": "Other Interest-Free Services", "route": "/services/other-services", "keywords": ["other services", "interest free"] },
+
+  { "title": "Diaspora Account", "route": "/services/diaspora-account", "keywords": ["diaspora account"] },
+  { "title": "Diaspora Loan Facilities", "route": "/services/diaspora-loan-facilities", "keywords": ["diaspora loan"] },
+  { "title": "NGO Corporate Loan Packages", "route": "/services/ngo-corporate-loan-packages", "keywords": ["ngo", "corporate loan"] },
+
+  { "title": "Digital", "route": "/digital", "keywords": ["digital", "digital banking"] },
+  { "title": "Mobile Banking", "route": "/digital/mobile-banking", "keywords": ["mobile banking", "app"] },
+  { "title": "Internet Banking", "route": "/digital/internet-banking", "keywords": ["internet banking"] },
+  { "title": "Card Banking", "route": "/digital/card-banking", "keywords": ["card", "card banking"] },
+  { "title": "ATM", "route": "/digital/atm", "keywords": ["atm"] },
+  { "title": "Merchant", "route": "/digital/merchant", "keywords": ["merchant"] },
+
+  { "title": "Resources", "route": "/resources", "keywords": ["resources", "help"] },
+  { "title": "News", "route": "/resources/news", "keywords": ["news", "latest news"] },
+  { "title": "Vacancies", "route": "/resources/vacancy", "keywords": ["vacancy", "careers"] },
+  { "title": "Annual Reports", "route": "/resources/annual-report", "keywords": ["annual report", "reports"] },
+  { "title": "Security Awareness", "route": "/resources/security-awareness", "keywords": ["security", "fraud", "scam"] },
+  { "title": "NBE Requirements", "route": "/resources/nbe-requirements", "keywords": ["nbe requirements"] },
+
+  { "title": "Investors", "route": "/investors", "keywords": ["investors"] },
+  { "title": "Prospectus", "route": "/investors/prospectus", "keywords": ["prospectus"] },
+  { "title": "Financial Reports", "route": "/investors/financial-reports", "keywords": ["financial reports"] },
+  { "title": "Shareholder Events", "route": "/investors/shareholder-events", "keywords": ["shareholder events"] },
+  { "title": "Press Releases", "route": "/investors/press-releases", "keywords": ["press releases"] },
+  { "title": "Investor Contact", "route": "/investors/contact", "keywords": ["investor contact"] },
+  { "title": "MOA", "route": "/investors/moa", "keywords": ["moa"] },
+
+  { "title": "Tools", "route": "/tools", "keywords": ["tools", "utilities"] },
+  { "title": "Loan Calculator", "route": "/tools/loan-calculator", "keywords": ["loan calculator", "calculator"] },
+  { "title": "Product Comparison", "route": "/tools/compare-products", "keywords": ["compare products", "product comparison"] },
+
+  { "title": "Contact", "route": "/contact", "keywords": ["contact", "support"] },
+  { "title": "Complaint Form", "route": "/contact/complaint", "keywords": ["complaint", "file complaint"] },
+
+  { "title": "Sitemap", "route": "/sitemap", "keywords": ["sitemap"] },
+  { "title": "Branches Locator", "route": "/locators/branch", "keywords": ["branch", "branches", "locator"] },
+  { "title": "ATM Locator", "route": "/locators/atm", "keywords": ["atm locator", "atm"] },
+  { "title": "Agent Locator", "route": "/locators/agent", "keywords": ["agent locator", "agent"] },
+
+  { "title": "Community", "route": "/community", "keywords": ["community"] },
+  { "title": "Terms", "route": "/terms", "keywords": ["terms", "terms and conditions"] },
+
+  { "title": "Not Found", "route": "/404", "keywords": ["not found", "404"] }
+]

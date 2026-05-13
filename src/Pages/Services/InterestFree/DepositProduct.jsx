@@ -22,6 +22,12 @@ const DepositProduct = () => {
   const controls = useAnimation();
   const sectionRef = useRef(null);
   const productsRef = useRef(null);
+  const floatingParticles = Array.from({ length: 12 }, (_, index) => ({
+    x: ((index * 13) % 20) - 10,
+    duration: 4 + ((index * 7) % 20) / 10,
+    left: `${(index * 17) % 100}%`,
+    top: `${(index * 29) % 100}%`,
+  }));
 
   useEffect(() => {
     const observers = [];
@@ -122,15 +128,15 @@ const DepositProduct = () => {
     <div className="min-h-screen bg-gradient-to-b from-white via-gray-50 to-white" ref={sectionRef}>
       {/* Animated Background Elements */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        {[...Array(12)].map((_, i) => (
+        {floatingParticles.map((particle, i) => (
           <motion.div
             key={i}
             className={`absolute ${i % 3 === 0 ? 'w-3 h-3' : i % 3 === 1 ? 'w-2 h-2' : 'w-1 h-1'} ${
               i % 2 === 0 ? 'bg-red-500/10' : 'bg-gray-900/10'
             } rounded-full`}
-            animate={{ y: [0, -30, 0], x: [0, (Math.random() * 20) - 10, 0] }}
-            transition={{ duration: 4 + Math.random() * 2, repeat: Infinity, delay: i * 0.3, ease: "easeInOut" }}
-            style={{ left: `${Math.random() * 100}%`, top: `${Math.random() * 100}%` }}
+            animate={{ y: [0, -30, 0], x: [0, particle.x, 0] }}
+            transition={{ duration: particle.duration, repeat: Infinity, delay: i * 0.3, ease: "easeInOut" }}
+            style={{ left: particle.left, top: particle.top }}
           />
         ))}
       </div>

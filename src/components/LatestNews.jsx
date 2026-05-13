@@ -2,12 +2,25 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { FaArrowRight } from 'react-icons/fa';
 import NewsCard from './NewsCard';
-import { newsItems } from '../data/newsData';
+import { newsService } from '../services/newsService';
 
 const LatestNews = () => {
   const [animated, setAnimated] = useState(false);
   const [visibleItems, setVisibleItems] = useState(3);
+  const [newsItems, setNewsItems] = useState([]);
   const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const fetchNews = async () => {
+      try {
+        const res = await newsService.getAll({ per_page: 9, is_published: true });
+        setNewsItems(res.data?.data || res.data || []);
+      } catch (err) {
+        console.error('Failed to load latest news:', err);
+      }
+    };
+    fetchNews();
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -26,8 +39,8 @@ const LatestNews = () => {
 
   const handleViewMore = () => setVisibleItems((prev) => prev + 3);
 
-  const displayedNews = newsItems.slice(0, visibleItems);
-  const hasMore = visibleItems < newsItems.length;
+  const displayedNews = Array.isArray(newsItems) ? newsItems.slice(0, visibleItems) : [];
+  const hasMore = visibleItems < (newsItems.length || 0);
 
   return (
     <section id="latest-news" className="py-16 bg-white" ref={sectionRef}>
@@ -49,6 +62,11 @@ const LatestNews = () => {
           {displayedNews.map((news, index) => (
             <NewsCard key={news.id} news={news} animated={animated} delay={index * 100} />
           ))}
+          {displayedNews.length === 0 && (
+            <div className="col-span-3 text-center text-gray-500">
+              Check back soon for the latest news!
+            </div>
+          )}
         </div>
 
         {hasMore && (
@@ -57,8 +75,8 @@ const LatestNews = () => {
             style={animated ? { animationDelay: '500ms' } : {}}
           >
             <button
-              onClick={handleViewMore}
-              className="inline-flex items-center gap-3 px-8 py-3 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition-all duration-300 group shadow-lg hover:shadow-xl"
+               onClick={handleViewMore}
+               className="inline-flex items-center gap-3 px-8 py-3 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition-all duration-300 group shadow-lg hover:shadow-xl"
             >
               View More News
               <FaArrowRight className="group-hover:translate-x-2 transition-transform duration-300" />

@@ -1,8 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaFileAlt, FaBalanceScale, FaChartLine, FaCalendarAlt, FaNewspaper, FaEnvelope } from 'react-icons/fa';
+import usePageMeta from '../../components/hooks/usePageMeta';
 
 const InvestorsPage = () => {
+  usePageMeta({
+    title: 'Investors',
+    description: 'Investor relations, reports, prospectus, shareholder events, and announcements for Gadaa Bank.',
+    canonicalPath: '/investors',
+  })
+
   const investorCards = [
     {
       title: "Prospectus",

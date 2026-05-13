@@ -1,4 +1,4 @@
-import { FaWhatsapp, FaTelegram, FaFacebook } from 'react-icons/fa';
+import { FaWhatsapp, FaTelegramPlane, FaFacebook } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 
 export const contactInfo = [
@@ -17,14 +17,12 @@ export const departments = [
 
 export const socialMedia = [
   { icon: FaWhatsapp, name: 'WhatsApp', color: 'bg-green-500', link: 'https://wa.me/251641' },
-  { icon: FaTelegram, name: 'Telegram', color: 'bg-blue-500', link: 'https://t.me/GadaaBankOfficial' },
+  { icon: FaTelegramPlane, name: 'Telegram', color: 'bg-blue-500', link: 'https://t.me/GadaaBankOfficial' },
   { icon: FaFacebook, name: 'Facebook', color: 'bg-blue-600', link: 'https://www.facebook.com/gadaabanksc' },
   { icon: FaXTwitter, name: 'X', color: 'bg-black', link: 'https://x.com/gadaabanksc' }
 ];
 
 export const workingHours = [
-  { day: 'Monday - Thursday', time: '8:00 AM - 5:30 PM' },
-  { day: 'Friday', time: '8:00 AM - 11:30 AM, 1:30 PM - 5:30 PM' },
-  { day: 'Saturday', time: '8:00 AM - 5:30 PM' },
-  { day: 'Sunday', time: 'Closed' }
+  { day: 'Monday - Saturday', time: '8:00 AM - 7:30 PM' },
+   { day: 'Sunday', time: 'Closed' }
 ];

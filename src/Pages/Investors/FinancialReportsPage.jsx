@@ -1,9 +1,39 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaArrowLeft, FaFilePdf, FaDownload, FaEye } from 'react-icons/fa';
-import { financialReportsList } from '../../data/investorData';
+import { reportService } from '../../services';
+import { getAssetUrl } from '../../utils/assetUrl';
 
 const FinancialReportsPage = () => {
+  const [reports, setReports] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    let isMounted = true;
+
+    reportService.getAll({ type: 'financial' })
+      .then((response) => {
+        if (!isMounted) return;
+        const payload = response?.data ?? response ?? [];
+        const items = Array.isArray(payload.data) ? payload.data : Array.isArray(payload) ? payload : [];
+        setReports(items);
+      })
+      .catch((loadError) => {
+        if (!isMounted) return;
+        setError(loadError.message || 'Failed to load financial reports.');
+      })
+      .finally(() => {
+        if (isMounted) setLoading(false);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const getDocumentLink = (report) => report.file_url || (report.file_path ? getAssetUrl(report.file_path) : '#');
+
   return (
     <div className="min-h-screen bg-white">
       <div className="bg-gradient-to-r from-black to-gray-900 py-4">
@@ -29,43 +59,45 @@ const FinancialReportsPage = () => {
           <p className="text-gray-600">Access audited financial statements and reports.</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-          {financialReportsList.map((report) => (
-            <div key={report.id} className="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden group hover:shadow-2xl transition-all duration-300">
-              <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
-                <h2 className="font-semibold text-gray-800 line-clamp-2">{report.title}</h2>
-              </div>
-              <div className="p-6 text-center">
-                {report.isAvailable !== false ? (
+        {loading ? (
+          <div className="flex justify-center items-center py-16">
+            <div className="w-12 h-12 border-4 border-red-600 border-t-transparent rounded-full animate-spin" />
+          </div>
+        ) : error ? (
+          <div className="text-center py-16 text-red-600">{error}</div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+            {reports.map((report) => (
+              <div key={report.id} className="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden group hover:shadow-2xl transition-all duration-300">
+                <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
+                  <h2 className="font-semibold text-gray-800 line-clamp-2">{report.title}</h2>
+                </div>
+                <div className="p-6 text-center">
+                  <div className="bg-gray-100 rounded-lg p-8 text-center">
+                    <p className="text-gray-500 mb-2">Fiscal Year {report.year || 'N/A'}</p>
+                    <p className="text-sm text-gray-600">{report.description || 'Financial statement document.'}</p>
+                  </div>
                   <a
-                    href={report.pdfLink}
+                    href={getDocumentLink(report)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block hover:opacity-95 transition-opacity"
+                    className="mt-4 inline-flex items-center justify-center gap-2 text-red-600 font-medium group-hover:underline"
                   >
-                    <img
-                      src={report.image}
-                      alt={report.title}
-                      className="mx-auto rounded-lg shadow-md max-w-full h-auto"
-                    />
-                    <div className="mt-4 flex items-center justify-center gap-2 text-red-600 font-medium group-hover:underline">
-                      <FaEye />
-                      <span>View Report</span>
-                      <FaDownload className="text-sm" />
-                    </div>
+                    <FaEye />
+                    <span>View Report</span>
+                    <FaDownload className="text-sm" />
                   </a>
-                ) : (
-                  <div className="bg-gray-100 rounded-lg p-8 text-center">
-                    <p className="text-gray-500">This report will be available soon. Please check back later.</p>
-                  </div>
-                )}
-                {report.fileSize && (
-                  <p className="mt-2 text-xs text-gray-400">File size: {report.fileSize}</p>
-                )}
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+
+            {reports.length === 0 && (
+              <div className="col-span-full text-center text-gray-500 py-8">
+                No financial reports available.
+              </div>
+            )}
+          </div>
+        )}
 
         <div className="bg-red-50 rounded-lg p-6 text-center mt-8">
           <p className="text-gray-700">

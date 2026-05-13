@@ -28,6 +28,28 @@ const TimeDeposit = () => {
   const statsRef = useRef(null);
   const featuresRef = useRef(null);
   const eligibilityRef = useRef(null);
+  const backgroundParticles = Array.from({ length: 12 }, (_, index) => ({
+    x: ((index * 13) % 20) - 10,
+    duration: 4 + ((index * 7) % 20) / 10,
+    left: `${(index * 17) % 100}%`,
+    top: `${(index * 29) % 100}%`,
+  }));
+
+  function animateDepositCounter(target) {
+    const duration = 1500;
+    const steps = 60;
+    const increment = target / steps;
+    let current = 0;
+
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= target) {
+        current = target;
+        clearInterval(timer);
+      }
+      setDepositAmount(Math.floor(current));
+    }, duration / steps);
+  }
 
   useEffect(() => {
     const observers = [];
@@ -83,22 +105,6 @@ const TimeDeposit = () => {
       observers.forEach(observer => observer.disconnect());
     };
   }, [animated, controls]);
-
-  const animateDepositCounter = (target) => {
-    const duration = 1500;
-    const steps = 60;
-    const increment = target / steps;
-    let current = 0;
-    
-    const timer = setInterval(() => {
-      current += increment;
-      if (current >= target) {
-        current = target;
-        clearInterval(timer);
-      }
-      setDepositAmount(Math.floor(current));
-    }, duration / steps);
-  };
 
   const features = [
     {
@@ -201,25 +207,6 @@ const TimeDeposit = () => {
     }
   };
 
-  const titleVariants = {
-    hidden: { 
-      y: 50, 
-      opacity: 0,
-      scale: 0.9
-    },
-    visible: {
-      y: 0,
-      opacity: 1,
-      scale: 1,
-      transition: {
-        type: "spring",
-        stiffness: 120,
-        damping: 12,
-        duration: 1
-      }
-    }
-  };
-
   const cardVariants = {
     hidden: (custom) => ({
       y: custom === 'slideUp' ? 40 : 0,
@@ -271,7 +258,7 @@ const TimeDeposit = () => {
     <div className="min-h-screen bg-gradient-to-b from-white via-gray-50 to-white" ref={sectionRef}>
       {/* Animated Background Elements */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        {[...Array(12)].map((_, i) => (
+        {backgroundParticles.map((particle, i) => (
           <motion.div
             key={i}
             className={`absolute ${i % 3 === 0 ? 'w-3 h-3' : i % 3 === 1 ? 'w-2 h-2' : 'w-1 h-1'} ${
@@ -279,17 +266,17 @@ const TimeDeposit = () => {
             } rounded-full`}
             animate={{
               y: [0, -30, 0],
-              x: [0, Math.random() * 20 - 10, 0],
+              x: [0, particle.x, 0],
             }}
             transition={{
-              duration: 4 + Math.random() * 2,
+              duration: particle.duration,
               repeat: Infinity,
               delay: i * 0.3,
               ease: "easeInOut"
             }}
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`
+              left: particle.left,
+              top: particle.top
             }}
           />
         ))}

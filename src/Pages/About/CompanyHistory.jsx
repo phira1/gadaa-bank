@@ -19,11 +19,14 @@ import {
   FaRocket,
   FaLightbulb
 } from 'react-icons/fa';
-import { socialLinks } from '../../data/socialLinks'; // adjust path if needed
+import { socialLinks as fallbackSocialLinks } from '../../data/socialLinks';
+import useSiteContent from '../../components/hooks/useSiteContent';
 
 const CompanyHistory = () => {
   const [animated, setAnimated] = useState(false);
   const sectionRef = useRef(null);
+  const { content } = useSiteContent();
+  const socialLinks = content?.social_links || fallbackSocialLinks;
 
   useEffect(() => {
     const observer = new IntersectionObserver(
