@@ -383,13 +383,15 @@ const DigitalPage = () => {
               className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center relative z-10"
             >
               <motion.div variants={itemVariants}>
-                <Link 
-                  to="/contact"
+                <a 
+                  href="https://play.google.com/store/apps/details?id=com.gadaaDigital"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="px-5 md:px-6 py-2.5 md:py-3 bg-white text-red-600 font-bold rounded-lg hover:bg-gray-100 transition-all duration-300 text-sm md:text-base flex items-center justify-center gap-2 md:gap-3"
                 >
                   <FaMobileAlt className="text-base md:text-lg" />
                   <span>Get Started Today</span>
-                </Link>
+                </a>
               </motion.div>
               
               <motion.div variants={itemVariants}>

@@ -105,7 +105,7 @@ const Chatbot = () => {
 
   return (
     <>
-      <div className="fixed bottom-6 left-6 z-50 group">
+      <div className="fixed bottom-4 left-4 z-50 group sm:bottom-6 sm:left-6">
         <motion.button
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
@@ -113,18 +113,18 @@ const Chatbot = () => {
           whileTap={{ scale: 0.95 }}
           onClick={() => setIsOpen(!isOpen)}
           aria-label={isOpen ? 'Close chat' : 'Open chat'}
-          className="relative flex h-14 w-14 items-center justify-center rounded-full border border-white/20 bg-gradient-to-br from-red-600 via-red-600 to-slate-950 shadow-[0_16px_40px_rgba(15,23,42,0.35)] ring-1 ring-black/5 transition-all focus:outline-none"
+          className="relative flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-gradient-to-br from-red-600 via-red-600 to-slate-950 shadow-[0_16px_40px_rgba(15,23,42,0.35)] ring-1 ring-black/5 transition-all focus:outline-none sm:h-14 sm:w-14"
         >
           {isOpen ? (
-            <FaTimes className="text-white text-xl" />
+            <FaTimes className="text-white text-lg sm:text-xl" />
           ) : (
             <>
-              <FaRobot className="text-white text-xl" />
-              <span className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white animate-pulse"></span>
+              <FaRobot className="text-white text-lg sm:text-xl" />
+              <span className="absolute -top-1 -right-1 h-3 w-3 rounded-full border-2 border-white bg-green-500 animate-pulse sm:h-4 sm:w-4"></span>
             </>
           )}
         </motion.button>
-        <div className="absolute left-16 top-1/2 -translate-y-1/2 whitespace-nowrap rounded-full border border-white/10 bg-slate-950 px-3 py-1 text-sm text-white opacity-0 shadow-lg transition-opacity pointer-events-none group-hover:opacity-100">
+        <div className="absolute left-14 top-1/2 -translate-y-1/2 whitespace-nowrap rounded-full border border-white/10 bg-slate-950 px-3 py-1 text-sm text-white opacity-0 shadow-lg transition-opacity pointer-events-none group-hover:opacity-100 sm:left-16">
           Chat with Hayyuu Bot
         </div>
       </div>

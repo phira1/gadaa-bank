@@ -33,6 +33,7 @@ const MemberCard = ({ member, type = 'board' }) => {
   const position = member.title || member.role || member.position || 'Member';
   const bio = member.bio || member.qualifications || 'Information not available.';
   const experience = member.department || member.experience || 'Experience details not provided.';
+  const hasExperience = Boolean(member.department || member.experience);
   const badgeLabel = type === 'board'
     ? 'Board Member'
     : type === 'committee'
@@ -77,21 +78,25 @@ const MemberCard = ({ member, type = 'board' }) => {
           <Icon className="text-gray-300 text-2xl" />
         </div>
 
-        <div className="mb-4">
-          <div className="flex items-center text-gray-600 mb-2">
-            <FaInfoCircle className="text-red-500 mr-2" />
-            <span className="font-medium">Bio / Qualifications:</span>
+        {bio && bio !== 'Information not available.' && (
+          <div className="mb-4">
+            <div className="flex items-center text-gray-600 mb-2">
+              <FaInfoCircle className="text-red-500 mr-2" />
+              <span className="font-medium">Bio / Qualifications:</span>
+            </div>
+            <p className="text-gray-700 text-sm whitespace-pre-wrap">{bio}</p>
           </div>
-          <p className="text-gray-700 text-sm whitespace-pre-wrap">{bio}</p>
-        </div>
+        )}
 
-        <div className="mb-6">
-          <div className="flex items-center text-gray-600 mb-1">
-            <FaBuilding className="text-red-500 mr-2" />
-            <span className="font-medium">{experienceLabel}</span>
+        {hasExperience && experience && experience !== 'Experience details not provided.' && (
+          <div className="mb-6">
+            <div className="flex items-center text-gray-600 mb-1">
+              <FaBuilding className="text-red-500 mr-2" />
+              <span className="font-medium">{experienceLabel}</span>
+            </div>
+            <p className="text-gray-700 font-semibold text-sm">{experience}</p>
           </div>
-          <p className="text-gray-700 font-semibold text-sm">{experience}</p>
-        </div>
+        )}
 
         {type === 'board' && member.committee && (
           <div className="mb-6 p-4 bg-gradient-to-r from-red-50 to-white rounded-lg border border-red-100">

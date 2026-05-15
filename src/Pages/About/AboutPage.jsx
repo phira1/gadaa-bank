@@ -292,31 +292,6 @@ const AboutPage = () => {
           <FaChevronRight size={isMobile ? 16 : 24} />
         </motion.button>
 
-        {/* Slide Indicators */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={isHeroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.5, delay: 1.1 }}
-          className={`absolute left-1/2 transform -translate-x-1/2 flex z-20 ${isMobile ? 'bottom-4 space-x-1.5' : 'bottom-6 space-x-3'}`}
-        >
-          {galleryImages.map((_, index) => (
-            <motion.button
-              key={index}
-              initial={{ scale: 0 }}
-              animate={isHeroInView ? { scale: 1 } : { scale: 0 }}
-              transition={{ delay: index * 0.1 + 1.1 }}
-              onClick={() => goToSlide(index)}
-              whileHover={{ scale: 1.2 }}
-              whileTap={{ scale: 0.9 }}
-              className={`rounded-full transition-all duration-300 ${
-                index === currentSlide 
-                  ? `bg-white ${isMobile ? 'w-6' : 'w-8'}` 
-                  : 'bg-white/50 hover:bg-white/80'
-              } ${isMobile ? 'h-1.5' : 'h-3'}`}
-              aria-label={`Go to slide ${index + 1}`}
-            />
-          ))}
-        </motion.div>
       </motion.div>
 
       {/* Content Section */}

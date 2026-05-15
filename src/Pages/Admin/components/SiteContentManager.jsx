@@ -670,6 +670,26 @@ const SiteContentManager = ({ siteContent, onSave }) => {
         </div>
       </section>
 
+      <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+        <ObjectListEditor
+          title="Search content"
+          description="Manage searchable items that appear in the site search bar and sitemap. Users will see these when searching for services, pages, and resources."
+          items={searchableContent}
+          addLabel="Add search item"
+          emptyLabel="No search content configured."
+          fields={[
+            { key: 'title', label: 'Title', placeholder: 'Service name or page title', fullWidth: true },
+            { key: 'path', label: 'URL path', placeholder: '/services/example' },
+            { key: 'category', label: 'Category', placeholder: 'Services, Resources, About', fullWidth: true },
+            { key: 'description', label: 'Description', placeholder: 'Brief description for search results', fullWidth: true, type: 'textarea', rows: 2 },
+          ]}
+          onChange={(nextItems) => updateDraft('searchable_content', nextItems)}
+          onSave={() => saveKey('searchable_content')}
+          saveLabel="Save search content"
+          saving={savingKey === 'searchable_content'}
+        />
+      </section>
+
       <section className="grid gap-6 xl:grid-cols-2">
         <ObjectListEditor
           title="Tariff groups"

@@ -70,8 +70,6 @@ const OtherProfiles = () => {
 
   const statsItems = [
     { value: committeeMembers.length, label: 'Committee Members' },
-    { value: committeeMembers.some((member) => /chair/i.test(member.role || '')) ? '1+' : '0', label: 'Chairperson Roles' },
-   
   ];
 
   return (
