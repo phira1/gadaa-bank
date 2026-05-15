@@ -47,7 +47,7 @@ const ExchangeRateButton = () => {
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 1, type: 'spring', stiffness: 200 }}
         onClick={toggleModal}
-        className="fixed bottom-4 left-4 right-4 z-50 mx-auto flex w-[calc(100%-2rem)] max-w-xs items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-red-600 to-black px-4 py-3 text-white shadow-lg transition-all duration-300 hover:shadow-xl sm:left-auto sm:right-4 sm:w-auto sm:max-w-none sm:rounded-full sm:px-3"
+        className="fixed bottom-4 right-4 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-r from-red-600 to-black text-white shadow-lg transition-all duration-300 hover:shadow-xl sm:h-auto sm:w-auto sm:gap-2 sm:rounded-full sm:px-3 sm:py-3 sm:scale-50 sm:origin-bottom-right"
       >
         <FaExchangeAlt className="text-lg transition-transform duration-300 group-hover:rotate-12" />
         <span className="hidden md:inline text-sm font-medium">
@@ -72,7 +72,7 @@ const ExchangeRateButton = () => {
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.9, opacity: 0, y: 20 }}
               transition={{ type: 'spring', damping: 20 }}
-              className="fixed bottom-24 right-4 z-50 flex h-[34rem] w-[calc(100vw-2rem)] max-w-[24rem] flex-col overflow-hidden rounded-[1.75rem] bg-white shadow-[0_24px_80px_rgba(15,23,42,0.28)] backdrop-blur-xl sm:w-[24rem] sm:max-w-[24rem]"
+              className="fixed bottom-20 right-4 z-50 flex h-[34rem] w-[calc(100vw-2rem)] max-w-[24rem] flex-col overflow-hidden rounded-[1.75rem] bg-white shadow-[0_24px_80px_rgba(15,23,42,0.28)] backdrop-blur-xl sm:bottom-24 sm:w-[24rem] sm:max-w-[24rem]"
             >
               {/* Header */}
               <div className="relative overflow-hidden bg-gradient-to-r from-slate-950 via-slate-900 to-red-700 p-4 text-white">

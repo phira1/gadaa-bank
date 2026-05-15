@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import LocatorTable from '../../components/LocatorTable';
 import { branchService } from '../../services';
+import { buildLocationMapLink } from '../../utils/locationMap';
 
 const AgentLocator = () => {
   const [data, setData] = useState([]);
@@ -14,9 +15,7 @@ const AgentLocator = () => {
           id: b.id,
           city: b.region || b.name,
           address: b.address || b.name,
-          mapLink: b.latitude && b.longitude
-            ? `https://maps.google.com/?q=${b.latitude},${b.longitude}`
-            : '#',
+          mapLink: buildLocationMapLink(b),
           phone: b.phone,
         }));
         setData(normalized);

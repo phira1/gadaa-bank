@@ -358,12 +358,14 @@ const MudarabahSavingAccounts = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <Link 
-                to="/contact"
+              <a 
+                href="https://ibs.gadaabank.com.et/alpha-onboarding/get-started"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center justify-center px-6 md:px-8 py-3 bg-white text-red-600 font-bold rounded-lg hover:bg-gray-100 shadow-lg transition duration-300"
               >
                 Open Account
-              </Link>
+              </a>
             </motion.div>
             
             <motion.div

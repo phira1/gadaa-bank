@@ -176,17 +176,6 @@ const NewsDetailPage = () => {
                   >
                     <FaChevronRight />
                   </button>
-                  <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1">
-                    {images.map((_, idx) => (
-                      <button
-                        key={idx}
-                        onClick={() => setCurrentImageIndex(idx)}
-                        className={`w-2 h-2 rounded-full transition-all ${
-                          idx === currentImageIndex ? 'bg-red-600 w-4' : 'bg-white/60'
-                        }`}
-                      />
-                    ))}
-                  </div>
                 </>
               )}
             </div>

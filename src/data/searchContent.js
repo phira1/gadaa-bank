@@ -27,6 +27,11 @@ export const searchableContent = [
   { title: 'Card Banking', path: '/digital/card-banking', category: 'Digital', description: 'Debit and credit cards' },
   { title: 'ATM Services', path: '/digital/atm', category: 'Digital', description: 'ATM locations and services' },
 
+  // Locator pages
+  { title: 'Branches Locator', path: '/locators/branch', category: 'Locations', description: 'Find the nearest branch' },
+  { title: 'ATM Locator', path: '/locators/atm', category: 'Locations', description: 'Find ATM locations near you' },
+  { title: 'Agent Locator', path: '/locators/agent', category: 'Locations', description: 'Find banking agents near you' },
+
   // Interest Free Banking
   { title: 'Interest Free Banking', path: '/services', category: 'Islamic Banking', description: 'Sharia-compliant banking' },
   { title: 'Wadiah Saving', path: '/services/wadiah-saving', category: 'Islamic Banking', description: 'Safe-keeping accounts' },

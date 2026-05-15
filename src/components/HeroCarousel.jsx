@@ -307,26 +307,6 @@ const HeroCarousel = () => {
                 </div>
               </div>
 
-              <div className="absolute bottom-16 sm:bottom-20 lg:bottom-24 right-3 sm:right-4 lg:right-5 flex gap-1.5">
-                {middleCarouselImages.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => {
-                      if (!isAnimating && index !== currentCarouselIndex) {
-                        setIsAnimating(true);
-                        setCurrentCarouselIndex(index);
-                        setTimeout(() => setIsAnimating(false), 500);
-                      }
-                    }}
-                    className={`rounded-full transition-all duration-300 ${
-                      index === currentCarouselIndex 
-                        ? 'bg-white' 
-                        : 'bg-white/50 hover:bg-white/70'
-                    } ${isMobile ? 'w-2 h-2' : 'w-2.5 h-2.5 lg:w-3 lg:h-3'}`}
-                    aria-label={`Go to slide ${index + 1}`}
-                  />
-                ))}
-              </div>
             </div>
           </div>
 
@@ -390,20 +370,6 @@ const HeroCarousel = () => {
           </div>
         </div>
 
-        {/* Mobile App Notification - Smaller */}
-        {isMobile && (
-          <Link 
-            to="/digital/mobile-banking" 
-            className="fixed bottom-4 right-3 z-40"
-          >
-            <div className="bg-gradient-to-r from-red-600 to-red-700 text-white px-3 py-2 rounded-lg shadow-lg flex items-center gap-2 hover:from-red-700 hover:to-red-800 transition-all duration-300 active:scale-95">
-              <FaMobileAlt className="text-base" />
-              <div className="text-left">
-                <div className="text-xs font-bold">Mobile App</div>
-              </div>
-            </div>
-          </Link>
-        )}
       </div>
     </section>
   );

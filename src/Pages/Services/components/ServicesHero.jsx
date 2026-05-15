@@ -142,18 +142,6 @@ const ServicesHero = () => {
         ))}
       </div>
 
-      {/* Section indicator */}
-      <div className="hidden md:flex absolute bottom-6 left-1/2 transform -translate-x-1/2 space-x-2 z-20">
-        {imageSections.map((_, index) => (
-          <motion.div
-            key={index}
-            initial={{ scale: 0 }}
-            animate={controls ? { scale: 1 } : { scale: 0 }}
-            transition={{ delay: index * 0.1 + 0.8 }}
-            className="w-2 h-2 rounded-full bg-white/60"
-          />
-        ))}
-      </div>
     </div>
   );
 };
