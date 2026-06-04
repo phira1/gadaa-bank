@@ -83,7 +83,7 @@ const ExchangeRateButton = () => {
                   </div>
                   <div className="min-w-0 flex-1">
                     <h3 className="text-base font-semibold leading-tight sm:text-lg">Exchange Rates</h3>
-                    <p className="mt-1 text-sm text-white/70">Live market rates from the API</p>
+                    <p className="mt-1 text-sm text-white/70">Live market rates </p>
                   </div>
                   <button
                     onClick={toggleModal}
@@ -113,7 +113,7 @@ const ExchangeRateButton = () => {
                   rel="noopener noreferrer"
                   className="text-sm text-red-600 hover:underline"
                 >
-                  View official rates from NBE
+          
                 </a>
               </div>
             </motion.div>

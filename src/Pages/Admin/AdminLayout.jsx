@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink, Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { FaBalanceScale, FaChartLine, FaColumns, FaFolderOpen, FaHome, FaMapMarkedAlt, FaRegFileAlt, FaRegHandshake, FaRegImages, FaSignOutAlt, FaSlidersH, FaUsersCog } from 'react-icons/fa';
+import { FaBalanceScale, FaBars, FaChartLine, FaColumns, FaFolderOpen, FaHome, FaKey, FaMapMarkedAlt, FaRegFileAlt, FaRegHandshake, FaRegImages, FaSignOutAlt, FaSlidersH, FaTimes, FaUsersCog } from 'react-icons/fa';
 import { authService } from '../../services';
 import { clearToken, isAuthenticated } from '../../services/api';
 
@@ -15,6 +15,7 @@ const navItems = [
   { label: 'Partners', to: '/admin/partners', icon: FaRegHandshake },
   { label: 'Reports', to: '/admin/reports', icon: FaRegFileAlt },
   { label: 'Website stats', to: '/admin/stats', icon: FaRegImages },
+  { label: 'Change password', to: '/admin/change-password', icon: FaKey },
 ];
 
 const AdminLayout = () => {
@@ -22,6 +23,7 @@ const AdminLayout = () => {
   const location = useLocation();
   const [status, setStatus] = useState('loading');
   const [user, setUser] = useState(null);
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
 
   useEffect(() => {
     let active = true;
@@ -55,6 +57,10 @@ const AdminLayout = () => {
     };
   }, [location.pathname]);
 
+  useEffect(() => {
+    setIsMobileNavOpen(false);
+  }, [location.pathname]);
+
   const handleLogout = async () => {
     try {
       await authService.logout();
@@ -81,16 +87,33 @@ const AdminLayout = () => {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 lg:grid lg:grid-cols-[280px_1fr]">
-      <aside className="bg-slate-950 text-white px-5 py-6 flex flex-col gap-8 lg:min-h-screen sticky top-0">
-        <div className="flex items-center justify-between lg:justify-start gap-3">
+    <div className="min-h-screen overflow-x-hidden bg-slate-50 text-slate-900 lg:grid lg:grid-cols-[280px_1fr]">
+      {isMobileNavOpen && (
+        <button
+          type="button"
+          aria-label="Close admin navigation"
+          onClick={() => setIsMobileNavOpen(false)}
+          className="fixed inset-0 z-20 bg-slate-950/60 backdrop-blur-sm lg:hidden"
+        />
+      )}
+
+      <aside className={`fixed inset-y-0 left-0 z-30 w-[min(20rem,86vw)] transform bg-slate-950 text-white px-5 py-6 flex flex-col gap-8 transition-transform duration-300 ease-out lg:static lg:z-auto lg:w-auto lg:min-h-screen lg:translate-x-0 ${isMobileNavOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}>
+        <div className="flex items-center justify-between gap-3">
           <div className="h-11 w-11 rounded-2xl bg-red-600 flex items-center justify-center font-bold shadow-lg shadow-red-600/30">
             GB
           </div>
-          <div>
+          <div className="min-w-0 flex-1">
             <p className="text-xs uppercase tracking-[0.28em] text-white/60">Admin Portal</p>
             <h1 className="text-lg font-semibold">Gadaa Bank</h1>
           </div>
+          <button
+            type="button"
+            onClick={() => setIsMobileNavOpen(false)}
+            className="rounded-full border border-white/10 p-2 text-white/80 hover:bg-white/10 lg:hidden"
+            aria-label="Close navigation"
+          >
+            <FaTimes />
+          </button>
         </div>
 
         <nav className="space-y-2">
@@ -126,7 +149,7 @@ const AdminLayout = () => {
         </div>
       </aside>
 
-      <div className="min-w-0">
+      <div className="min-w-0 lg:ml-0">
         <header className="sticky top-0 z-20 border-b border-slate-200 bg-white/95 backdrop-blur">
           <div className="flex items-center justify-between gap-4 px-4 py-4 lg:px-8">
             <div>
@@ -142,6 +165,15 @@ const AdminLayout = () => {
                 <FaHome />
                 Public site
               </a>
+              <button
+                type="button"
+                onClick={() => setIsMobileNavOpen(true)}
+                className="inline-flex items-center gap-2 rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:border-red-600 hover:text-red-600 transition-colors lg:hidden"
+                aria-label="Open admin navigation"
+              >
+                <FaBars />
+                Menu
+              </button>
               <button
                 type="button"
                 onClick={handleLogout}
