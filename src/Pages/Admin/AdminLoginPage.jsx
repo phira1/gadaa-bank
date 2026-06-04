@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
-import { FaLock, FaShieldAlt } from 'react-icons/fa';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { FaLock } from 'react-icons/fa';
 import { authService } from '../../services';
 import { isAuthenticated } from '../../services/api';
 
@@ -36,17 +36,12 @@ const AdminLoginPage = () => {
   return (
     <div className="min-h-screen bg-[radial-gradient(circle_at_top,rgba(220,38,38,0.25),transparent_32%),linear-gradient(160deg,#020617_0%,#0f172a_48%,#ffffff_48%,#ffffff_100%)] flex items-center justify-center px-4 py-10">
       <div className="max-w-5xl w-full grid lg:grid-cols-[1.1fr_0.9fr] rounded-[2rem] overflow-hidden shadow-2xl border border-white/10 bg-white">
-        <div className="bg-slate-950 text-white p-8 md:p-12 flex flex-col justify-between">
-          <div>
-            <div className="inline-flex items-center gap-3 rounded-full bg-white/10 px-4 py-2 text-sm font-medium text-white/80 mb-8">
-              <FaShieldAlt className="text-red-400" />
-              Secure admin access
-            </div>
-            <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-5">Gadaa Bank Admin Portal</h1>
-            <p className="text-white/70 text-lg leading-relaxed max-w-xl">
-              Sign in to manage the bank website.
-            </p>
-          </div>
+        <div className="bg-slate-950 text-white p-8 md:p-12 flex items-center justify-center">
+          <img
+            src="/images/gadaalogoimage.png"
+            alt="Gadaa Bank logo"
+            className="w-full max-w-sm rounded-3xl bg-white p-5 shadow-[0_20px_60px_rgba(0,0,0,0.35)]"
+          />
         </div>
 
         <div className="p-8 md:p-12 bg-white">

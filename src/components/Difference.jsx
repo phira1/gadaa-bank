@@ -83,13 +83,7 @@ const Difference = () => {
           ))}
         </div>
 
-        <div className={`text-center ${animated ? 'animate-fadeInUp opacity-100' : 'opacity-0'}`}
-             style={animated ? { animationDelay: '800ms' } : {}}>
-          <button className="inline-flex items-center gap-3 px-8 py-3 border-2 border-red-600 text-red-600 font-semibold rounded-lg hover:bg-red-600 hover:text-white transition-all duration-300 group">
-            Read More
-            <FaArrowRight className="group-hover:translate-x-2 transition-transform duration-300" />
-          </button>
-        </div>
+
       </div>
     </section>
   );

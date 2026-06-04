@@ -3,7 +3,6 @@ import { FaSearch } from 'react-icons/fa';
 import { FaXmark } from 'react-icons/fa6';
 
 const SearchBar = ({
-  isMobileSearchOpen,
   toggleMobileSearch,
   searchQuery,
   setSearchQuery,
@@ -14,7 +13,6 @@ const SearchBar = ({
   setShowSuggestions,
   selectedResultIndex,
   setSelectedResultIndex,
-  closeAll,
   handleSearchSubmit,
   handleKeyDown,
   handleResultClick,
@@ -22,14 +20,31 @@ const SearchBar = ({
 }) => {
   const searchRef = useRef(null);
 
+  const getResultPath = (item) => item.path || item.route || '';
+
   const handleSearch = (query) => {
     setSearchQuery(query);
-    if (query.trim().length > 1) {
-      const results = searchableContent.filter(item =>
-        item.title.toLowerCase().includes(query.toLowerCase()) ||
-        item.category.toLowerCase().includes(query.toLowerCase()) ||
-        item.description.toLowerCase().includes(query.toLowerCase())
-      );
+    const normalizedQuery = query.trim().toLowerCase();
+
+    if (normalizedQuery.length > 1) {
+      const results = searchableContent
+        .map((item) => ({ ...item, path: getResultPath(item) }))
+        .filter((item) => {
+          const keywordMatches = Array.isArray(item.keywords) && item.keywords.some((keyword) =>
+            String(keyword).toLowerCase().includes(normalizedQuery)
+          );
+
+          return (
+            item.path && (
+              item.title?.toLowerCase().includes(normalizedQuery) ||
+              item.category?.toLowerCase().includes(normalizedQuery) ||
+              item.description?.toLowerCase().includes(normalizedQuery) ||
+              item.path.toLowerCase().includes(normalizedQuery) ||
+              keywordMatches
+            )
+          );
+        });
+
       setSearchResults(results.slice(0, 8));
       setShowSuggestions(true);
       setSelectedResultIndex(-1);
@@ -70,6 +85,7 @@ const SearchBar = ({
           {searchResults.map((result, index) => (
             <button
               key={index}
+              type="button"
               onClick={() => handleResultClick(result.path)}
               className={`block w-full text-left px-4 py-3 hover:bg-red-50 transition duration-200 ${
                 selectedResultIndex === index ? 'bg-red-50 border-l-4 border-red-600' : 'border-l-4 border-transparent'

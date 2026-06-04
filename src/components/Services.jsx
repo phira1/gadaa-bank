@@ -327,23 +327,8 @@ const Services = () => {
             </div>
           </div>
           
-          {/* Navigation Dots for Mobile */}
-          <div className={`flex justify-center mt-6 space-x-2 md:space-x-3 ${isMobile ? 'block' : 'hidden'}`}>
-            {tabs.map((tab, index) => (
-              <button
-                key={tab.id}
-                onClick={() => handleTabClick(tab.id)}
-                className={`w-2 h-2 md:w-3 md:h-3 rounded-full transition-all duration-300 ${
-                  activeTab === tab.id
-                    ? 'bg-red-600 scale-125'
-                    : 'bg-gray-300 hover:bg-gray-400'
-                }`}
-                aria-label={`Go to ${tab.label}`}
-              />
-            ))}
-          </div>
-        </div>
       </div>
+    </div>
 
       {/* CSS Animations */}
       <style jsx>{`

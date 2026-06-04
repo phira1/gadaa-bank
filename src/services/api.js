@@ -3,14 +3,27 @@
  * All requests go through this module.
  */
 
-const BASE_URL = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? 'http://localhost:8000/api/v1' : '');
+const resolveBaseUrl = () => {
+  const configuredUrl = import.meta.env.VITE_API_URL;
 
-if (!BASE_URL) {
-  throw new Error('VITE_API_URL is required for production builds.');
-}
+  if (configuredUrl) {
+    return configuredUrl.replace(/\/$/, '');
+  }
 
-const AUTH_TOKEN_KEY = 'gadaa_bank_admin_token';
-let authToken = typeof sessionStorage !== 'undefined' ? sessionStorage.getItem(AUTH_TOKEN_KEY) : null;
+  if (import.meta.env.DEV) {
+    return 'http://localhost:8000/api/v1';
+  }
+
+  if (typeof window !== 'undefined') {
+    return `${window.location.origin}/api/v1`;
+  }
+
+  throw new Error('Unable to resolve the API base URL. Set VITE_API_URL for server-side rendering.');
+};
+
+const BASE_URL = resolveBaseUrl();
+
+let authToken = null;
 const inFlightGetRequests = new Map();
 
 const getToken = () => authToken;
@@ -80,22 +93,10 @@ export const api = {
 // Auth helpers
 export const setToken = (token) => {
   authToken = token;
-
-  if (typeof sessionStorage !== 'undefined') {
-    if (token) {
-      sessionStorage.setItem(AUTH_TOKEN_KEY, token);
-    } else {
-      sessionStorage.removeItem(AUTH_TOKEN_KEY);
-    }
-  }
 };
 
 export const clearToken = () => {
   authToken = null;
-
-  if (typeof sessionStorage !== 'undefined') {
-    sessionStorage.removeItem(AUTH_TOKEN_KEY);
-  }
 };
 
 export const isAuthenticated = () => !!getToken();

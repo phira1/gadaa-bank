@@ -21,17 +21,20 @@ const Chatbot = () => {
   const [isTyping, setIsTyping] = useState(false);
   const [showFaqChips, setShowFaqChips] = useState(false);
   const messagesEndRef = useRef(null);
+  const inputRef = useRef(null);
 
-  const assistantHighlights = [
-    'Accounts and deposits',
-    'Loans and tariffs',
-    'Branches and ATMs',
-    'Digital banking help',
-  ];
+  // Removed verbose header highlights to save vertical space
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
+
+  useEffect(() => {
+    if (isOpen) {
+      // focus the input when the chat opens
+      setTimeout(() => inputRef.current?.focus(), 50);
+    }
+  }, [isOpen]);
 
   const addUserMessage = (text) => {
     setMessages((prev) => [...prev, { type: 'user', text }]);
@@ -79,17 +82,21 @@ const Chatbot = () => {
       setShowFaqChips(true);
     } finally {
       setIsTyping(false);
+      // restore focus to input after sending
+      setTimeout(() => inputRef.current?.focus(), 50);
     }
   };
 
   const handleSend = () => {
     sendMessage(input);
+    inputRef.current?.focus();
   };
 
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
       event.preventDefault();
       handleSend();
+      inputRef.current?.focus();
     }
   };
 
@@ -105,7 +112,7 @@ const Chatbot = () => {
 
   return (
     <>
-      <div className="fixed bottom-6 left-6 z-50 group">
+      <div className="fixed bottom-4 left-4 z-50 group sm:bottom-6 sm:left-6">
         <motion.button
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
@@ -113,18 +120,18 @@ const Chatbot = () => {
           whileTap={{ scale: 0.95 }}
           onClick={() => setIsOpen(!isOpen)}
           aria-label={isOpen ? 'Close chat' : 'Open chat'}
-          className="relative flex h-14 w-14 items-center justify-center rounded-full border border-white/20 bg-gradient-to-br from-red-600 via-red-600 to-slate-950 shadow-[0_16px_40px_rgba(15,23,42,0.35)] ring-1 ring-black/5 transition-all focus:outline-none"
+          className="relative flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-gradient-to-br from-red-600 via-red-600 to-slate-950 shadow-[0_16px_40px_rgba(15,23,42,0.35)] ring-1 ring-black/5 transition-all focus:outline-none sm:h-14 sm:w-14"
         >
           {isOpen ? (
-            <FaTimes className="text-white text-xl" />
+            <FaTimes className="text-white text-lg sm:text-xl" />
           ) : (
             <>
-              <FaRobot className="text-white text-xl" />
-              <span className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white animate-pulse"></span>
+              <FaRobot className="text-white text-lg sm:text-xl" />
+              <span className="absolute -top-1 -right-1 h-3 w-3 rounded-full border-2 border-white bg-green-500 animate-pulse sm:h-4 sm:w-4"></span>
             </>
           )}
         </motion.button>
-        <div className="absolute left-16 top-1/2 -translate-y-1/2 whitespace-nowrap rounded-full border border-white/10 bg-slate-950 px-3 py-1 text-sm text-white opacity-0 shadow-lg transition-opacity pointer-events-none group-hover:opacity-100">
+        <div className="absolute left-14 top-1/2 -translate-y-1/2 whitespace-nowrap rounded-full border border-white/10 bg-slate-950 px-3 py-1 text-sm text-white opacity-0 shadow-lg transition-opacity pointer-events-none group-hover:opacity-100 sm:left-16">
           Chat with Hayyuu Bot
         </div>
       </div>
@@ -160,13 +167,8 @@ const Chatbot = () => {
                   <FaTimes />
                 </button>
               </div>
-              <div className="relative mt-4 flex flex-wrap gap-2">
-                {assistantHighlights.map((item) => (
-                  <span key={item} className="inline-flex items-center gap-1 rounded-full bg-white/10 px-3 py-1 text-xs text-white/80 ring-1 ring-white/10">
-                    <FaBolt className="text-[10px] text-amber-300" />
-                    {item}
-                  </span>
-                ))}
+              <div className="relative mt-2">
+                {/* Header compacted: quick prompts are available below when needed */}
               </div>
             </div>
 
@@ -230,6 +232,7 @@ const Chatbot = () => {
             <div className="border-t border-slate-200 bg-white p-3">
               <div className="flex items-end gap-2 rounded-[1.35rem] border border-slate-200 bg-slate-50 p-2 shadow-inner shadow-slate-100">
                 <input
+                  ref={inputRef}
                   type="text"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}

@@ -9,7 +9,11 @@ const backendOrigin = (() => {
     return 'http://localhost:8000';
   }
 
-  throw new Error('VITE_ASSET_URL or VITE_API_URL is required for production builds.');
+  if (typeof window !== 'undefined') {
+    return window.location.origin;
+  }
+
+  throw new Error('Unable to resolve the asset base URL. Set VITE_ASSET_URL for server-side rendering.');
 })();
 
 export const getAssetUrl = (path) => {
