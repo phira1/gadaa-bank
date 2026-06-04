@@ -8,6 +8,14 @@ export const authService = {
     return data;
   },
 
+  /** PUT /auth/password */
+  updateAdminPassword: async ({ currentPassword, password, passwordConfirmation }) =>
+    api.put('auth/password', {
+      current_password: currentPassword,
+      password,
+      password_confirmation: passwordConfirmation,
+    }),
+
   /** POST /auth/logout */
   logout: async () => {
     await api.post('auth/logout');

@@ -21,17 +21,20 @@ const Chatbot = () => {
   const [isTyping, setIsTyping] = useState(false);
   const [showFaqChips, setShowFaqChips] = useState(false);
   const messagesEndRef = useRef(null);
+  const inputRef = useRef(null);
 
-  const assistantHighlights = [
-    'Accounts and deposits',
-    'Loans and tariffs',
-    'Branches and ATMs',
-    'Digital banking help',
-  ];
+  // Removed verbose header highlights to save vertical space
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
+
+  useEffect(() => {
+    if (isOpen) {
+      // focus the input when the chat opens
+      setTimeout(() => inputRef.current?.focus(), 50);
+    }
+  }, [isOpen]);
 
   const addUserMessage = (text) => {
     setMessages((prev) => [...prev, { type: 'user', text }]);
@@ -79,17 +82,21 @@ const Chatbot = () => {
       setShowFaqChips(true);
     } finally {
       setIsTyping(false);
+      // restore focus to input after sending
+      setTimeout(() => inputRef.current?.focus(), 50);
     }
   };
 
   const handleSend = () => {
     sendMessage(input);
+    inputRef.current?.focus();
   };
 
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
       event.preventDefault();
       handleSend();
+      inputRef.current?.focus();
     }
   };
 
@@ -160,13 +167,8 @@ const Chatbot = () => {
                   <FaTimes />
                 </button>
               </div>
-              <div className="relative mt-4 flex flex-wrap gap-2">
-                {assistantHighlights.map((item) => (
-                  <span key={item} className="inline-flex items-center gap-1 rounded-full bg-white/10 px-3 py-1 text-xs text-white/80 ring-1 ring-white/10">
-                    <FaBolt className="text-[10px] text-amber-300" />
-                    {item}
-                  </span>
-                ))}
+              <div className="relative mt-2">
+                {/* Header compacted: quick prompts are available below when needed */}
               </div>
             </div>
 
@@ -230,6 +232,7 @@ const Chatbot = () => {
             <div className="border-t border-slate-200 bg-white p-3">
               <div className="flex items-end gap-2 rounded-[1.35rem] border border-slate-200 bg-slate-50 p-2 shadow-inner shadow-slate-100">
                 <input
+                  ref={inputRef}
                   type="text"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}

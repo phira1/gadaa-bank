@@ -5,6 +5,7 @@ import HomePage from './Pages/Home/HomePage'
 import NotFoundPage from './Pages/NotFoundPage'
 import AdminLayout from './Pages/Admin/AdminLayout'
 import AdminLoginPage from './Pages/Admin/AdminLoginPage'
+import AdminChangePasswordPage from './Pages/Admin/AdminPasswordResetPage'
 import AdminDashboardPage from './Pages/Admin/AdminDashboardPage'
 import AdminContentPage from './Pages/Admin/AdminContentPage'
 import AdminLocationsPage from './Pages/Admin/AdminLocationsPage'
@@ -113,6 +114,7 @@ function App() {
         <Route path="admin/login" element={<AdminLoginPage />} />
         <Route path="admin" element={<AdminLayout />}>
           <Route index element={<AdminDashboardPage />} />
+          <Route path="change-password" element={<AdminChangePasswordPage />} />
           <Route path="content" element={<AdminContentPage />} />
           <Route path="locations" element={<AdminLocationsPage />} />
           <Route path="board" element={<AdminBoardPage />} />
